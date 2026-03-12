@@ -26,19 +26,19 @@
        DESIGN TOKENS — steel / metallic dark blue palette
        ============================================================ */
     :root {
-      --bg:          #060b15;
-      --bg-2:        #0a1422;
-      --bg-3:        #0e1e30;
-      --border:      #1a2b45;
-      --border-2:    #243d60;
-      --text:        #c8ddf5;
-      --text-2:      #8aa0bf;
-      --text-3:      #4a6080;
-      --accent:      #5aaeff;
-      --accent-2:    #82c6ff;
-      --accent-bg:   #071830;
-      --gold:        #d4a832;
-      --white:       #eaf2ff;
+      --bg:          #f5f7fb;
+      --bg-2:        #ffffff;
+      --bg-3:        #eaeef6;
+      --border:      #dce3ef;
+      --border-2:    #c0cedf;
+      --text:        #334e6b;
+      --text-2:      #5a7a99;
+      --text-3:      #96afc8;
+      --accent:      #2563eb;
+      --accent-2:    #1d4ed8;
+      --accent-bg:   #eff6ff;
+      --gold:        #b45309;
+      --white:       #0f2340;
 
       --font-sans:   'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
 
@@ -82,7 +82,7 @@
       top: -100%;
       left: 1rem;
       background: var(--accent);
-      color: var(--bg);
+      color: #ffffff;
       font-weight: 600;
       font-size: 0.875rem;
       padding: 0.5rem 1rem;
@@ -101,7 +101,7 @@
       top: 0;
       z-index: 100;
       height: var(--nav-h);
-      background: rgba(6, 11, 21, 0.9);
+      background: rgba(245, 247, 251, 0.92);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border);
@@ -118,11 +118,11 @@
     }
 
     .nav-brand {
-      font-size: 0.9rem;
-      font-weight: 500;
+      font-size: 1.05rem;
+      font-weight: 700;
       color: var(--white);
       text-decoration: none;
-      letter-spacing: -0.01em;
+      letter-spacing: -0.02em;
     }
     .nav-brand span { color: var(--accent); }
 
@@ -193,7 +193,7 @@
       grid-template-columns: 176px 1fr;
       gap: 2.75rem;
       align-items: start;
-      border-bottom: none; /* no divider directly under the bio */
+      border-bottom: 1px solid var(--border);
     }
 
     /* Left column: avatar + icon grid */
@@ -209,7 +209,7 @@
       width: 128px;
       height: 128px;
       border-radius: 50%;
-      border: 2px solid var(--border-2);
+      border: 2px solid rgba(37,99,235,0.3);
     }
     .avatar { object-fit: cover; }
     .avatar-fallback {
@@ -236,17 +236,18 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      border: 1px solid var(--border-2);
+      border: 1px solid rgba(37,99,235,0.22);
       border-radius: 50%;
-      color: var(--text-2);
+      color: var(--accent);
+      background: var(--accent-bg);
       text-decoration: none;
       transition: color 0.18s, border-color 0.18s, background 0.18s;
       flex-shrink: 0;
     }
     .icon-btn:hover {
-      color: var(--white);
+      color: #ffffff;
       border-color: var(--accent);
-      background: var(--accent-bg);
+      background: var(--accent);
     }
     .icon-btn svg {
       width: 15px;
@@ -325,7 +326,7 @@
       font-size: 0.775rem;
       color: var(--accent-2);
       background: var(--accent-bg);
-      border: 1px solid rgba(90,174,255,0.18);
+      border: 1px solid rgba(37,99,235,0.2);
       padding: 0.28rem 0.75rem;
       border-radius: 100px;
     }
@@ -479,20 +480,20 @@
       text-transform: uppercase;
       color: var(--accent-2);
       background: var(--accent-bg);
-      border: 1px solid rgba(90,174,255,0.2);
+      border: 1px solid rgba(37,99,235,0.25);
       padding: 0.2rem 0.5rem;
       border-radius: 4px;
       white-space: nowrap;
     }
     .pub-badge.badge-thesis {
       color: var(--gold);
-      background: rgba(212,168,50,0.08);
-      border-color: rgba(212,168,50,0.2);
+      background: rgba(180,83,9,0.07);
+      border-color: rgba(180,83,9,0.22);
     }
     .pub-badge.badge-preprint {
       color: var(--text-2);
-      background: rgba(138,160,191,0.08);
-      border-color: rgba(138,160,191,0.2);
+      background: rgba(90,122,153,0.07);
+      border-color: rgba(90,122,153,0.22);
     }
 
     .pub-title {
@@ -657,7 +658,7 @@
       text-transform: uppercase;
       color: var(--accent);
       background: var(--accent-bg);
-      border: 1px solid rgba(90,174,255,0.18);
+      border: 1px solid rgba(37,99,235,0.2);
       padding: 0.15rem 0.5rem;
       border-radius: 100px;
       display: inline-block;
