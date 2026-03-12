@@ -464,43 +464,12 @@
     .pub:hover { border-color: var(--border-2); transform: translateX(3px); }
     .pub:hover::before { opacity: 1; }
 
-    .pub-header {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.7rem;
-      margin-bottom: 0.45rem;
-    }
-
-    .pub-badge {
-      flex-shrink: 0;
-      margin-top: 0.18rem;
-      font-size: 0.62rem;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--accent-2);
-      background: var(--accent-bg);
-      border: 1px solid rgba(37,99,235,0.25);
-      padding: 0.2rem 0.5rem;
-      border-radius: 4px;
-      white-space: nowrap;
-    }
-    .pub-badge.badge-thesis {
-      color: var(--gold);
-      background: rgba(180,83,9,0.07);
-      border-color: rgba(180,83,9,0.22);
-    }
-    .pub-badge.badge-preprint {
-      color: var(--text-2);
-      background: rgba(90,122,153,0.07);
-      border-color: rgba(90,122,153,0.22);
-    }
-
     .pub-title {
       font-size: 0.925rem;
       font-weight: 500;
       color: var(--white);
       line-height: 1.4;
+      margin-bottom: 0.3rem;
     }
     .pub-title a { text-decoration: none; transition: color 0.18s; }
     .pub-title a:hover { color: var(--accent-2); }
@@ -509,12 +478,22 @@
       font-size: 0.8rem;
       color: var(--text-2);
       line-height: 1.55;
-      margin-bottom: 0.8rem;
+      margin-bottom: 0.2rem;
     }
     .pub-authors .me {
       color: var(--gold);
       font-weight: 500;
     }
+
+    .pub-venue {
+      font-size: 0.8rem;
+      font-style: italic;
+      color: var(--text-3);
+      line-height: 1.45;
+      margin-bottom: 0.75rem;
+    }
+    .pub-venue--preprint { color: var(--text-3); }
+    .pub-venue--thesis   { color: var(--gold); font-style: normal; font-weight: 500; }
 
     .pub-footer {
       display: flex;
@@ -586,6 +565,144 @@
 
     /* Hidden BibTeX data */
     .pub-bibtex { display: none; }
+
+    .pub-show-all-btn {
+      font-size: 0.8rem;
+      font-weight: 500;
+      font-family: inherit;
+      color: var(--accent);
+      background: none;
+      border: 1px solid var(--border-2);
+      padding: 0.5rem 1.4rem;
+      border-radius: 100px;
+      cursor: pointer;
+      transition: color 0.18s, border-color 0.18s, background 0.18s;
+    }
+    .pub-show-all-btn:hover {
+      border-color: var(--accent);
+      background: var(--accent-bg);
+    }
+
+    /* ============================================================
+       BIBTEX MODAL
+       ============================================================ */
+    .bib-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+    .bib-modal[hidden] { display: none; }
+
+    .bib-modal-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(15, 35, 64, 0.45);
+      backdrop-filter: blur(4px);
+    }
+
+    .bib-modal-box {
+      position: relative;
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: 0 8px 40px rgba(37,99,235,0.12), 0 2px 10px rgba(0,0,0,0.08);
+      width: 100%;
+      max-width: 640px;
+      max-height: 80vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .bib-modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.9rem 1.25rem 0.75rem;
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+    .bib-modal-title {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--white);
+      letter-spacing: -0.01em;
+      margin: 0;
+    }
+    .bib-modal-close {
+      background: none;
+      border: none;
+      color: var(--text-3);
+      font-size: 1.3rem;
+      line-height: 1;
+      cursor: pointer;
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+      font-family: inherit;
+      transition: color 0.15s;
+    }
+    .bib-modal-close:hover { color: var(--text); }
+
+    .bib-modal-content {
+      font-size: 0.775rem;
+      font-family: 'Menlo', 'Monaco', 'Consolas', monospace;
+      color: var(--text);
+      background: var(--bg-3);
+      border: none;
+      padding: 1rem 1.25rem;
+      margin: 0;
+      overflow-y: auto;
+      flex: 1;
+      white-space: pre;
+      line-height: 1.65;
+    }
+
+    .bib-modal-footer {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.75rem 1.25rem;
+      border-top: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+    .bib-modal-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.78rem;
+      font-weight: 500;
+      font-family: inherit;
+      padding: 0.42rem 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: color 0.15s, background 0.15s, border-color 0.15s;
+    }
+    .bib-modal-btn svg { flex-shrink: 0; }
+    .bib-modal-copy {
+      background: var(--accent);
+      color: #ffffff;
+      border: 1px solid var(--accent);
+    }
+    .bib-modal-copy:hover { background: var(--accent-2); border-color: var(--accent-2); }
+    .bib-modal-copy.copied {
+      background: var(--accent-bg);
+      color: var(--accent-2);
+      border-color: var(--accent);
+    }
+    .bib-modal-download {
+      background: none;
+      color: var(--text-2);
+      border: 1px solid var(--border-2);
+    }
+    .bib-modal-download:hover {
+      color: var(--white);
+      border-color: var(--accent);
+      background: var(--accent-bg);
+    }
 
     /* ============================================================
        BLOG SECTION
@@ -961,244 +1078,774 @@
         </div>
       </div>
 
-      <!-- ═══════════════════════════════════════════════════════
-           PUBLICATIONS_START — auto-generated by scripts/bib_to_html.py
-           Do not edit manually between these markers.
-           ═══════════════════════════════════════════════════════ -->
+      <!-- PUBLICATIONS_START — auto-generated by scripts/bib_to_html.py — do not edit manually between these markers -->
+
+      <div class="pub-year-group" data-year="2026">
+        <div class="pub-year-heading" aria-label="Publications from 2026">2026</div>
+        <div class="pub-list">
+
+          <article class="pub fade-in" data-year="2026">
+            <h3 class="pub-title"><a href="https://doi.org/10.48550/arXiv.2601.18026" target="_blank" rel="noopener">CommonLID: Re-evaluating State-of-the-Art Language Identification
+Performance on Web Data</a></h3>
+            <p class="pub-authors"><span class="me">Pedro Ortiz Suarez</span>, Laurie Burchell, Catherine and
+Mosquera Gomez, Rafael Arnett, et al.</p>
+            <p class="pub-venue pub-venue--preprint">Preprint</p>
+            <div class="pub-footer">
+              <div class="pub-links">
+              <a href="https://arxiv.org/abs/2601.18026" class="pub-link" target="_blank" rel="noopener">arXiv</a>
+              <a href="https://doi.org/10.48550/arXiv.2601.18026" class="pub-link" target="_blank" rel="noopener">DOI</a>
+              </div>
+              <button class="pub-copy-btn" type="button" aria-label="Copy BibTeX citation"><svg viewBox="0 0 12 12" aria-hidden="true" style="width:10px;height:10px;fill:none;stroke:currentColor;stroke-width:1.8;flex-shrink:0;vertical-align:middle"><rect x="4" y="4" width="7" height="7" rx="1"/><path d="M1 8V1h7" stroke-linecap="round" stroke-linejoin="round"/></svg> BibTeX</button>
+            </div>
+            <pre class="pub-bibtex">@misc{ortizsuarez-etal-2026-commonlid,
+  author    = {Ortiz Suarez, Pedro and Burchell, Laurie and Arnett, Catherine and
+Mosquera Gomez, Rafael and et al.},
+  title     = {{CommonLID: Re-evaluating State-of-the-Art Language Identification
+Performance on Web Data}},
+  year      = {2026},
+  doi       = {10.48550/arXiv.2601.18026},
+  eprint    = {2601.18026},
+}</pre>
+          </article>
+
+        </div>
+      </div><!-- /2026 -->
+
+      <div class="pub-year-group" data-year="2025">
+        <div class="pub-year-heading" aria-label="Publications from 2025">2025</div>
+        <div class="pub-list">
+
+          <article class="pub fade-in" data-year="2025">
+            <h3 class="pub-title"><a href="https://doi.org/10.3233/FAIA251328" target="_blank" rel="noopener">Teuken-7B-Base &amp; Teuken-7B-Instruct: Towards European LLMs</a></h3>
+            <p class="pub-authors">Mehdi Ali, Michael Fromm, Klaudia Thellmann, Jan and
+Weber, Alexander Arno Ebert, Richard Rutmann, Charvi and
+Lubbering, Max Jain, Daniel Steinigen, Johannes and
+Klug, Katrin Leveling, Jasper Schulze Buschhoff, Lena and
+Abdelwahab, Hammam Jurkschat, Benny Jorg Stein, Karl-Heinz and
+Denisov, Pavel Sylla, Nicolo Brandizzi, Qasid and
+Bhowmick, Anirban Saleem, Lennard Helmer, Chelsea and
+Ortiz Suarez, Pedro John, Malte Ostendorff, Alex and
+Manjunath, Lalith Jude, Samuel Weinbach, Carolin and
+Filatov, Oleg Penke, Fabio Barth, Paramita and
+Weber, Lucas Mirza, Ines Wendler, Rafet Sifa, Fabian and
+Herten, Andreas Kuch, Rene Jakel, Georg and
+Kesselheim, Stefan Rehm, Joachim Kohler, Nicolas Flores-Herr</p>
+            <p class="pub-venue">ECAI 2025 -- 28th European Conference on Artificial Intelligence</p>
+            <div class="pub-footer">
+              <div class="pub-links">
+              <a href="https://doi.org/10.3233/FAIA251328" class="pub-link" target="_blank" rel="noopener">DOI</a>
+              </div>
+              <button class="pub-copy-btn" type="button" aria-label="Copy BibTeX citation"><svg viewBox="0 0 12 12" aria-hidden="true" style="width:10px;height:10px;fill:none;stroke:currentColor;stroke-width:1.8;flex-shrink:0;vertical-align:middle"><rect x="4" y="4" width="7" height="7" rx="1"/><path d="M1 8V1h7" stroke-linecap="round" stroke-linejoin="round"/></svg> BibTeX</button>
+            </div>
+            <pre class="pub-bibtex">@inproceedings{ali-etal-2025-teuken,
+  author    = {Ali, Mehdi and Fromm, Michael and Thellmann, Klaudia and Ebert, Jan and
+Weber, Alexander Arno and Rutmann, Richard and Jain, Charvi and
+Lubbering, Max and Steinigen, Daniel and Leveling, Johannes and
+Klug, Katrin and Buschhoff, Jasper Schulze and Jurkschat, Lena and
+Abdelwahab, Hammam and Stein, Benny Jorg and Sylla, Karl-Heinz and
+Denisov, Pavel and Brandizzi, Nicolo and Saleem, Qasid and
+Bhowmick, Anirban and Helmer, Lennard and John, Chelsea and
+Ortiz Suarez, Pedro and Ostendorff, Malte and Jude, Alex and
+Manjunath, Lalith and Weinbach, Samuel and Penke, Carolin and
+Filatov, Oleg and Barth, Fabio and Mirza, Paramita and
+Weber, Lucas and Wendler, Ines and Sifa, Rafet and Kuch, Fabian and
+Herten, Andreas and Jakel, Rene and Rehm, Georg and
+Kesselheim, Stefan and Kohler, Joachim and Flores-Herr, Nicolas},
+  title     = {{Teuken-7B-Base &amp; Teuken-7B-Instruct: Towards European LLMs}},
+  booktitle = {ECAI 2025 -- 28th European Conference on Artificial Intelligence},
+  year      = {2025},
+  doi       = {10.3233/FAIA251328},
+}</pre>
+          </article>
+
+          <article class="pub fade-in" data-year="2025">
+            <h3 class="pub-title"><a href="https://doi.org/10.48550/arXiv.2512.14576" target="_blank" rel="noopener">Low-Resource, High-Impact: Building Corpora for Inclusive Language Technologies</a></h3>
+            <p class="pub-authors">Ekaterina Artemova, Laurie Burchell, Daryna and
+Okabe, Shu Dementieva, Mariya Shmatova, <span class="me">Pedro Ortiz Suarez</span></p>
+            <p class="pub-venue pub-venue--preprint">Preprint</p>
+            <div class="pub-footer">
+              <div class="pub-links">
+              <a href="https://arxiv.org/abs/2512.14576" class="pub-link" target="_blank" rel="noopener">arXiv</a>
+              <a href="https://doi.org/10.48550/arXiv.2512.14576" class="pub-link" target="_blank" rel="noopener">DOI</a>
+              </div>
+              <button class="pub-copy-btn" type="button" aria-label="Copy BibTeX citation"><svg viewBox="0 0 12 12" aria-hidden="true" style="width:10px;height:10px;fill:none;stroke:currentColor;stroke-width:1.8;flex-shrink:0;vertical-align:middle"><rect x="4" y="4" width="7" height="7" rx="1"/><path d="M1 8V1h7" stroke-linecap="round" stroke-linejoin="round"/></svg> BibTeX</button>
+            </div>
+            <pre class="pub-bibtex">@misc{artemova-etal-2025-lowresource,
+  author    = {Artemova, Ekaterina and Burchell, Laurie and Dementieva, Daryna and
+Okabe, Shu and Shmatova, Mariya and Ortiz Suarez, Pedro},
+  title     = {{Low-Resource, High-Impact: Building Corpora for Inclusive Language Technologies}},
+  year      = {2025},
+  doi       = {10.48550/arXiv.2512.14576},
+  eprint    = {2512.14576},
+}</pre>
+          </article>
+
+          <article class="pub fade-in" data-year="2025">
+            <h3 class="pub-title"><a href="https://aclanthology.org/2025.trl-1.10/" target="_blank" rel="noopener">Table Understanding and (Multimodal) LLMs: A Cross-Domain Case Study
+on Scientific vs.\ Non-Scientific Data</a></h3>
+            <p class="pub-authors">Ekaterina Borisova, Fabio Barth, Nils and
+Abu Ahmad, Raia Feldhus, Malte Ostendorff, Pedro and
+Rehm, Georg Ortiz Suarez, Sebastian Möller</p>
+            <p class="pub-venue">Proceedings of the 4th Table Representation Learning Workshop</p>
+            <div class="pub-footer">
+              <div class="pub-links">
+              <a href="https://aclanthology.org/2025.trl-1.10/" class="pub-link" target="_blank" rel="noopener">ACL</a>
+              <a href="https://arxiv.org/abs/2507.00152" class="pub-link" target="_blank" rel="noopener">arXiv</a>
+              <a href="https://doi.org/10.18653/v1/2025.trl-1.10" class="pub-link" target="_blank" rel="noopener">DOI</a>
+              </div>
+              <button class="pub-copy-btn" type="button" aria-label="Copy BibTeX citation"><svg viewBox="0 0 12 12" aria-hidden="true" style="width:10px;height:10px;fill:none;stroke:currentColor;stroke-width:1.8;flex-shrink:0;vertical-align:middle"><rect x="4" y="4" width="7" height="7" rx="1"/><path d="M1 8V1h7" stroke-linecap="round" stroke-linejoin="round"/></svg> BibTeX</button>
+            </div>
+            <pre class="pub-bibtex">@inproceedings{borisova-etal-2025-tableunderstanding,
+  author    = {Borisova, Ekaterina and Barth, Fabio and Feldhus, Nils and
+Abu Ahmad, Raia and Ostendorff, Malte and Ortiz Suarez, Pedro and
+Rehm, Georg and Möller, Sebastian},
+  title     = {{Table Understanding and (Multimodal) LLMs: A Cross-Domain Case Study
+on Scientific vs.\ Non-Scientific Data}},
+  booktitle = {Proceedings of the 4th Table Representation Learning Workshop},
+  year      = {2025},
+  doi       = {10.18653/v1/2025.trl-1.10},
+  eprint    = {2507.00152},
+  url       = {https://aclanthology.org/2025.trl-1.10/},
+}</pre>
+          </article>
+
+          <article class="pub fade-in" data-year="2025">
+            <h3 class="pub-title"><a href="https://aclanthology.org/2025.findings-emnlp.77/" target="_blank" rel="noopener">Identifying Rare Languages in Common Crawl Data is a Needles-in-a-Haystack Problem</a></h3>
+            <p class="pub-authors">Rasul Dent, <span class="me">Pedro Ortiz Suarez</span>, Thibault Clerice, Benoît Sagot</p>
+            <p class="pub-venue">Findings of the Association for Computational Linguistics: EMNLP 2025</p>
+            <div class="pub-footer">
+              <div class="pub-links">
+              <a href="https://aclanthology.org/2025.findings-emnlp.77/" class="pub-link" target="_blank" rel="noopener">ACL</a>
+              </div>
+              <button class="pub-copy-btn" type="button" aria-label="Copy BibTeX citation"><svg viewBox="0 0 12 12" aria-hidden="true" style="width:10px;height:10px;fill:none;stroke:currentColor;stroke-width:1.8;flex-shrink:0;vertical-align:middle"><rect x="4" y="4" width="7" height="7" rx="1"/><path d="M1 8V1h7" stroke-linecap="round" stroke-linejoin="round"/></svg> BibTeX</button>
+            </div>
+            <pre class="pub-bibtex">@inproceedings{dent-etal-2025-rarelangs,
+  author    = {Dent, Rasul and Ortiz Suarez, Pedro and Clerice, Thibault and Sagot, Benoît},
+  title     = {{Identifying Rare Languages in Common Crawl Data is a Needles-in-a-Haystack Problem}},
+  booktitle = {Findings of the Association for Computational Linguistics: EMNLP 2025},
+  year      = {2025},
+  url       = {https://aclanthology.org/2025.findings-emnlp.77/},
+}</pre>
+          </article>
+
+          <article class="pub fade-in" data-year="2025">
+            <h3 class="pub-title"><a href="https://doi.org/10.48550/arXiv.2503.06547" target="_blank" rel="noopener">KréyoLID: From Language Identification Towards Language Mining</a></h3>
+            <p class="pub-authors">Rasul Dent, <span class="me">Pedro Ortiz Suarez</span>, Thibault Clerice, Benoît Sagot</p>
+            <p class="pub-venue pub-venue--preprint">Preprint</p>
+            <div class="pub-footer">
+              <div class="pub-links">
+              <a href="https://arxiv.org/abs/2503.06547" class="pub-link" target="_blank" rel="noopener">arXiv</a>
+              <a href="https://doi.org/10.48550/arXiv.2503.06547" class="pub-link" target="_blank" rel="noopener">DOI</a>
+              </div>
+              <button class="pub-copy-btn" type="button" aria-label="Copy BibTeX citation"><svg viewBox="0 0 12 12" aria-hidden="true" style="width:10px;height:10px;fill:none;stroke:currentColor;stroke-width:1.8;flex-shrink:0;vertical-align:middle"><rect x="4" y="4" width="7" height="7" rx="1"/><path d="M1 8V1h7" stroke-linecap="round" stroke-linejoin="round"/></svg> BibTeX</button>
+            </div>
+            <pre class="pub-bibtex">@misc{dent-etal-2025-kreyolid,
+  author    = {Dent, Rasul and Ortiz Suarez, Pedro and Clerice, Thibault and Sagot, Benoît},
+  title     = {{KréyoLID: From Language Identification Towards Language Mining}},
+  year      = {2025},
+  doi       = {10.48550/arXiv.2503.06547},
+  eprint    = {2503.06547},
+}</pre>
+          </article>
+
+          <article class="pub fade-in" data-year="2025">
+            <h3 class="pub-title"><a href="https://doi.org/10.48550/arXiv.2512.11192" target="_blank" rel="noopener">SciLaD: A Large-Scale, Transparent, Reproducible Dataset for
+Natural Scientific Language Processing</a></h3>
+            <p class="pub-authors">Luca Foppiano, Sotaro Takeshita, Pedro and
+Borisova, Ekaterina Ortiz Suarez, Raia Abu Ahmad, Malte and
+Barth, Fabio Ostendorff, Julian Moreno Schneider, Georg Rehm</p>
+            <p class="pub-venue pub-venue--preprint">Preprint</p>
+            <div class="pub-footer">
+              <div class="pub-links">
+              <a href="https://arxiv.org/abs/2512.11192" class="pub-link" target="_blank" rel="noopener">arXiv</a>
+              <a href="https://doi.org/10.48550/arXiv.2512.11192" class="pub-link" target="_blank" rel="noopener">DOI</a>
+              </div>
+              <button class="pub-copy-btn" type="button" aria-label="Copy BibTeX citation"><svg viewBox="0 0 12 12" aria-hidden="true" style="width:10px;height:10px;fill:none;stroke:currentColor;stroke-width:1.8;flex-shrink:0;vertical-align:middle"><rect x="4" y="4" width="7" height="7" rx="1"/><path d="M1 8V1h7" stroke-linecap="round" stroke-linejoin="round"/></svg> BibTeX</button>
+            </div>
+            <pre class="pub-bibtex">@misc{foppiano-etal-2025-SciLaD,
+  author    = {Foppiano, Luca and Takeshita, Sotaro and Ortiz Suarez, Pedro and
+Borisova, Ekaterina and Abu Ahmad, Raia and Ostendorff, Malte and
+Barth, Fabio and Moreno Schneider, Julian and Rehm, Georg},
+  title     = {{SciLaD: A Large-Scale, Transparent, Reproducible Dataset for
+Natural Scientific Language Processing}},
+  year      = {2025},
+  doi       = {10.48550/arXiv.2512.11192},
+  eprint    = {2512.11192},
+}</pre>
+          </article>
+
+          <article class="pub fade-in" data-year="2025">
+            <h3 class="pub-title"><a href="https://aclanthology.org/2025.findings-acl.180/" target="_blank" rel="noopener">mOSCAR: A Large-scale Multilingual and Multimodal Document-level Corpus</a></h3>
+            <p class="pub-authors">Matthieu Futeral, Armel Randy Zebaze, Pedro and
+Abadji, Julien Ortiz Suarez, Rémi Lacroix, Cordelia and
+Bawden, Rachel Schmid, Benoît Sagot</p>
+            <p class="pub-venue">Findings of the Association for Computational Linguistics, ACL 2025</p>
+            <div class="pub-footer">
+              <div class="pub-links">
+              <a href="https://aclanthology.org/2025.findings-acl.180/" class="pub-link" target="_blank" rel="noopener">ACL</a>
+              </div>
+              <button class="pub-copy-btn" type="button" aria-label="Copy BibTeX citation"><svg viewBox="0 0 12 12" aria-hidden="true" style="width:10px;height:10px;fill:none;stroke:currentColor;stroke-width:1.8;flex-shrink:0;vertical-align:middle"><rect x="4" y="4" width="7" height="7" rx="1"/><path d="M1 8V1h7" stroke-linecap="round" stroke-linejoin="round"/></svg> BibTeX</button>
+            </div>
+            <pre class="pub-bibtex">@inproceedings{futeral-etal-2025-mOSCAR,
+  author    = {Futeral, Matthieu and Zebaze, Armel Randy and Ortiz Suarez, Pedro and
+Abadji, Julien and Lacroix, Rémi and Schmid, Cordelia and
+Bawden, Rachel and Sagot, Benoît},
+  title     = {{mOSCAR: A Large-scale Multilingual and Multimodal Document-level Corpus}},
+  booktitle = {Findings of the Association for Computational Linguistics, ACL 2025},
+  year      = {2025},
+  url       = {https://aclanthology.org/2025.findings-acl.180/},
+}</pre>
+          </article>
+
+          <article class="pub fade-in" data-year="2025">
+            <h3 class="pub-title"><a href="https://aclanthology.org/2025.loresmt-1.14/" target="_blank" rel="noopener">Building Data Infrastructure for Low-Resource Languages</a></h3>
+            <p class="pub-authors">Sarah Luger, Rafael Mosquera-Gómez, Alex and
+Vaughan, Thom Miłowski, Sara and
+Ortiz Suarez, Pedro Hincapie-Monsalve, Kurt Bollacker</p>
+            <p class="pub-venue">Proceedings of the Eighth Workshop on Technologies for Machine Translation of Low-Resource Languages (LoResMT 2025)</p>
+            <div class="pub-footer">
+              <div class="pub-links">
+              <a href="https://aclanthology.org/2025.loresmt-1.14/" class="pub-link" target="_blank" rel="noopener">ACL</a>
+              <a href="https://doi.org/10.18653/v1/2025.loresmt-1.14" class="pub-link" target="_blank" rel="noopener">DOI</a>
+              </div>
+              <button class="pub-copy-btn" type="button" aria-label="Copy BibTeX citation"><svg viewBox="0 0 12 12" aria-hidden="true" style="width:10px;height:10px;fill:none;stroke:currentColor;stroke-width:1.8;flex-shrink:0;vertical-align:middle"><rect x="4" y="4" width="7" height="7" rx="1"/><path d="M1 8V1h7" stroke-linecap="round" stroke-linejoin="round"/></svg> BibTeX</button>
+            </div>
+            <pre class="pub-bibtex">@inproceedings{luger-etal-2025-building,
+  author    = {Luger, Sarah and Mosquera-Gómez, Rafael and Miłowski, Alex and
+Vaughan, Thom and Hincapie-Monsalve, Sara and
+Ortiz Suarez, Pedro and Bollacker, Kurt},
+  title     = {{Building Data Infrastructure for Low-Resource Languages}},
+  booktitle = {Proceedings of the Eighth Workshop on Technologies for Machine
+Translation of Low-Resource Languages (LoResMT 2025)},
+  year      = {2025},
+  doi       = {10.18653/v1/2025.loresmt-1.14},
+  url       = {https://aclanthology.org/2025.loresmt-1.14/},
+}</pre>
+          </article>
+
+        </div>
+      </div><!-- /2025 -->
+
+      <div class="pub-year-group" data-year="2024">
+        <div class="pub-year-heading" aria-label="Publications from 2024">2024</div>
+        <div class="pub-list">
+
+          <article class="pub fade-in" data-year="2024">
+            <h3 class="pub-title"><a href="https://doi.org/10.18653/v1/2024.findings-naacl.247" target="_blank" rel="noopener">Tokenizer Choice For LLM Training: Negligible or Crucial?</a></h3>
+            <p class="pub-authors">Mehdi Ali, Michael Fromm, Klaudia and
+Rutmann, Richard Thellmann, Max Lubbering, Johannes and
+Klug, Katrin Leveling, Jan Ebert, Niclas and
+Buschhoff, Jasper Schulze Doll, Charvi Jain, Alexander Arno and
+Jurkschat, Lena Weber, Hammam Abdelwahab, Chelsea and
+Ortiz Suarez, Pedro John, Malte Ostendorff, Samuel and
+Sifa, Rafet Weinbach, Stefan Kesselheim, Nicolas Flores-Herr</p>
+            <p class="pub-venue">Findings of the Association for Computational Linguistics: NAACL 2024</p>
+            <div class="pub-footer">
+              <div class="pub-links">
+              <a href="https://doi.org/10.18653/v1/2024.findings-naacl.247" class="pub-link" target="_blank" rel="noopener">DOI</a>
+              </div>
+              <button class="pub-copy-btn" type="button" aria-label="Copy BibTeX citation"><svg viewBox="0 0 12 12" aria-hidden="true" style="width:10px;height:10px;fill:none;stroke:currentColor;stroke-width:1.8;flex-shrink:0;vertical-align:middle"><rect x="4" y="4" width="7" height="7" rx="1"/><path d="M1 8V1h7" stroke-linecap="round" stroke-linejoin="round"/></svg> BibTeX</button>
+            </div>
+            <pre class="pub-bibtex">@inproceedings{ali-etal-2024-tokenizer,
+  author    = {Ali, Mehdi and Fromm, Michael and Thellmann, Klaudia and
+Rutmann, Richard and Lubbering, Max and Leveling, Johannes and
+Klug, Katrin and Ebert, Jan and Doll, Niclas and
+Buschhoff, Jasper Schulze and Jain, Charvi and Weber, Alexander Arno and
+Jurkschat, Lena and Abdelwahab, Hammam and John, Chelsea and
+Ortiz Suarez, Pedro and Ostendorff, Malte and Weinbach, Samuel and
+Sifa, Rafet and Kesselheim, Stefan and Flores-Herr, Nicolas},
+  title     = {{Tokenizer Choice For LLM Training: Negligible or Crucial?}},
+  booktitle = {Findings of the Association for Computational Linguistics: NAACL 2024},
+  year      = {2024},
+  doi       = {10.18653/v1/2024.findings-naacl.247},
+}</pre>
+          </article>
+
+          <article class="pub fade-in" data-year="2024">
+            <h3 class="pub-title"><a href="https://doi.org/10.18653/v1/2024.wmt-1.23" target="_blank" rel="noopener">Occiglot at WMT24: European Open-source Large Language Models
+Evaluated on Translation</a></h3>
+            <p class="pub-authors">Eleftherios Avramidis, Annika Grutzner-Zahn, Manuel and
+Schramowski, Patrick Brack, <span class="me">Pedro Ortiz Suarez</span>, Malte and
+Barth, Fabio Ostendorff, Shushen Manakhimova, Vivien and
+Rehm, Georg Macketanz, Kristian Kersting</p>
+            <p class="pub-venue">Proceedings of the Ninth Conference on Machine Translation, WMT 2024</p>
+            <div class="pub-footer">
+              <div class="pub-links">
+              <a href="https://doi.org/10.18653/v1/2024.wmt-1.23" class="pub-link" target="_blank" rel="noopener">DOI</a>
+              </div>
+              <button class="pub-copy-btn" type="button" aria-label="Copy BibTeX citation"><svg viewBox="0 0 12 12" aria-hidden="true" style="width:10px;height:10px;fill:none;stroke:currentColor;stroke-width:1.8;flex-shrink:0;vertical-align:middle"><rect x="4" y="4" width="7" height="7" rx="1"/><path d="M1 8V1h7" stroke-linecap="round" stroke-linejoin="round"/></svg> BibTeX</button>
+            </div>
+            <pre class="pub-bibtex">@inproceedings{avramidis-etal-2024-occiglot,
+  author    = {Avramidis, Eleftherios and Grutzner-Zahn, Annika and Brack, Manuel and
+Schramowski, Patrick and Ortiz Suarez, Pedro and Ostendorff, Malte and
+Barth, Fabio and Manakhimova, Shushen and Macketanz, Vivien and
+Rehm, Georg and Kersting, Kristian},
+  title     = {{Occiglot at WMT24: European Open-source Large Language Models
+Evaluated on Translation}},
+  booktitle = {Proceedings of the Ninth Conference on Machine Translation, WMT 2024},
+  year      = {2024},
+  doi       = {10.18653/v1/2024.wmt-1.23},
+}</pre>
+          </article>
+
+          <article class="pub fade-in" data-year="2024">
+            <h3 class="pub-title"><a href="https://aclanthology.org/2024.mrl-1.19/" target="_blank" rel="noopener">Community OSCAR: A Community Effort for Multilingual Web Data</a></h3>
+            <p class="pub-authors">Manuel Brack, Malte Ostendorff, Pedro and
+Saiz, José Javier Ortiz Suarez, Iñaki Lacunza and
+Palomar-Giner, Jorge Castilla, Alexander and
+Schramowski, Patrick Shvets, Georg and
+Villegas, Marta Rehm, Kristian Kersting</p>
+            <p class="pub-venue">Proceedings of the Fourth Workshop on Multilingual Representation Learning (MRL 2024)</p>
+            <div class="pub-footer">
+              <div class="pub-links">
+              <a href="https://aclanthology.org/2024.mrl-1.19/" class="pub-link" target="_blank" rel="noopener">ACL</a>
+              <a href="https://doi.org/10.18653/v1/2024.mrl-1.19" class="pub-link" target="_blank" rel="noopener">DOI</a>
+              </div>
+              <button class="pub-copy-btn" type="button" aria-label="Copy BibTeX citation"><svg viewBox="0 0 12 12" aria-hidden="true" style="width:10px;height:10px;fill:none;stroke:currentColor;stroke-width:1.8;flex-shrink:0;vertical-align:middle"><rect x="4" y="4" width="7" height="7" rx="1"/><path d="M1 8V1h7" stroke-linecap="round" stroke-linejoin="round"/></svg> BibTeX</button>
+            </div>
+            <pre class="pub-bibtex">@inproceedings{brack-etal-2024-community,
+  author    = {Brack, Manuel and Ostendorff, Malte and Ortiz Suarez, Pedro and
+Saiz, José Javier and Castilla, Iñaki Lacunza and
+Palomar-Giner, Jorge and Shvets, Alexander and
+Schramowski, Patrick and Rehm, Georg and
+Villegas, Marta and Kersting, Kristian},
+  title     = {{Community OSCAR: A Community Effort for Multilingual Web Data}},
+  booktitle = {Proceedings of the Fourth Workshop on Multilingual Representation
+Learning (MRL 2024)},
+  year      = {2024},
+  doi       = {10.18653/v1/2024.mrl-1.19},
+  url       = {https://aclanthology.org/2024.mrl-1.19/},
+}</pre>
+          </article>
+
+          <article class="pub fade-in" data-year="2024">
+            <h3 class="pub-title"><a href="https://doi.org/10.48550/arXiv.2410.08800" target="_blank" rel="noopener">Data Processing for the OpenGPT-X Model Family</a></h3>
+            <p class="pub-authors">Nicolo Brandizzi, Hammam Abdelwahab, Anirban and
+Helmer, Lennard Bhowmick, Benny Jorg Stein, Pavel and
+Saleem, Qasid Denisov, Michael Fromm, Mehdi and
+Rutmann, Richard Ali, Farzad Naderi, Mohamad Saif and
+Schwirjow, Alexander Agy, Fabian Kuch, Luzian and
+Ostendorff, Malte Hahn, <span class="me">Pedro Ortiz Suarez</span>, Georg and
+Wegener, Dennis Rehm, Nicolas Flores-Herr, Joachim and
+Leveling, Johannes Kohler</p>
+            <p class="pub-venue pub-venue--preprint">Preprint</p>
+            <div class="pub-footer">
+              <div class="pub-links">
+              <a href="https://arxiv.org/abs/2410.08800" class="pub-link" target="_blank" rel="noopener">arXiv</a>
+              <a href="https://doi.org/10.48550/arXiv.2410.08800" class="pub-link" target="_blank" rel="noopener">DOI</a>
+              </div>
+              <button class="pub-copy-btn" type="button" aria-label="Copy BibTeX citation"><svg viewBox="0 0 12 12" aria-hidden="true" style="width:10px;height:10px;fill:none;stroke:currentColor;stroke-width:1.8;flex-shrink:0;vertical-align:middle"><rect x="4" y="4" width="7" height="7" rx="1"/><path d="M1 8V1h7" stroke-linecap="round" stroke-linejoin="round"/></svg> BibTeX</button>
+            </div>
+            <pre class="pub-bibtex">@misc{brandizzi-etal-2024-opengptx,
+  author    = {Brandizzi, Nicolo and Abdelwahab, Hammam and Bhowmick, Anirban and
+Helmer, Lennard and Stein, Benny Jorg and Denisov, Pavel and
+Saleem, Qasid and Fromm, Michael and Ali, Mehdi and
+Rutmann, Richard and Naderi, Farzad and Agy, Mohamad Saif and
+Schwirjow, Alexander and Kuch, Fabian and Hahn, Luzian and
+Ostendorff, Malte and Ortiz Suarez, Pedro and Rehm, Georg and
+Wegener, Dennis and Flores-Herr, Nicolas and Kohler, Joachim and
+Leveling, Johannes},
+  title     = {{Data Processing for the OpenGPT-X Model Family}},
+  year      = {2024},
+  doi       = {10.48550/arXiv.2410.08800},
+  eprint    = {2410.08800},
+}</pre>
+          </article>
+
+          <article class="pub fade-in" data-year="2024">
+            <h3 class="pub-title"><a href="https://aclanthology.org/2024.nlp4dh-1.18/" target="_blank" rel="noopener">Molyé: A Corpus-based Approach to Language Contact in Colonial France</a></h3>
+            <p class="pub-authors">Rasul Dent, Juliette Janes, Thibault and
+Ortiz Suarez, Pedro Clerice, Benoît Sagot</p>
+            <p class="pub-venue">Proceedings of the 4th International Conference on Natural Language Processing for Digital Humanities (NLP4DH 2024)</p>
+            <div class="pub-footer">
+              <div class="pub-links">
+              <a href="https://aclanthology.org/2024.nlp4dh-1.18/" class="pub-link" target="_blank" rel="noopener">ACL</a>
+              <a href="https://doi.org/10.18653/v1/2024.nlp4dh-1.18" class="pub-link" target="_blank" rel="noopener">DOI</a>
+              </div>
+              <button class="pub-copy-btn" type="button" aria-label="Copy BibTeX citation"><svg viewBox="0 0 12 12" aria-hidden="true" style="width:10px;height:10px;fill:none;stroke:currentColor;stroke-width:1.8;flex-shrink:0;vertical-align:middle"><rect x="4" y="4" width="7" height="7" rx="1"/><path d="M1 8V1h7" stroke-linecap="round" stroke-linejoin="round"/></svg> BibTeX</button>
+            </div>
+            <pre class="pub-bibtex">@inproceedings{dent-etal-2024-molye,
+  author    = {Dent, Rasul and Janes, Juliette and Clerice, Thibault and
+Ortiz Suarez, Pedro and Sagot, Benoît},
+  title     = {{Molyé: A Corpus-based Approach to Language Contact in Colonial France}},
+  booktitle = {Proceedings of the 4th International Conference on Natural Language
+Processing for Digital Humanities (NLP4DH 2024)},
+  year      = {2024},
+  doi       = {10.18653/v1/2024.nlp4dh-1.18},
+  url       = {https://aclanthology.org/2024.nlp4dh-1.18/},
+}</pre>
+          </article>
+
+          <article class="pub fade-in" data-year="2024">
+            <h3 class="pub-title"><a href="https://aclanthology.org/2024.nejlt-1.4/" target="_blank" rel="noopener">Documenting Geographically and Contextually Diverse Language Data Sources</a></h3>
+            <p class="pub-authors">Angelina McMillan-Major, Francesco De Toni, Zaid and
+Biderman, Stella Alyafeai, Kimbo Chen, Gérard and
+Elsahar, Hady Dupont, Chris Emezue, Alham Fikri and
+Ilić, Suzana Aji, Nurulaqilla Khamis, Colin and
+Masoud, Maraim Leong, Aitor Soroa, Pedro and
+van Strien, Daniel Ortiz Suarez, Zeerak Talat, Yacine Jernite</p>
+            <p class="pub-venue">Northern European Journal of Language Technology</p>
+            <div class="pub-footer">
+              <div class="pub-links">
+              <a href="https://aclanthology.org/2024.nejlt-1.4/" class="pub-link" target="_blank" rel="noopener">ACL</a>
+              <a href="https://arxiv.org/abs/2201.10066" class="pub-link" target="_blank" rel="noopener">arXiv</a>
+              <a href="https://doi.org/10.3384/nejlt.2000-1533.2024.5217" class="pub-link" target="_blank" rel="noopener">DOI</a>
+              </div>
+              <button class="pub-copy-btn" type="button" aria-label="Copy BibTeX citation"><svg viewBox="0 0 12 12" aria-hidden="true" style="width:10px;height:10px;fill:none;stroke:currentColor;stroke-width:1.8;flex-shrink:0;vertical-align:middle"><rect x="4" y="4" width="7" height="7" rx="1"/><path d="M1 8V1h7" stroke-linecap="round" stroke-linejoin="round"/></svg> BibTeX</button>
+            </div>
+            <pre class="pub-bibtex">@article{mcmillanmajor-etal-2024-documenting,
+  author    = {McMillan-Major, Angelina and De Toni, Francesco and Alyafeai, Zaid and
+Biderman, Stella and Chen, Kimbo and Dupont, Gérard and
+Elsahar, Hady and Emezue, Chris and Aji, Alham Fikri and
+Ilić, Suzana and Khamis, Nurulaqilla and Leong, Colin and
+Masoud, Maraim and Soroa, Aitor and Ortiz Suarez, Pedro and
+van Strien, Daniel and Talat, Zeerak and Jernite, Yacine},
+  title     = {{Documenting Geographically and Contextually Diverse Language Data Sources}},
+  journal   = {Northern European Journal of Language Technology},
+  year      = {2024},
+  doi       = {10.3384/nejlt.2000-1533.2024.5217},
+  eprint    = {2201.10066},
+  url       = {https://aclanthology.org/2024.nejlt-1.4/},
+}</pre>
+          </article>
+
+          <article class="pub fade-in" data-year="2024">
+            <h3 class="pub-title"><a href="https://aclanthology.org/2024.lrec-main.31" target="_blank" rel="noopener">A CURATEd CATalog: Rethinking the Extraction of Pretraining
+Corpora for Mid-Resourced Languages</a></h3>
+            <p class="pub-authors">Jorge Palomar-Giner, Jose Javier Saiz, Ferran and
+Mina, Mario Espuna, Severino Da Dalt, Joan and
+Ostendorff, Malte Llop, <span class="me">Pedro Ortiz Suarez</span>, Georg and
+Gonzalez-Agirre, Aitor Rehm, Marta Villegas</p>
+            <p class="pub-venue">Proceedings of the 2024 Joint International Conference on Computational Linguistics, Language Resources and Evaluation, LREC/COLING 2024</p>
+            <div class="pub-footer">
+              <div class="pub-links">
+              <a href="https://aclanthology.org/2024.lrec-main.31" class="pub-link" target="_blank" rel="noopener">ACL</a>
+              </div>
+              <button class="pub-copy-btn" type="button" aria-label="Copy BibTeX citation"><svg viewBox="0 0 12 12" aria-hidden="true" style="width:10px;height:10px;fill:none;stroke:currentColor;stroke-width:1.8;flex-shrink:0;vertical-align:middle"><rect x="4" y="4" width="7" height="7" rx="1"/><path d="M1 8V1h7" stroke-linecap="round" stroke-linejoin="round"/></svg> BibTeX</button>
+            </div>
+            <pre class="pub-bibtex">@inproceedings{palomarginer-etal-2024-curated,
+  author    = {Palomar-Giner, Jorge and Saiz, Jose Javier and Espuna, Ferran and
+Mina, Mario and Da Dalt, Severino and Llop, Joan and
+Ostendorff, Malte and Ortiz Suarez, Pedro and Rehm, Georg and
+Gonzalez-Agirre, Aitor and Villegas, Marta},
+  title     = {{A CURATEd CATalog: Rethinking the Extraction of Pretraining
+Corpora for Mid-Resourced Languages}},
+  booktitle = {Proceedings of the 2024 Joint International Conference on
+Computational Linguistics, Language Resources and Evaluation,
+LREC/COLING 2024},
+  year      = {2024},
+  url       = {https://aclanthology.org/2024.lrec-main.31},
+}</pre>
+          </article>
+
+        </div>
+      </div><!-- /2024 -->
+
+      <div class="pub-year-group" data-year="2023">
+        <div class="pub-year-heading" aria-label="Publications from 2023">2023</div>
+        <div class="pub-list">
+
+          <article class="pub fade-in" data-year="2023">
+            <h3 class="pub-title"><a href="https://doi.org/10.48550/arXiv.2309.10923" target="_blank" rel="noopener">Semi-automatic staging area for high-quality structured data
+extraction from scientific literature</a></h3>
+            <p class="pub-authors">Luca Foppiano, Tomoya Mato, Kensei and
+Ortiz Suarez, Pedro Terashima, Taku Tou, Chikako and
+Wang, Wei-Sheng Sakai, Toshiyuki Amagasa, Yoshihiko and
+Ishii, Masashi Takano</p>
+            <p class="pub-venue pub-venue--preprint">Preprint</p>
+            <div class="pub-footer">
+              <div class="pub-links">
+              <a href="https://arxiv.org/abs/2309.10923" class="pub-link" target="_blank" rel="noopener">arXiv</a>
+              <a href="https://doi.org/10.48550/arXiv.2309.10923" class="pub-link" target="_blank" rel="noopener">DOI</a>
+              </div>
+              <button class="pub-copy-btn" type="button" aria-label="Copy BibTeX citation"><svg viewBox="0 0 12 12" aria-hidden="true" style="width:10px;height:10px;fill:none;stroke:currentColor;stroke-width:1.8;flex-shrink:0;vertical-align:middle"><rect x="4" y="4" width="7" height="7" rx="1"/><path d="M1 8V1h7" stroke-linecap="round" stroke-linejoin="round"/></svg> BibTeX</button>
+            </div>
+            <pre class="pub-bibtex">@misc{foppiano-etal-2023-staging,
+  author    = {Foppiano, Luca and Mato, Tomoya and Terashima, Kensei and
+Ortiz Suarez, Pedro and Tou, Taku and Sakai, Chikako and
+Wang, Wei-Sheng and Amagasa, Toshiyuki and Takano, Yoshihiko and
+Ishii, Masashi},
+  title     = {{Semi-automatic staging area for high-quality structured data
+extraction from scientific literature}},
+  year      = {2023},
+  doi       = {10.48550/arXiv.2309.10923},
+  eprint    = {2309.10923},
+}</pre>
+          </article>
+
+        </div>
+      </div><!-- /2023 -->
 
       <div class="pub-year-group" data-year="2022">
         <div class="pub-year-heading" aria-label="Publications from 2022">2022</div>
         <div class="pub-list">
 
           <article class="pub fade-in" data-year="2022">
-            <div class="pub-header">
-              <span class="pub-badge">COLING</span>
-              <h3 class="pub-title">
-                <a href="https://aclanthology.org/2022.coling-1.365" target="_blank" rel="noopener">
-                  A Data-driven Approach to Named Entity Recognition for Early Modern French
-                </a>
-              </h3>
-            </div>
-            <p class="pub-authors">Simon Gabay, <span class="me">Pedro Ortiz Suarez</span></p>
-            <div class="pub-footer">
-              <div class="pub-links">
-                <a href="https://aclanthology.org/2022.coling-1.365.pdf" class="pub-link" target="_blank" rel="noopener">PDF</a>
-                <a href="https://aclanthology.org/2022.coling-1.365" class="pub-link" target="_blank" rel="noopener">ACL</a>
-              </div>
-              <button class="pub-copy-btn" type="button" aria-label="Copy BibTeX citation">
-                <svg viewBox="0 0 12 12" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="1"/><path d="M1 8V1h7" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                BibTeX
-              </button>
-            </div>
-            <pre class="pub-bibtex">@inproceedings{gabay-ortiz2022ner,
-  author    = {Gabay, Simon and Ortiz Suarez, Pedro},
-  title     = {A Data-driven Approach to Named Entity Recognition for Early Modern French},
-  booktitle = {Proceedings of the 29th International Conference on Computational Linguistics (COLING 2022)},
-  year      = {2022},
-  url       = {https://aclanthology.org/2022.coling-1.365},
-}</pre>
-          </article>
-
-          <article class="pub fade-in" data-year="2022">
-            <div class="pub-header">
-              <span class="pub-badge badge-thesis">Thesis</span>
-              <h3 class="pub-title">
-                <a href="https://theses.fr/2022SORUS179" target="_blank" rel="noopener">
-                  A Data-driven Approach to Natural Language Processing for Contemporary and Historical French
-                </a>
-              </h3>
-            </div>
-            <p class="pub-authors"><span class="me">Pedro Ortiz Suarez</span></p>
-            <div class="pub-footer">
-              <div class="pub-links">
-                <a href="https://theses.fr/2022SORUS179" class="pub-link" target="_blank" rel="noopener">Theses.fr</a>
-                <a href="https://tel.archives-ouvertes.fr/tel-03793964" class="pub-link" target="_blank" rel="noopener">HAL</a>
-              </div>
-              <button class="pub-copy-btn" type="button" aria-label="Copy BibTeX citation">
-                <svg viewBox="0 0 12 12" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="1"/><path d="M1 8V1h7" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                BibTeX
-              </button>
-            </div>
-            <pre class="pub-bibtex">@phdthesis{ortizsuarez2022thesis,
-  author = {Ortiz Suarez, Pedro},
-  title  = {A Data-driven Approach to Natural Language Processing for Contemporary and Historical French},
-  school = {Sorbonne Université},
-  year   = {2022},
-  url    = {https://theses.fr/2022SORUS179},
-}</pre>
-          </article>
-
-          <article class="pub fade-in" data-year="2022">
-            <div class="pub-header">
-              <span class="pub-badge">TALN</span>
-              <h3 class="pub-title">
-                <a href="https://aclanthology.org/2022.jeptalnrecital-taln.34" target="_blank" rel="noopener">
-                  Le projet FREEM: ressources, outils et enjeux pour l'étude du français d'Ancien Régime
-                </a>
-              </h3>
-            </div>
-            <p class="pub-authors">Simon Gabay, <span class="me">Pedro Ortiz Suarez</span>, Rachel Bawden, Alexandre Bartz, Philippe Gambette, Benoît Sagot</p>
-            <div class="pub-footer">
-              <div class="pub-links">
-                <a href="https://aclanthology.org/2022.jeptalnrecital-taln.34.pdf" class="pub-link" target="_blank" rel="noopener">PDF</a>
-                <a href="https://aclanthology.org/2022.jeptalnrecital-taln.34" class="pub-link" target="_blank" rel="noopener">ACL</a>
-              </div>
-              <button class="pub-copy-btn" type="button" aria-label="Copy BibTeX citation">
-                <svg viewBox="0 0 12 12" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="1"/><path d="M1 8V1h7" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                BibTeX
-              </button>
-            </div>
-            <pre class="pub-bibtex">@inproceedings{gabay-etal-2022-freem,
-  author    = {Gabay, Simon and Ortiz Suarez, Pedro and Bawden, Rachel and Bartz, Alexandre and Gambette, Philippe and Sagot, Benoît},
-  title     = {Le projet {FREEM}: ressources, outils et enjeux pour l'étude du français d'Ancien Régime},
-  booktitle = {Actes de la 29e Conférence sur le Traitement Automatique des Langues Naturelles (TALN 2022)},
-  year      = {2022},
-  url       = {https://aclanthology.org/2022.jeptalnrecital-taln.34},
-}</pre>
-          </article>
-
-          <article class="pub fade-in" data-year="2022">
-            <div class="pub-header">
-              <span class="pub-badge">LREC</span>
-              <h3 class="pub-title">
-                <a href="https://aclanthology.org/2022.lrec-1.463" target="_blank" rel="noopener">
-                  Towards a Cleaner Document-Oriented Multilingual Crawled Corpus
-                </a>
-              </h3>
-            </div>
+            <h3 class="pub-title"><a href="https://aclanthology.org/2022.lrec-1.463" target="_blank" rel="noopener">Towards a Cleaner Document-Oriented Multilingual Crawled Corpus</a></h3>
             <p class="pub-authors">Julien Abadji, <span class="me">Pedro Ortiz Suarez</span>, Laurent Romary, Benoît Sagot</p>
+            <p class="pub-venue">Proceedings of the 13th Conference on Language Resources and Evaluation (LREC 2022)</p>
             <div class="pub-footer">
               <div class="pub-links">
-                <a href="https://aclanthology.org/2022.lrec-1.463.pdf" class="pub-link" target="_blank" rel="noopener">PDF</a>
-                <a href="https://aclanthology.org/2022.lrec-1.463" class="pub-link" target="_blank" rel="noopener">ACL</a>
-                <a href="https://arxiv.org/abs/2201.06642" class="pub-link" target="_blank" rel="noopener">arXiv</a>
+              <a href="https://aclanthology.org/2022.lrec-1.463.pdf" class="pub-link" target="_blank" rel="noopener">PDF</a>
+              <a href="https://aclanthology.org/2022.lrec-1.463" class="pub-link" target="_blank" rel="noopener">ACL</a>
+              <a href="https://arxiv.org/abs/2201.06642" class="pub-link" target="_blank" rel="noopener">arXiv</a>
               </div>
-              <button class="pub-copy-btn" type="button" aria-label="Copy BibTeX citation">
-                <svg viewBox="0 0 12 12" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="1"/><path d="M1 8V1h7" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                BibTeX
-              </button>
+              <button class="pub-copy-btn" type="button" aria-label="Copy BibTeX citation"><svg viewBox="0 0 12 12" aria-hidden="true" style="width:10px;height:10px;fill:none;stroke:currentColor;stroke-width:1.8;flex-shrink:0;vertical-align:middle"><rect x="4" y="4" width="7" height="7" rx="1"/><path d="M1 8V1h7" stroke-linecap="round" stroke-linejoin="round"/></svg> BibTeX</button>
             </div>
             <pre class="pub-bibtex">@inproceedings{abadji-etal-2022-cleaner,
   author    = {Abadji, Julien and Ortiz Suarez, Pedro and Romary, Laurent and Sagot, Benoît},
-  title     = {Towards a Cleaner Document-Oriented Multilingual Crawled Corpus},
-  booktitle = {Proceedings of the 13th Language Resources and Evaluation Conference (LREC 2022)},
+  title     = {{Towards a Cleaner Document-Oriented Multilingual Crawled Corpus}},
+  booktitle = {Proceedings of the 13th Conference on Language Resources and
+Evaluation (LREC 2022)},
   year      = {2022},
-  url       = {https://aclanthology.org/2022.lrec-1.463},
   eprint    = {2201.06642},
+  url       = {https://aclanthology.org/2022.lrec-1.463},
 }</pre>
           </article>
 
           <article class="pub fade-in" data-year="2022">
-            <div class="pub-header">
-              <span class="pub-badge">LREC</span>
-              <h3 class="pub-title">
-                <a href="https://aclanthology.org/2022.lrec-1.168" target="_blank" rel="noopener">
-                  From FreEM to D'AlemBERT: a Large Corpus and a Language Model for Early Modern French
-                </a>
-              </h3>
-            </div>
-            <p class="pub-authors">Simon Gabay, <span class="me">Pedro Ortiz Suarez</span>, Alexandre Bartz, Alix Chagué, Rachel Bawden, Philippe Gambette, Benoît Sagot</p>
+            <h3 class="pub-title"><a href="https://doi.org/10.48550/arXiv.2210.15600" target="_blank" rel="noopener">Automatic Extraction of Materials and Properties from
+Superconductors Scientific Literature</a></h3>
+            <p class="pub-authors">Luca Foppiano, Pedro Baptista de Castro, Pedro and
+Terashima, Kensei Ortiz Suarez, Yoshihiko Takano, Masashi Ishii</p>
+            <p class="pub-venue pub-venue--preprint">Preprint</p>
             <div class="pub-footer">
               <div class="pub-links">
-                <a href="https://aclanthology.org/2022.lrec-1.168.pdf" class="pub-link" target="_blank" rel="noopener">PDF</a>
-                <a href="https://aclanthology.org/2022.lrec-1.168" class="pub-link" target="_blank" rel="noopener">ACL</a>
-                <a href="https://arxiv.org/abs/2202.09452" class="pub-link" target="_blank" rel="noopener">arXiv</a>
+              <a href="https://arxiv.org/abs/2210.15600" class="pub-link" target="_blank" rel="noopener">arXiv</a>
+              <a href="https://doi.org/10.48550/arXiv.2210.15600" class="pub-link" target="_blank" rel="noopener">DOI</a>
               </div>
-              <button class="pub-copy-btn" type="button" aria-label="Copy BibTeX citation">
-                <svg viewBox="0 0 12 12" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="1"/><path d="M1 8V1h7" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                BibTeX
-              </button>
+              <button class="pub-copy-btn" type="button" aria-label="Copy BibTeX citation"><svg viewBox="0 0 12 12" aria-hidden="true" style="width:10px;height:10px;fill:none;stroke:currentColor;stroke-width:1.8;flex-shrink:0;vertical-align:middle"><rect x="4" y="4" width="7" height="7" rx="1"/><path d="M1 8V1h7" stroke-linecap="round" stroke-linejoin="round"/></svg> BibTeX</button>
+            </div>
+            <pre class="pub-bibtex">@misc{foppiano-etal-2022-superconductors,
+  author    = {Foppiano, Luca and Baptista de Castro, Pedro and Ortiz Suarez, Pedro and
+Terashima, Kensei and Takano, Yoshihiko and Ishii, Masashi},
+  title     = {{Automatic Extraction of Materials and Properties from
+Superconductors Scientific Literature}},
+  year      = {2022},
+  doi       = {10.48550/arXiv.2210.15600},
+  eprint    = {2210.15600},
+}</pre>
+          </article>
+
+          <article class="pub fade-in" data-year="2022">
+            <h3 class="pub-title"><a href="https://aclanthology.org/2022.jeptalnrecital-taln.15" target="_blank" rel="noopener">Le projet FREEM: ressources, outils et enjeux pour l&#x27;étude
+du français d&#x27;Ancien Régime</a></h3>
+            <p class="pub-authors">Simon Gabay, <span class="me">Pedro Ortiz Suarez</span>, Rachel and
+Bartz, Alexandre Bawden, Philippe Gambette, Benoît Sagot</p>
+            <p class="pub-venue">Actes de la 29e Conférence sur le Traitement Automatique des Langues Naturelles (TALN 2022)</p>
+            <div class="pub-footer">
+              <div class="pub-links">
+              <a href="https://aclanthology.org/2022.jeptalnrecital-taln.15.pdf" class="pub-link" target="_blank" rel="noopener">PDF</a>
+              <a href="https://aclanthology.org/2022.jeptalnrecital-taln.15" class="pub-link" target="_blank" rel="noopener">ACL</a>
+              </div>
+              <button class="pub-copy-btn" type="button" aria-label="Copy BibTeX citation"><svg viewBox="0 0 12 12" aria-hidden="true" style="width:10px;height:10px;fill:none;stroke:currentColor;stroke-width:1.8;flex-shrink:0;vertical-align:middle"><rect x="4" y="4" width="7" height="7" rx="1"/><path d="M1 8V1h7" stroke-linecap="round" stroke-linejoin="round"/></svg> BibTeX</button>
+            </div>
+            <pre class="pub-bibtex">@inproceedings{gabay-etal-2022-freem,
+  author    = {Gabay, Simon and Ortiz Suarez, Pedro and Bawden, Rachel and
+Bartz, Alexandre and Gambette, Philippe and Sagot, Benoît},
+  title     = {{Le projet FREEM: ressources, outils et enjeux pour l&#x27;étude
+du français d&#x27;Ancien Régime}},
+  booktitle = {Actes de la 29e Conférence sur le Traitement Automatique des
+Langues Naturelles (TALN 2022)},
+  year      = {2022},
+  url       = {https://aclanthology.org/2022.jeptalnrecital-taln.15},
+}</pre>
+          </article>
+
+          <article class="pub fade-in" data-year="2022">
+            <h3 class="pub-title"><a href="https://aclanthology.org/2022.lrec-1.359" target="_blank" rel="noopener">From FreEM to D&#x27;AlemBERT: a Large Corpus and a Language
+Model for Early Modern French</a></h3>
+            <p class="pub-authors">Simon Gabay, <span class="me">Pedro Ortiz Suarez</span>, Alexandre and
+Chague, Alix Bartz, Rachel Bawden, Philippe Gambette, Benoît Sagot</p>
+            <p class="pub-venue">Proceedings of the 13th Conference on Language Resources and Evaluation (LREC 2022)</p>
+            <div class="pub-footer">
+              <div class="pub-links">
+              <a href="https://aclanthology.org/2022.lrec-1.359.pdf" class="pub-link" target="_blank" rel="noopener">PDF</a>
+              <a href="https://aclanthology.org/2022.lrec-1.359" class="pub-link" target="_blank" rel="noopener">ACL</a>
+              <a href="https://arxiv.org/abs/2202.09452" class="pub-link" target="_blank" rel="noopener">arXiv</a>
+              </div>
+              <button class="pub-copy-btn" type="button" aria-label="Copy BibTeX citation"><svg viewBox="0 0 12 12" aria-hidden="true" style="width:10px;height:10px;fill:none;stroke:currentColor;stroke-width:1.8;flex-shrink:0;vertical-align:middle"><rect x="4" y="4" width="7" height="7" rx="1"/><path d="M1 8V1h7" stroke-linecap="round" stroke-linejoin="round"/></svg> BibTeX</button>
             </div>
             <pre class="pub-bibtex">@inproceedings{gabay-etal-2022-dalembert,
-  author    = {Gabay, Simon and Ortiz Suarez, Pedro and Bartz, Alexandre and Chagué, Alix and Bawden, Rachel and Gambette, Philippe and Sagot, Benoît},
-  title     = {From {FreEM} to {D'AlemBERT}: a Large Corpus and a Language Model for Early Modern French},
-  booktitle = {Proceedings of the 13th Language Resources and Evaluation Conference (LREC 2022)},
+  author    = {Gabay, Simon and Ortiz Suarez, Pedro and Bartz, Alexandre and
+Chague, Alix and Bawden, Rachel and Gambette, Philippe and Sagot, Benoît},
+  title     = {{From FreEM to D&#x27;AlemBERT: a Large Corpus and a Language
+Model for Early Modern French}},
+  booktitle = {Proceedings of the 13th Conference on Language Resources and
+Evaluation (LREC 2022)},
   year      = {2022},
-  url       = {https://aclanthology.org/2022.lrec-1.168},
   eprint    = {2202.09452},
+  url       = {https://aclanthology.org/2022.lrec-1.359},
 }</pre>
           </article>
 
           <article class="pub fade-in" data-year="2022">
-            <div class="pub-header">
-              <span class="pub-badge">LREC</span>
-              <!-- BERTrade: exact ACL Anthology ID needs verification — link removed to avoid wrong paper -->
-              <h3 class="pub-title">
-                BERTrade: Using Contextual Embeddings to Parse Old French
-              </h3>
-            </div>
-            <p class="pub-authors">Loïc Grobol, Mathilde Regnault, <span class="me">Pedro Ortiz Suarez</span>, Benoît Sagot, Laurent Romary, Benoît Crabbé</p>
+            <h3 class="pub-title"><a href="https://aclanthology.org/2022.lrec-1.119" target="_blank" rel="noopener">BERTrade: Using Contextual Embeddings to Parse Old French</a></h3>
+            <p class="pub-authors">Loic Grobol, Mathilde Regnault, Pedro and
+Sagot, Benoît Ortiz Suarez, Laurent Romary, Benoît Crabbe</p>
+            <p class="pub-venue">Proceedings of the 13th Conference on Language Resources and Evaluation (LREC 2022)</p>
             <div class="pub-footer">
               <div class="pub-links">
-                <!-- Add the correct ACL Anthology URL once verified -->
+              <a href="https://aclanthology.org/2022.lrec-1.119.pdf" class="pub-link" target="_blank" rel="noopener">PDF</a>
+              <a href="https://aclanthology.org/2022.lrec-1.119" class="pub-link" target="_blank" rel="noopener">ACL</a>
               </div>
-              <button class="pub-copy-btn" type="button" aria-label="Copy BibTeX citation">
-                <svg viewBox="0 0 12 12" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="1"/><path d="M1 8V1h7" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                BibTeX
-              </button>
+              <button class="pub-copy-btn" type="button" aria-label="Copy BibTeX citation"><svg viewBox="0 0 12 12" aria-hidden="true" style="width:10px;height:10px;fill:none;stroke:currentColor;stroke-width:1.8;flex-shrink:0;vertical-align:middle"><rect x="4" y="4" width="7" height="7" rx="1"/><path d="M1 8V1h7" stroke-linecap="round" stroke-linejoin="round"/></svg> BibTeX</button>
             </div>
             <pre class="pub-bibtex">@inproceedings{grobol-etal-2022-bertrade,
-  author    = {Grobol, Loïc and Regnault, Mathilde and Ortiz Suarez, Pedro and Sagot, Benoît and Romary, Laurent and Crabbé, Benoît},
-  title     = {{BERTrade}: Using Contextual Embeddings to Parse Old French},
-  booktitle = {Proceedings of the 13th Language Resources and Evaluation Conference (LREC 2022)},
+  author    = {Grobol, Loic and Regnault, Mathilde and Ortiz Suarez, Pedro and
+Sagot, Benoît and Romary, Laurent and Crabbe, Benoît},
+  title     = {{BERTrade: Using Contextual Embeddings to Parse Old French}},
+  booktitle = {Proceedings of the 13th Conference on Language Resources and
+Evaluation (LREC 2022)},
   year      = {2022},
+  url       = {https://aclanthology.org/2022.lrec-1.119},
 }</pre>
           </article>
 
           <article class="pub fade-in" data-year="2022">
-            <div class="pub-header">
-              <span class="pub-badge">TACL</span>
-              <h3 class="pub-title">
-                <a href="https://doi.org/10.1162/tacl_a_00447" target="_blank" rel="noopener">
-                  Quality at a Glance: An Audit of Web-Crawled Multilingual Datasets
-                </a>
-              </h3>
-            </div>
-            <p class="pub-authors">Julia Kreutzer, Isaac Caswell, Lisa Wang, …, <span class="me">Pedro Ortiz Suarez</span>, et al.</p>
+            <h3 class="pub-title"><a href="https://doi.org/10.48550/arXiv.2212.10440" target="_blank" rel="noopener">Perplexed by Quality: A Perplexity-based Method for Adult and
+Harmful Content Detection in Multilingual Heterogeneous Web Data</a></h3>
+            <p class="pub-authors">Tim Jansen, Yangling Tong, Victoria and
+Ortiz Suarez, Pedro Zevallos</p>
+            <p class="pub-venue pub-venue--preprint">Preprint</p>
             <div class="pub-footer">
               <div class="pub-links">
-                <a href="https://arxiv.org/abs/2103.12028" class="pub-link" target="_blank" rel="noopener">arXiv</a>
-                <a href="https://doi.org/10.1162/tacl_a_00447" class="pub-link" target="_blank" rel="noopener">DOI</a>
+              <a href="https://arxiv.org/abs/2212.10440" class="pub-link" target="_blank" rel="noopener">arXiv</a>
+              <a href="https://doi.org/10.48550/arXiv.2212.10440" class="pub-link" target="_blank" rel="noopener">DOI</a>
               </div>
-              <button class="pub-copy-btn" type="button" aria-label="Copy BibTeX citation">
-                <svg viewBox="0 0 12 12" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="1"/><path d="M1 8V1h7" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                BibTeX
-              </button>
+              <button class="pub-copy-btn" type="button" aria-label="Copy BibTeX citation"><svg viewBox="0 0 12 12" aria-hidden="true" style="width:10px;height:10px;fill:none;stroke:currentColor;stroke-width:1.8;flex-shrink:0;vertical-align:middle"><rect x="4" y="4" width="7" height="7" rx="1"/><path d="M1 8V1h7" stroke-linecap="round" stroke-linejoin="round"/></svg> BibTeX</button>
+            </div>
+            <pre class="pub-bibtex">@misc{jansen-etal-2022-perplexed,
+  author    = {Jansen, Tim and Tong, Yangling and Zevallos, Victoria and
+Ortiz Suarez, Pedro},
+  title     = {{Perplexed by Quality: A Perplexity-based Method for Adult and
+Harmful Content Detection in Multilingual Heterogeneous Web Data}},
+  year      = {2022},
+  doi       = {10.48550/arXiv.2212.10440},
+  eprint    = {2212.10440},
+}</pre>
+          </article>
+
+          <article class="pub fade-in" data-year="2022">
+            <h3 class="pub-title"><a href="https://doi.org/10.1162/tacl_a_00447" target="_blank" rel="noopener">Quality at a Glance: An Audit of Web-Crawled Multilingual Datasets</a></h3>
+            <p class="pub-authors">Julia Kreutzer, Isaac Caswell, Lisa Wang, Ahsan and
+van Esch, Daan Wahab, Nasanbayar Ulzii-Orshikh, Allahsera and
+Subramani, Nishant Tapo, Artem Sokolov, Claytone and
+et al. Sikasote, <span class="me">Pedro Ortiz Suarez</span>, et al.</p>
+            <p class="pub-venue">Transactions of the Association for Computational Linguistics</p>
+            <div class="pub-footer">
+              <div class="pub-links">
+              <a href="https://arxiv.org/abs/2103.12028" class="pub-link" target="_blank" rel="noopener">arXiv</a>
+              <a href="https://doi.org/10.1162/tacl_a_00447" class="pub-link" target="_blank" rel="noopener">DOI</a>
+              </div>
+              <button class="pub-copy-btn" type="button" aria-label="Copy BibTeX citation"><svg viewBox="0 0 12 12" aria-hidden="true" style="width:10px;height:10px;fill:none;stroke:currentColor;stroke-width:1.8;flex-shrink:0;vertical-align:middle"><rect x="4" y="4" width="7" height="7" rx="1"/><path d="M1 8V1h7" stroke-linecap="round" stroke-linejoin="round"/></svg> BibTeX</button>
             </div>
             <pre class="pub-bibtex">@article{kreutzer-etal-2022-quality,
-  author  = {Kreutzer, Julia and Caswell, Isaac and Wang, Lisa and {et al.}},
-  title   = {Quality at a Glance: An Audit of Web-Crawled Multilingual Datasets},
-  journal = {Transactions of the Association for Computational Linguistics},
-  year    = {2022},
-  doi     = {10.1162/tacl_a_00447},
-  eprint  = {2103.12028},
+  author    = {Kreutzer, Julia and Caswell, Isaac and Wang, Lisa and Wahab, Ahsan and
+van Esch, Daan and Ulzii-Orshikh, Nasanbayar and Tapo, Allahsera and
+Subramani, Nishant and Sokolov, Artem and Sikasote, Claytone and
+et al. and Ortiz Suarez, Pedro and et al.},
+  title     = {{Quality at a Glance: An Audit of Web-Crawled Multilingual Datasets}},
+  journal   = {Transactions of the Association for Computational Linguistics},
+  year      = {2022},
+  doi       = {10.1162/tacl_a_00447},
+  eprint    = {2103.12028},
 }</pre>
           </article>
 
           <article class="pub fade-in" data-year="2022">
-            <div class="pub-header">
-              <span class="pub-badge badge-preprint">Preprint</span>
-              <h3 class="pub-title">
-                <a href="https://arxiv.org/abs/2110.07492" target="_blank" rel="noopener">
-                  Documenting Geographically and Contextually Diverse Data Sources: The BigScience Catalogue of Language Data and Resources
-                </a>
-              </h3>
-            </div>
-            <p class="pub-authors">Angelina McMillan-Major, Zaid Alyafeai, Stella Biderman, …, <span class="me">Pedro Ortiz Suarez</span>, et al.</p>
+            <h3 class="pub-title"><a href="https://doi.org/10.48550/arXiv.2303.03915" target="_blank" rel="noopener">The BigScience ROOTS Corpus: A 1.6TB Composite Multilingual Dataset</a></h3>
+            <p class="pub-authors">Hugo Laurencon, Lucile Saulnier, Thomas Wang, Christopher and
+Villanova del Moral, Albert Akiki, Teven Le Scao, Leandro and
+Mou, Chenghao von Werra, Eduardo Gonzalez Ponferrada, Huu and
+Frohberg, Jorg Nguyen, Mario Sasko, Quentin and
+McMillan-Major, Angelina Lhoest, Gerard Dupont, Stella and
+Rogers, Anna Biderman, Loubna Ben Allal, Francesco and
+Pistilli, Giada De Toni, Olivier Nguyen, Somaieh and
+Masoud, Maraim Nikpoor, Pierre Colombo, Javier and
+Villegas, Paulo de la Rosa, Tristan Thrush, Shayne and
+Nagel, Sebastian Longpre, Leon Weber, Manuel and
+Zhu, Jian Munoz, Daniel van Strien, Zaid and
+Almubarak, Khalid Alyafeai, Minh Chien Vu, Itziar and
+Soroa, Aitor Gonzalez-Dios, Kyle Lo, Manan Dey, Pedro and
+Gokaslan, Aaron Ortiz Suarez, Shamik Bose, David Ifeoluwa and
+Phan, Long Adelani, Hieu Tran, Ian Yu, Suhas and
+Chim, Jenny Pai, Violette Lepercq, Suzana and
+Mitchell, Margaret Ilic, Sasha Luccioni, Yacine Jernite</p>
+            <p class="pub-venue">Advances in Neural Information Processing Systems 35 (NeurIPS 2022)</p>
             <div class="pub-footer">
               <div class="pub-links">
-                <a href="https://arxiv.org/abs/2110.07492" class="pub-link" target="_blank" rel="noopener">arXiv</a>
+              <a href="https://arxiv.org/abs/2303.03915" class="pub-link" target="_blank" rel="noopener">arXiv</a>
+              <a href="https://doi.org/10.48550/arXiv.2303.03915" class="pub-link" target="_blank" rel="noopener">DOI</a>
               </div>
-              <button class="pub-copy-btn" type="button" aria-label="Copy BibTeX citation">
-                <svg viewBox="0 0 12 12" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="1"/><path d="M1 8V1h7" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                BibTeX
-              </button>
+              <button class="pub-copy-btn" type="button" aria-label="Copy BibTeX citation"><svg viewBox="0 0 12 12" aria-hidden="true" style="width:10px;height:10px;fill:none;stroke:currentColor;stroke-width:1.8;flex-shrink:0;vertical-align:middle"><rect x="4" y="4" width="7" height="7" rx="1"/><path d="M1 8V1h7" stroke-linecap="round" stroke-linejoin="round"/></svg> BibTeX</button>
             </div>
-            <pre class="pub-bibtex">@misc{mcmillanmajor-etal-2022-bigscience,
-  author = {McMillan-Major, Angelina and Alyafeai, Zaid and Biderman, Stella and {et al.}},
-  title  = {Documenting Geographically and Contextually Diverse Data Sources: The {BigScience} Catalogue of Language Data and Resources},
-  year   = {2022},
-  eprint = {2110.07492},
+            <pre class="pub-bibtex">@inproceedings{laurencon-etal-2022-roots,
+  author    = {Laurencon, Hugo and Saulnier, Lucile and Wang, Thomas and Akiki, Christopher and
+Villanova del Moral, Albert and Le Scao, Teven and von Werra, Leandro and
+Mou, Chenghao and Gonzalez Ponferrada, Eduardo and Nguyen, Huu and
+Frohberg, Jorg and Sasko, Mario and Lhoest, Quentin and
+McMillan-Major, Angelina and Dupont, Gerard and Biderman, Stella and
+Rogers, Anna and Ben Allal, Loubna and De Toni, Francesco and
+Pistilli, Giada and Nguyen, Olivier and Nikpoor, Somaieh and
+Masoud, Maraim and Colombo, Pierre and de la Rosa, Javier and
+Villegas, Paulo and Thrush, Tristan and Longpre, Shayne and
+Nagel, Sebastian and Weber, Leon and Munoz, Manuel and
+Zhu, Jian and van Strien, Daniel and Alyafeai, Zaid and
+Almubarak, Khalid and Vu, Minh Chien and Gonzalez-Dios, Itziar and
+Soroa, Aitor and Lo, Kyle and Dey, Manan and Ortiz Suarez, Pedro and
+Gokaslan, Aaron and Bose, Shamik and Adelani, David Ifeoluwa and
+Phan, Long and Tran, Hieu and Yu, Ian and Pai, Suhas and
+Chim, Jenny and Lepercq, Violette and Ilic, Suzana and
+Mitchell, Margaret and Luccioni, Sasha and Jernite, Yacine},
+  title     = {{The BigScience ROOTS Corpus: A 1.6TB Composite Multilingual Dataset}},
+  booktitle = {Advances in Neural Information Processing Systems 35 (NeurIPS 2022)},
+  year      = {2022},
+  doi       = {10.48550/arXiv.2303.03915},
+  eprint    = {2303.03915},
+}</pre>
+          </article>
+
+          <article class="pub fade-in" data-year="2022">
+            <h3 class="pub-title"><a href="https://aclanthology.org/2022.coling-1.327" target="_blank" rel="noopener">A Data-driven Approach to Named Entity Recognition for Early Modern French</a></h3>
+            <p class="pub-authors"><span class="me">Pedro Ortiz Suarez</span>, Simon Gabay</p>
+            <p class="pub-venue">Proceedings of the 29th International Conference on Computational Linguistics (COLING 2022)</p>
+            <div class="pub-footer">
+              <div class="pub-links">
+              <a href="https://aclanthology.org/2022.coling-1.327.pdf" class="pub-link" target="_blank" rel="noopener">PDF</a>
+              <a href="https://aclanthology.org/2022.coling-1.327" class="pub-link" target="_blank" rel="noopener">ACL</a>
+              </div>
+              <button class="pub-copy-btn" type="button" aria-label="Copy BibTeX citation"><svg viewBox="0 0 12 12" aria-hidden="true" style="width:10px;height:10px;fill:none;stroke:currentColor;stroke-width:1.8;flex-shrink:0;vertical-align:middle"><rect x="4" y="4" width="7" height="7" rx="1"/><path d="M1 8V1h7" stroke-linecap="round" stroke-linejoin="round"/></svg> BibTeX</button>
+            </div>
+            <pre class="pub-bibtex">@inproceedings{gabay-ortiz2022ner,
+  author    = {Ortiz Suarez, Pedro and Gabay, Simon},
+  title     = {{A Data-driven Approach to Named Entity Recognition for Early Modern French}},
+  booktitle = {Proceedings of the 29th International Conference on Computational
+Linguistics (COLING 2022)},
+  year      = {2022},
+  url       = {https://aclanthology.org/2022.coling-1.327},
+}</pre>
+          </article>
+
+          <article class="pub fade-in" data-year="2022">
+            <h3 class="pub-title"><a href="https://theses.fr/2022SORUS179" target="_blank" rel="noopener">A Data-driven Approach to Natural Language Processing for
+Contemporary and Historical French</a></h3>
+            <p class="pub-authors"><span class="me">Pedro Ortiz Suarez</span></p>
+            <p class="pub-venue pub-venue--thesis">PhD Thesis · Sorbonne Université</p>
+            <div class="pub-footer">
+              <div class="pub-links">
+              <a href="https://theses.fr/2022SORUS179" class="pub-link" target="_blank" rel="noopener">Project</a>
+              <a href="https://tel.archives-ouvertes.fr/tel-03793964" class="pub-link" target="_blank" rel="noopener">HAL</a>
+              </div>
+              <button class="pub-copy-btn" type="button" aria-label="Copy BibTeX citation"><svg viewBox="0 0 12 12" aria-hidden="true" style="width:10px;height:10px;fill:none;stroke:currentColor;stroke-width:1.8;flex-shrink:0;vertical-align:middle"><rect x="4" y="4" width="7" height="7" rx="1"/><path d="M1 8V1h7" stroke-linecap="round" stroke-linejoin="round"/></svg> BibTeX</button>
+            </div>
+            <pre class="pub-bibtex">@phdthesis{ortizsuarez2022thesis,
+  author    = {Ortiz Suarez, Pedro},
+  title     = {{A Data-driven Approach to Natural Language Processing for
+Contemporary and Historical French}},
+  school    = {Sorbonne Université},
+  year      = {2022},
+  url       = {https://tel.archives-ouvertes.fr/tel-03793964},
 }</pre>
           </article>
 
@@ -1210,29 +1857,23 @@
         <div class="pub-list">
 
           <article class="pub fade-in" data-year="2021">
-            <div class="pub-header">
-              <span class="pub-badge">CMLC-9</span>
-              <h3 class="pub-title">
-                <a href="https://arxiv.org/abs/2107.07253" target="_blank" rel="noopener">
-                  Ungoliant: An Optimized Pipeline for the Generation of a Very Large-Scale Multilingual Web Corpus
-                </a>
-              </h3>
-            </div>
+            <h3 class="pub-title"><a href="https://arxiv.org/abs/2107.07253" target="_blank" rel="noopener">Ungoliant: An Optimized Pipeline for the Generation of a Very
+Large-Scale Multilingual Web Corpus</a></h3>
             <p class="pub-authors">Julien Abadji, <span class="me">Pedro Ortiz Suarez</span>, Laurent Romary, Benoît Sagot</p>
+            <p class="pub-venue">Proceedings of the Workshop on Challenges in the Management of Large Corpora (CMLC-9)</p>
             <div class="pub-footer">
               <div class="pub-links">
-                <a href="https://arxiv.org/abs/2107.07253" class="pub-link" target="_blank" rel="noopener">arXiv</a>
-                <a href="https://github.com/oscar-project/ungoliant" class="pub-link" target="_blank" rel="noopener">Code</a>
+              <a href="https://arxiv.org/abs/2107.07253" class="pub-link" target="_blank" rel="noopener">arXiv</a>
+              <a href="https://github.com/oscar-project/ungoliant" class="pub-link" target="_blank" rel="noopener">Code</a>
               </div>
-              <button class="pub-copy-btn" type="button" aria-label="Copy BibTeX citation">
-                <svg viewBox="0 0 12 12" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="1"/><path d="M1 8V1h7" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                BibTeX
-              </button>
+              <button class="pub-copy-btn" type="button" aria-label="Copy BibTeX citation"><svg viewBox="0 0 12 12" aria-hidden="true" style="width:10px;height:10px;fill:none;stroke:currentColor;stroke-width:1.8;flex-shrink:0;vertical-align:middle"><rect x="4" y="4" width="7" height="7" rx="1"/><path d="M1 8V1h7" stroke-linecap="round" stroke-linejoin="round"/></svg> BibTeX</button>
             </div>
             <pre class="pub-bibtex">@inproceedings{abadji-etal-2021-ungoliant,
   author    = {Abadji, Julien and Ortiz Suarez, Pedro and Romary, Laurent and Sagot, Benoît},
-  title     = {Ungoliant: An Optimized Pipeline for the Generation of a Very Large-Scale Multilingual Web Corpus},
-  booktitle = {Proceedings of the Workshop on Challenges in the Management of Large Corpora (CMLC-9)},
+  title     = {{Ungoliant: An Optimized Pipeline for the Generation of a Very
+Large-Scale Multilingual Web Corpus}},
+  booktitle = {Proceedings of the Workshop on Challenges in the Management of
+Large Corpora (CMLC-9)},
   year      = {2021},
   eprint    = {2107.07253},
 }</pre>
@@ -1246,210 +1887,183 @@
         <div class="pub-list">
 
           <article class="pub fade-in" data-year="2020">
-            <div class="pub-header">
-              <span class="pub-badge">ACL</span>
-              <h3 class="pub-title">
-                <a href="https://aclanthology.org/2020.acl-main.645" target="_blank" rel="noopener">
-                  CamemBERT: a Tasty French Language Model
-                </a>
-              </h3>
-            </div>
-            <p class="pub-authors">Louis Martin, Benjamin Muller, <span class="me">Pedro Ortiz Suarez</span>, Yoann Dupont, Laurent Romary, Éric de la Clergerie, Djamé Seddah, Benoît Sagot</p>
+            <h3 class="pub-title"><a href="https://aclanthology.org/2020.acl-main.645" target="_blank" rel="noopener">CamemBERT: a Tasty French Language Model</a></h3>
+            <p class="pub-authors">Louis Martin, Benjamin Muller, Pedro and
+Dupont, Yoann Ortiz Suarez, Laurent Romary, Eric and
+Seddah, Djame de la Clergerie, Benoît Sagot</p>
+            <p class="pub-venue">Proceedings of the 58th Annual Meeting of the Association for Computational Linguistics (ACL 2020)</p>
             <div class="pub-footer">
               <div class="pub-links">
-                <a href="https://aclanthology.org/2020.acl-main.645.pdf" class="pub-link" target="_blank" rel="noopener">PDF</a>
-                <a href="https://aclanthology.org/2020.acl-main.645" class="pub-link" target="_blank" rel="noopener">ACL</a>
-                <a href="https://arxiv.org/abs/1911.03894" class="pub-link" target="_blank" rel="noopener">arXiv</a>
-                <a href="https://doi.org/10.18653/v1/2020.acl-main.645" class="pub-link" target="_blank" rel="noopener">DOI</a>
-                <a href="https://camembert-model.fr" class="pub-link" target="_blank" rel="noopener">Project</a>
+              <a href="https://aclanthology.org/2020.acl-main.645.pdf" class="pub-link" target="_blank" rel="noopener">PDF</a>
+              <a href="https://aclanthology.org/2020.acl-main.645" class="pub-link" target="_blank" rel="noopener">ACL</a>
+              <a href="https://arxiv.org/abs/1911.03894" class="pub-link" target="_blank" rel="noopener">arXiv</a>
+              <a href="https://doi.org/10.18653/v1/2020.acl-main.645" class="pub-link" target="_blank" rel="noopener">DOI</a>
+              <a href="https://camembert-model.fr" class="pub-link" target="_blank" rel="noopener">Project</a>
               </div>
-              <button class="pub-copy-btn" type="button" aria-label="Copy BibTeX citation">
-                <svg viewBox="0 0 12 12" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="1"/><path d="M1 8V1h7" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                BibTeX
-              </button>
+              <button class="pub-copy-btn" type="button" aria-label="Copy BibTeX citation"><svg viewBox="0 0 12 12" aria-hidden="true" style="width:10px;height:10px;fill:none;stroke:currentColor;stroke-width:1.8;flex-shrink:0;vertical-align:middle"><rect x="4" y="4" width="7" height="7" rx="1"/><path d="M1 8V1h7" stroke-linecap="round" stroke-linejoin="round"/></svg> BibTeX</button>
             </div>
             <pre class="pub-bibtex">@inproceedings{martin-etal-2020-camembert,
-  author    = {Martin, Louis and Muller, Benjamin and Ortiz Suarez, Pedro and Dupont, Yoann and Romary, Laurent and de la Clergerie, Éric and Seddah, Djamé and Sagot, Benoît},
-  title     = {{CamemBERT}: a Tasty French Language Model},
-  booktitle = {Proceedings of the 58th Annual Meeting of the Association for Computational Linguistics (ACL 2020)},
+  author    = {Martin, Louis and Muller, Benjamin and Ortiz Suarez, Pedro and
+Dupont, Yoann and Romary, Laurent and de la Clergerie, Eric and
+Seddah, Djame and Sagot, Benoît},
+  title     = {{CamemBERT: a Tasty French Language Model}},
+  booktitle = {Proceedings of the 58th Annual Meeting of the Association for
+Computational Linguistics (ACL 2020)},
   year      = {2020},
   doi       = {10.18653/v1/2020.acl-main.645},
   eprint    = {1911.03894},
+  url       = {https://aclanthology.org/2020.acl-main.645},
 }</pre>
           </article>
 
           <article class="pub fade-in" data-year="2020">
-            <div class="pub-header">
-              <span class="pub-badge">ACL</span>
-              <h3 class="pub-title">
-                <a href="https://aclanthology.org/2020.acl-main.156" target="_blank" rel="noopener">
-                  A Monolingual Approach to Contextualized Word Embeddings for Mid-Resource Languages
-                </a>
-              </h3>
-            </div>
-            <p class="pub-authors"><span class="me">Pedro Ortiz Suarez</span>, Laurent Romary, Benoît Sagot</p>
+            <h3 class="pub-title"><a href="https://aclanthology.org/2020.jeptalnrecital-taln.5" target="_blank" rel="noopener">Les modèles de langue contextuels Camembert pour le Français:
+impact de la taille et de l&#x27;hétérogénéité des données d&#x27;entrainement</a></h3>
+            <p class="pub-authors">Louis Martin, Benjamin Muller, Pedro and
+Dupont, Yoann Ortiz Suarez, Laurent Romary, Eric and
+Sagot, Benoît de la Clergerie, Djame Seddah</p>
+            <p class="pub-venue">Actes de la 27e Conférence sur le Traitement Automatique des Langues Naturelles (TALN 2020)</p>
             <div class="pub-footer">
               <div class="pub-links">
-                <a href="https://aclanthology.org/2020.acl-main.156.pdf" class="pub-link" target="_blank" rel="noopener">PDF</a>
-                <a href="https://aclanthology.org/2020.acl-main.156" class="pub-link" target="_blank" rel="noopener">ACL</a>
-                <a href="https://doi.org/10.18653/v1/2020.acl-main.156" class="pub-link" target="_blank" rel="noopener">DOI</a>
-                <a href="https://oscar-corpus.com" class="pub-link" target="_blank" rel="noopener">OSCAR</a>
+              <a href="https://aclanthology.org/2020.jeptalnrecital-taln.5.pdf" class="pub-link" target="_blank" rel="noopener">PDF</a>
+              <a href="https://aclanthology.org/2020.jeptalnrecital-taln.5" class="pub-link" target="_blank" rel="noopener">ACL</a>
               </div>
-              <button class="pub-copy-btn" type="button" aria-label="Copy BibTeX citation">
-                <svg viewBox="0 0 12 12" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="1"/><path d="M1 8V1h7" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                BibTeX
-              </button>
+              <button class="pub-copy-btn" type="button" aria-label="Copy BibTeX citation"><svg viewBox="0 0 12 12" aria-hidden="true" style="width:10px;height:10px;fill:none;stroke:currentColor;stroke-width:1.8;flex-shrink:0;vertical-align:middle"><rect x="4" y="4" width="7" height="7" rx="1"/><path d="M1 8V1h7" stroke-linecap="round" stroke-linejoin="round"/></svg> BibTeX</button>
+            </div>
+            <pre class="pub-bibtex">@inproceedings{martin-etal-2020-camembert-taln,
+  author    = {Martin, Louis and Muller, Benjamin and Ortiz Suarez, Pedro and
+Dupont, Yoann and Romary, Laurent and de la Clergerie, Eric and
+Sagot, Benoît and Seddah, Djame},
+  title     = {{Les modèles de langue contextuels Camembert pour le Français:
+impact de la taille et de l&#x27;hétérogénéité des données d&#x27;entrainement}},
+  booktitle = {Actes de la 27e Conférence sur le Traitement Automatique des
+Langues Naturelles (TALN 2020)},
+  year      = {2020},
+  url       = {https://aclanthology.org/2020.jeptalnrecital-taln.5},
+}</pre>
+          </article>
+
+          <article class="pub fade-in" data-year="2020">
+            <h3 class="pub-title"><a href="https://aclanthology.org/2020.acl-main.156" target="_blank" rel="noopener">A Monolingual Approach to Contextualized Word Embeddings for
+Mid-Resource Languages</a></h3>
+            <p class="pub-authors"><span class="me">Pedro Ortiz Suarez</span>, Laurent Romary, Benoît Sagot</p>
+            <p class="pub-venue">Proceedings of the 58th Annual Meeting of the Association for Computational Linguistics (ACL 2020)</p>
+            <div class="pub-footer">
+              <div class="pub-links">
+              <a href="https://aclanthology.org/2020.acl-main.156.pdf" class="pub-link" target="_blank" rel="noopener">PDF</a>
+              <a href="https://aclanthology.org/2020.acl-main.156" class="pub-link" target="_blank" rel="noopener">ACL</a>
+              <a href="https://doi.org/10.18653/v1/2020.acl-main.156" class="pub-link" target="_blank" rel="noopener">DOI</a>
+              <a href="https://oscar-corpus.com" class="pub-link" target="_blank" rel="noopener">Project</a>
+              </div>
+              <button class="pub-copy-btn" type="button" aria-label="Copy BibTeX citation"><svg viewBox="0 0 12 12" aria-hidden="true" style="width:10px;height:10px;fill:none;stroke:currentColor;stroke-width:1.8;flex-shrink:0;vertical-align:middle"><rect x="4" y="4" width="7" height="7" rx="1"/><path d="M1 8V1h7" stroke-linecap="round" stroke-linejoin="round"/></svg> BibTeX</button>
             </div>
             <pre class="pub-bibtex">@inproceedings{ortizsuarez-etal-2020-monolingual,
   author    = {Ortiz Suarez, Pedro and Romary, Laurent and Sagot, Benoît},
-  title     = {A Monolingual Approach to Contextualized Word Embeddings for Mid-Resource Languages},
-  booktitle = {Proceedings of the 58th Annual Meeting of the Association for Computational Linguistics (ACL 2020)},
+  title     = {{A Monolingual Approach to Contextualized Word Embeddings for
+Mid-Resource Languages}},
+  booktitle = {Proceedings of the 58th Annual Meeting of the Association for
+Computational Linguistics (ACL 2020)},
   year      = {2020},
   doi       = {10.18653/v1/2020.acl-main.156},
+  url       = {https://aclanthology.org/2020.acl-main.156},
 }</pre>
           </article>
 
           <article class="pub fade-in" data-year="2020">
-            <div class="pub-header">
-              <span class="pub-badge">ACL</span>
-              <h3 class="pub-title">
-                <a href="https://aclanthology.org/2020.acl-main.678" target="_blank" rel="noopener">
-                  Building a User-Generated Content North-African Arabizi Treebank: Tackling Hell
-                </a>
-              </h3>
-            </div>
-            <p class="pub-authors">Djamé Seddah, Farah Essaidi, Amal Fethi, Matthieu Futeral, Benjamin Muller, <span class="me">Pedro Ortiz Suarez</span>, Benoît Sagot, Abhishek Srivastava</p>
+            <h3 class="pub-title"><a href="https://aclanthology.org/2020.lrec-1.569" target="_blank" rel="noopener">Establishing a New State-of-the-Art for French Named Entity Recognition</a></h3>
+            <p class="pub-authors"><span class="me">Pedro Ortiz Suarez</span>, Yoann Dupont, Benjamin and
+Romary, Laurent Muller, Benoît Sagot</p>
+            <p class="pub-venue">Proceedings of the 12th Conference on Language Resources and Evaluation (LREC 2020)</p>
             <div class="pub-footer">
               <div class="pub-links">
-                <a href="https://aclanthology.org/2020.acl-main.678.pdf" class="pub-link" target="_blank" rel="noopener">PDF</a>
-                <a href="https://aclanthology.org/2020.acl-main.678" class="pub-link" target="_blank" rel="noopener">ACL</a>
-                <a href="https://doi.org/10.18653/v1/2020.acl-main.678" class="pub-link" target="_blank" rel="noopener">DOI</a>
+              <a href="https://aclanthology.org/2020.lrec-1.569.pdf" class="pub-link" target="_blank" rel="noopener">PDF</a>
+              <a href="https://aclanthology.org/2020.lrec-1.569" class="pub-link" target="_blank" rel="noopener">ACL</a>
               </div>
-              <button class="pub-copy-btn" type="button" aria-label="Copy BibTeX citation">
-                <svg viewBox="0 0 12 12" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="1"/><path d="M1 8V1h7" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                BibTeX
-              </button>
-            </div>
-            <pre class="pub-bibtex">@inproceedings{seddah-etal-2020-arabizi,
-  author    = {Seddah, Djamé and Essaidi, Farah and Fethi, Amal and Futeral, Matthieu and Muller, Benjamin and Ortiz Suarez, Pedro and Sagot, Benoît and Srivastava, Abhishek},
-  title     = {Building a User-Generated Content North-African Arabizi Treebank: Tackling Hell},
-  booktitle = {Proceedings of the 58th Annual Meeting of the Association for Computational Linguistics (ACL 2020)},
-  year      = {2020},
-  doi       = {10.18653/v1/2020.acl-main.678},
-}</pre>
-          </article>
-
-          <article class="pub fade-in" data-year="2020">
-            <div class="pub-header">
-              <span class="pub-badge">LREC</span>
-              <h3 class="pub-title">
-                <a href="https://aclanthology.org/2020.lrec-1.246" target="_blank" rel="noopener">
-                  Establishing a New State-of-the-Art for French Named Entity Recognition
-                </a>
-              </h3>
-            </div>
-            <p class="pub-authors"><span class="me">Pedro Ortiz Suarez</span>, Yoann Dupont, Benjamin Muller, Laurent Romary, Benoît Sagot</p>
-            <div class="pub-footer">
-              <div class="pub-links">
-                <a href="https://aclanthology.org/2020.lrec-1.246.pdf" class="pub-link" target="_blank" rel="noopener">PDF</a>
-                <a href="https://aclanthology.org/2020.lrec-1.246" class="pub-link" target="_blank" rel="noopener">ACL</a>
-              </div>
-              <button class="pub-copy-btn" type="button" aria-label="Copy BibTeX citation">
-                <svg viewBox="0 0 12 12" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="1"/><path d="M1 8V1h7" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                BibTeX
-              </button>
+              <button class="pub-copy-btn" type="button" aria-label="Copy BibTeX citation"><svg viewBox="0 0 12 12" aria-hidden="true" style="width:10px;height:10px;fill:none;stroke:currentColor;stroke-width:1.8;flex-shrink:0;vertical-align:middle"><rect x="4" y="4" width="7" height="7" rx="1"/><path d="M1 8V1h7" stroke-linecap="round" stroke-linejoin="round"/></svg> BibTeX</button>
             </div>
             <pre class="pub-bibtex">@inproceedings{ortizsuarez-etal-2020-ner,
-  author    = {Ortiz Suarez, Pedro and Dupont, Yoann and Muller, Benjamin and Romary, Laurent and Sagot, Benoît},
-  title     = {Establishing a New State-of-the-Art for French Named Entity Recognition},
-  booktitle = {Proceedings of the 12th Language Resources and Evaluation Conference (LREC 2020)},
+  author    = {Ortiz Suarez, Pedro and Dupont, Yoann and Muller, Benjamin and
+Romary, Laurent and Sagot, Benoît},
+  title     = {{Establishing a New State-of-the-Art for French Named Entity Recognition}},
+  booktitle = {Proceedings of the 12th Conference on Language Resources and
+Evaluation (LREC 2020)},
   year      = {2020},
-  url       = {https://aclanthology.org/2020.lrec-1.246},
+  url       = {https://aclanthology.org/2020.lrec-1.569},
 }</pre>
           </article>
 
           <article class="pub fade-in" data-year="2020">
-            <div class="pub-header">
-              <span class="pub-badge">CLEF</span>
-              <h3 class="pub-title">
-                <a href="https://ceur-ws.org/Vol-2696/paper_214.pdf" target="_blank" rel="noopener">
-                  SinNer@CLEF-HIPE2020: Sinful Adaptation of SotA models for Named Entity Recognition in Historical French and German Newspapers
-                </a>
-              </h3>
-            </div>
-            <p class="pub-authors"><span class="me">Pedro Ortiz Suarez</span>, Yoann Dupont, Gaël Lejeune, Tian Tian</p>
+            <h3 class="pub-title"><a href="https://ceur-ws.org/Vol-2696/paper_203.pdf" target="_blank" rel="noopener">SinNer@CLEF-HIPE2020: Sinful Adaptation of SotA Models for
+Named Entity Recognition in Historical French and German Newspapers</a></h3>
+            <p class="pub-authors"><span class="me">Pedro Ortiz Suarez</span>, Yoann Dupont, Gael Lejeune, Tian Tian</p>
+            <p class="pub-venue">Working Notes of CLEF 2020</p>
             <div class="pub-footer">
               <div class="pub-links">
-                <a href="https://ceur-ws.org/Vol-2696/paper_214.pdf" class="pub-link" target="_blank" rel="noopener">PDF</a>
-                <a href="https://ceur-ws.org/Vol-2696/" class="pub-link" target="_blank" rel="noopener">CEUR</a>
+              <a href="https://ceur-ws.org/Vol-2696/paper_203.pdf" class="pub-link" target="_blank" rel="noopener">PDF</a>
+              <a href="https://ceur-ws.org/Vol-2696/" class="pub-link" target="_blank" rel="noopener">CEUR</a>
               </div>
-              <button class="pub-copy-btn" type="button" aria-label="Copy BibTeX citation">
-                <svg viewBox="0 0 12 12" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="1"/><path d="M1 8V1h7" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                BibTeX
-              </button>
+              <button class="pub-copy-btn" type="button" aria-label="Copy BibTeX citation"><svg viewBox="0 0 12 12" aria-hidden="true" style="width:10px;height:10px;fill:none;stroke:currentColor;stroke-width:1.8;flex-shrink:0;vertical-align:middle"><rect x="4" y="4" width="7" height="7" rx="1"/><path d="M1 8V1h7" stroke-linecap="round" stroke-linejoin="round"/></svg> BibTeX</button>
             </div>
             <pre class="pub-bibtex">@inproceedings{ortizsuarez-etal-2020-sinner,
-  author    = {Ortiz Suarez, Pedro and Dupont, Yoann and Lejeune, Gaël and Tian, Tian},
-  title     = {{SinNer@CLEF-HIPE2020}: Sinful Adaptation of {SotA} models for Named Entity Recognition in Historical French and German Newspapers},
-  booktitle = {Proceedings of the CLEF 2020 Working Notes (CLEF-HIPE-2020)},
+  author    = {Ortiz Suarez, Pedro and Dupont, Yoann and Lejeune, Gael and Tian, Tian},
+  title     = {{SinNer@CLEF-HIPE2020: Sinful Adaptation of SotA Models for
+Named Entity Recognition in Historical French and German Newspapers}},
+  booktitle = {Working Notes of CLEF 2020},
   year      = {2020},
 }</pre>
           </article>
 
           <article class="pub fade-in" data-year="2020">
-            <div class="pub-header">
-              <span class="pub-badge">TALN</span>
-              <h3 class="pub-title">
-                <a href="https://aclanthology.org/2020.jeptalnrecital-taln.19" target="_blank" rel="noopener">
-                  Les modèles de langue contextuels Camembert pour le Français: impact de la taille et de l'hétérogénéité des données d'entrainement
-                </a>
-              </h3>
-            </div>
-            <p class="pub-authors">Louis Martin, Benjamin Muller, <span class="me">Pedro Ortiz Suarez</span>, Yoann Dupont, Laurent Romary, Éric de la Clergerie, Benoît Sagot, Djamé Seddah</p>
+            <h3 class="pub-title"><a href="https://aclanthology.org/2020.cmlc-1.3" target="_blank" rel="noopener">French Contextualized Word-Embeddings with a sip of CaBeRnet:
+a New French Balanced Reference Corpus</a></h3>
+            <p class="pub-authors">Murielle Popa-Fabre, <span class="me">Pedro Ortiz Suarez</span>, Benoît and
+de la Clergerie, Eric Sagot</p>
+            <p class="pub-venue">Proceedings of the 8th Workshop on Challenges in the Management of Large Corpora (CMLC-8)</p>
             <div class="pub-footer">
               <div class="pub-links">
-                <a href="https://aclanthology.org/2020.jeptalnrecital-taln.19.pdf" class="pub-link" target="_blank" rel="noopener">PDF</a>
-                <a href="https://aclanthology.org/2020.jeptalnrecital-taln.19" class="pub-link" target="_blank" rel="noopener">ACL</a>
+              <a href="https://aclanthology.org/2020.cmlc-1.3.pdf" class="pub-link" target="_blank" rel="noopener">PDF</a>
+              <a href="https://aclanthology.org/2020.cmlc-1.3" class="pub-link" target="_blank" rel="noopener">ACL</a>
               </div>
-              <button class="pub-copy-btn" type="button" aria-label="Copy BibTeX citation">
-                <svg viewBox="0 0 12 12" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="1"/><path d="M1 8V1h7" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                BibTeX
-              </button>
-            </div>
-            <pre class="pub-bibtex">@inproceedings{martin-etal-2020-camembert-taln,
-  author    = {Martin, Louis and Muller, Benjamin and Ortiz Suarez, Pedro and Dupont, Yoann and Romary, Laurent and de la Clergerie, Éric and Sagot, Benoît and Seddah, Djamé},
-  title     = {Les modèles de langue contextuels {Camembert} pour le Français},
-  booktitle = {Actes de la 27e Conférence sur le Traitement Automatique des Langues Naturelles (TALN 2020)},
-  year      = {2020},
-}</pre>
-          </article>
-
-          <article class="pub fade-in" data-year="2020">
-            <div class="pub-header">
-              <span class="pub-badge">CMLC-8</span>
-              <h3 class="pub-title">
-                <a href="https://aclanthology.org/2020.cmlc-1.3" target="_blank" rel="noopener">
-                  French Contextualized Word-Embeddings with a sip of CaBeRnet: a New French Balanced Reference Corpus
-                </a>
-              </h3>
-            </div>
-            <p class="pub-authors">Murielle Popa-Fabre, <span class="me">Pedro Ortiz Suarez</span>, Benoît Sagot, Éric de la Clergerie</p>
-            <div class="pub-footer">
-              <div class="pub-links">
-                <a href="https://aclanthology.org/2020.cmlc-1.3.pdf" class="pub-link" target="_blank" rel="noopener">PDF</a>
-                <a href="https://aclanthology.org/2020.cmlc-1.3" class="pub-link" target="_blank" rel="noopener">ACL</a>
-              </div>
-              <button class="pub-copy-btn" type="button" aria-label="Copy BibTeX citation">
-                <svg viewBox="0 0 12 12" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="1"/><path d="M1 8V1h7" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                BibTeX
-              </button>
+              <button class="pub-copy-btn" type="button" aria-label="Copy BibTeX citation"><svg viewBox="0 0 12 12" aria-hidden="true" style="width:10px;height:10px;fill:none;stroke:currentColor;stroke-width:1.8;flex-shrink:0;vertical-align:middle"><rect x="4" y="4" width="7" height="7" rx="1"/><path d="M1 8V1h7" stroke-linecap="round" stroke-linejoin="round"/></svg> BibTeX</button>
             </div>
             <pre class="pub-bibtex">@inproceedings{popafarbe-etal-2020-cabernet,
-  author    = {Popa-Fabre, Murielle and Ortiz Suarez, Pedro and Sagot, Benoît and de la Clergerie, Éric},
-  title     = {French Contextualized Word-Embeddings with a sip of {CaBeRnet}: a New French Balanced Reference Corpus},
-  booktitle = {Proceedings of the 8th Workshop on Challenges in the Management of Large Corpora (CMLC-8)},
+  author    = {Popa-Fabre, Murielle and Ortiz Suarez, Pedro and Sagot, Benoît and
+de la Clergerie, Eric},
+  title     = {{French Contextualized Word-Embeddings with a sip of CaBeRnet:
+a New French Balanced Reference Corpus}},
+  booktitle = {Proceedings of the 8th Workshop on Challenges in the Management
+of Large Corpora (CMLC-8)},
   year      = {2020},
   url       = {https://aclanthology.org/2020.cmlc-1.3},
+}</pre>
+          </article>
+
+          <article class="pub fade-in" data-year="2020">
+            <h3 class="pub-title"><a href="https://aclanthology.org/2020.acl-main.107" target="_blank" rel="noopener">Building a User-Generated Content North-African Arabizi Treebank:
+Tackling Hell</a></h3>
+            <p class="pub-authors">Djame Seddah, Farah Essaidi, Amal and
+Futeral, Matthieu Fethi, Benjamin Muller, Pedro and
+Sagot, Benoît Ortiz Suarez, Abhishek Srivastava</p>
+            <p class="pub-venue">Proceedings of the 58th Annual Meeting of the Association for Computational Linguistics (ACL 2020)</p>
+            <div class="pub-footer">
+              <div class="pub-links">
+              <a href="https://aclanthology.org/2020.acl-main.107.pdf" class="pub-link" target="_blank" rel="noopener">PDF</a>
+              <a href="https://aclanthology.org/2020.acl-main.107" class="pub-link" target="_blank" rel="noopener">ACL</a>
+              <a href="https://doi.org/10.18653/v1/2020.acl-main.107" class="pub-link" target="_blank" rel="noopener">DOI</a>
+              </div>
+              <button class="pub-copy-btn" type="button" aria-label="Copy BibTeX citation"><svg viewBox="0 0 12 12" aria-hidden="true" style="width:10px;height:10px;fill:none;stroke:currentColor;stroke-width:1.8;flex-shrink:0;vertical-align:middle"><rect x="4" y="4" width="7" height="7" rx="1"/><path d="M1 8V1h7" stroke-linecap="round" stroke-linejoin="round"/></svg> BibTeX</button>
+            </div>
+            <pre class="pub-bibtex">@inproceedings{seddah-etal-2020-arabizi,
+  author    = {Seddah, Djame and Essaidi, Farah and Fethi, Amal and
+Futeral, Matthieu and Muller, Benjamin and Ortiz Suarez, Pedro and
+Sagot, Benoît and Srivastava, Abhishek},
+  title     = {{Building a User-Generated Content North-African Arabizi Treebank:
+Tackling Hell}},
+  booktitle = {Proceedings of the 58th Annual Meeting of the Association for
+Computational Linguistics (ACL 2020)},
+  year      = {2020},
+  doi       = {10.18653/v1/2020.acl-main.107},
+  url       = {https://aclanthology.org/2020.acl-main.107},
 }</pre>
           </article>
 
@@ -1461,67 +2075,59 @@
         <div class="pub-list">
 
           <article class="pub fade-in" data-year="2019">
-            <div class="pub-header">
-              <span class="pub-badge">CMLC-7</span>
-              <h3 class="pub-title">
-                <a href="https://ids-pub.bsz-bw.de/frontdoor/index/index/docId/9021" target="_blank" rel="noopener">
-                  Asynchronous Pipeline for Processing Huge Corpora on Medium to Low Resource Infrastructures
-                </a>
-              </h3>
-            </div>
-            <p class="pub-authors"><span class="me">Pedro Ortiz Suarez</span>, Benoît Sagot, Laurent Romary</p>
+            <h3 class="pub-title"><a href="https://halshs.archives-ouvertes.fr/halshs-02272410" target="_blank" rel="noopener">How OCR Performance can Impact on the Automatic Extraction of
+Dictionary Content Structures</a></h3>
+            <p class="pub-authors">Mohamed Khemakhem, Ioana Galleron, Geoffrey and
+Romary, Laurent Williams, <span class="me">Pedro Ortiz Suarez</span></p>
+            <p class="pub-venue">Proceedings of the Text Encoding Initiative Conference (TEI 2019)</p>
             <div class="pub-footer">
               <div class="pub-links">
-                <a href="https://ids-pub.bsz-bw.de/frontdoor/deliver/index/docId/9021/file/Suarez_Asynchronous_Pipeline_2019.pdf" class="pub-link" target="_blank" rel="noopener">PDF</a>
-                <a href="https://oscar-corpus.com" class="pub-link" target="_blank" rel="noopener">OSCAR</a>
-                <a href="https://github.com/pjox/goclassy" class="pub-link" target="_blank" rel="noopener">Code</a>
+              <a href="https://halshs.archives-ouvertes.fr/halshs-02272410" class="pub-link" target="_blank" rel="noopener">HAL</a>
               </div>
-              <button class="pub-copy-btn" type="button" aria-label="Copy BibTeX citation">
-                <svg viewBox="0 0 12 12" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="1"/><path d="M1 8V1h7" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                BibTeX
-              </button>
-            </div>
-            <pre class="pub-bibtex">@inproceedings{ortizsuarez-etal-2019-asynchronous,
-  author    = {Ortiz Suarez, Pedro and Sagot, Benoît and Romary, Laurent},
-  title     = {Asynchronous Pipeline for Processing Huge Corpora on Medium to Low Resource Infrastructures},
-  booktitle = {Proceedings of the 7th Workshop on Challenges in the Management of Large Corpora (CMLC-7)},
-  year      = {2019},
-  url       = {https://ids-pub.bsz-bw.de/frontdoor/index/index/docId/9021},
-}</pre>
-          </article>
-
-          <article class="pub fade-in" data-year="2019">
-            <div class="pub-header">
-              <span class="pub-badge">TEI</span>
-              <h3 class="pub-title">
-                How OCR Performance can Impact on the Automatic Extraction of Dictionary Content Structures
-              </h3>
-            </div>
-            <p class="pub-authors">Mohamed Khemakhem, Ioana Galleron, Geoffrey Williams, Laurent Romary, <span class="me">Pedro Ortiz Suarez</span></p>
-            <div class="pub-footer">
-              <div class="pub-links">
-                <a href="https://halshs.archives-ouvertes.fr/halshs-02272410" class="pub-link" target="_blank" rel="noopener">HAL</a>
-              </div>
-              <button class="pub-copy-btn" type="button" aria-label="Copy BibTeX citation">
-                <svg viewBox="0 0 12 12" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="1"/><path d="M1 8V1h7" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                BibTeX
-              </button>
+              <button class="pub-copy-btn" type="button" aria-label="Copy BibTeX citation"><svg viewBox="0 0 12 12" aria-hidden="true" style="width:10px;height:10px;fill:none;stroke:currentColor;stroke-width:1.8;flex-shrink:0;vertical-align:middle"><rect x="4" y="4" width="7" height="7" rx="1"/><path d="M1 8V1h7" stroke-linecap="round" stroke-linejoin="round"/></svg> BibTeX</button>
             </div>
             <pre class="pub-bibtex">@inproceedings{khemakhem-etal-2019-ocr,
-  author    = {Khemakhem, Mohamed and Galleron, Ioana and Williams, Geoffrey and Romary, Laurent and Ortiz Suarez, Pedro},
-  title     = {How {OCR} Performance can Impact on the Automatic Extraction of Dictionary Content Structures},
+  author    = {Khemakhem, Mohamed and Galleron, Ioana and Williams, Geoffrey and
+Romary, Laurent and Ortiz Suarez, Pedro},
+  title     = {{How OCR Performance can Impact on the Automatic Extraction of
+Dictionary Content Structures}},
   booktitle = {Proceedings of the Text Encoding Initiative Conference (TEI 2019)},
   year      = {2019},
   url       = {https://halshs.archives-ouvertes.fr/halshs-02272410},
 }</pre>
           </article>
 
+          <article class="pub fade-in" data-year="2019">
+            <h3 class="pub-title"><a href="https://oscar-corpus.com" target="_blank" rel="noopener">Asynchronous Pipeline for Processing Huge Corpora on Medium to
+Low Resource Infrastructures</a></h3>
+            <p class="pub-authors"><span class="me">Pedro Ortiz Suarez</span>, Benoît Sagot, Laurent Romary</p>
+            <p class="pub-venue">Proceedings of the 7th Workshop on Challenges in the Management of Large Corpora (CMLC-7)</p>
+            <div class="pub-footer">
+              <div class="pub-links">
+              <a href="https://ids-pub.bsz-bw.de/frontdoor/deliver/index/docId/9021/file/Suarez_Asynchronous_Pipeline_2019.pdf" class="pub-link" target="_blank" rel="noopener">PDF</a>
+              <a href="https://github.com/pjox/goclassy" class="pub-link" target="_blank" rel="noopener">Code</a>
+              <a href="https://oscar-corpus.com" class="pub-link" target="_blank" rel="noopener">Project</a>
+              </div>
+              <button class="pub-copy-btn" type="button" aria-label="Copy BibTeX citation"><svg viewBox="0 0 12 12" aria-hidden="true" style="width:10px;height:10px;fill:none;stroke:currentColor;stroke-width:1.8;flex-shrink:0;vertical-align:middle"><rect x="4" y="4" width="7" height="7" rx="1"/><path d="M1 8V1h7" stroke-linecap="round" stroke-linejoin="round"/></svg> BibTeX</button>
+            </div>
+            <pre class="pub-bibtex">@inproceedings{ortizsuarez-etal-2019-asynchronous,
+  author    = {Ortiz Suarez, Pedro and Sagot, Benoît and Romary, Laurent},
+  title     = {{Asynchronous Pipeline for Processing Huge Corpora on Medium to
+Low Resource Infrastructures}},
+  booktitle = {Proceedings of the 7th Workshop on Challenges in the Management
+of Large Corpora (CMLC-7)},
+  year      = {2019},
+}</pre>
+          </article>
+
         </div>
       </div><!-- /2019 -->
 
-      <!-- ═══════════════════════════════════════════════════════
-           PUBLICATIONS_END
-           ═══════════════════════════════════════════════════════ -->
+      <!-- PUBLICATIONS_END -->
+
+      <div id="pub-show-all-wrap" style="text-align:center;margin-top:1.5rem">
+        <button id="pub-show-all" class="pub-show-all-btn" type="button" hidden></button>
+      </div>
 
     </section>
 
@@ -1561,6 +2167,30 @@
   </footer>
 
   <!-- ============================================================
+       BIBTEX MODAL
+       ============================================================ -->
+  <div id="bibtex-modal" class="bib-modal" role="dialog" aria-modal="true" aria-labelledby="bib-modal-title" hidden>
+    <div class="bib-modal-backdrop"></div>
+    <div class="bib-modal-box">
+      <div class="bib-modal-header">
+        <h3 id="bib-modal-title" class="bib-modal-title">BibTeX Citation</h3>
+        <button class="bib-modal-close" aria-label="Close">&#x2715;</button>
+      </div>
+      <pre class="bib-modal-content" id="bib-modal-content"></pre>
+      <div class="bib-modal-footer">
+        <button class="bib-modal-btn bib-modal-copy" id="bib-modal-copy">
+          <svg viewBox="0 0 12 12" width="11" height="11" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="1"/><path d="M1 8V1h7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Copy
+        </button>
+        <button class="bib-modal-btn bib-modal-download" id="bib-modal-download">
+          <svg viewBox="0 0 12 12" width="11" height="11" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M6 1v7M3 5l3 3 3-3" stroke-linecap="round" stroke-linejoin="round"/><path d="M1 10h10" stroke-linecap="round"/></svg>
+          Download .bib
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
        INLINE JAVASCRIPT
        ============================================================ -->
   <script>
@@ -1582,24 +2212,51 @@
     });
 
     // ── Publication filter & search ────────────────────────────
-    const searchInput = document.getElementById('pub-search');
-    const filterBtns  = document.querySelectorAll('.filter-btn');
-    const pubs        = document.querySelectorAll('.pub');
-    const yearGroups  = document.querySelectorAll('.pub-year-group');
-    let activeYear    = 'all';
+    const searchInput  = document.getElementById('pub-search');
+    const filterBtns   = document.querySelectorAll('.filter-btn');
+    const pubs         = document.querySelectorAll('.pub');
+    const yearGroups   = document.querySelectorAll('.pub-year-group');
+    const showAllBtn   = document.getElementById('pub-show-all');
+    const DEFAULT_SHOW = 10;
+    let activeYear     = 'all';
+    let showAll        = false;
 
     function applyFilters() {
-      const query = searchInput.value.trim().toLowerCase();
+      const query      = searchInput.value.trim().toLowerCase();
+      const isFiltered = activeYear !== 'all' || query.length > 0;
+
+      let shown = 0;
       pubs.forEach(pub => {
         const yearOk   = activeYear === 'all' || pub.dataset.year === activeYear;
         const searchOk = !query || pub.textContent.toLowerCase().includes(query);
-        pub.hidden = !(yearOk && searchOk);
+        const matches  = yearOk && searchOk;
+
+        if (!matches) {
+          pub.hidden = true;
+        } else if (isFiltered || showAll) {
+          pub.hidden = false;
+        } else {
+          pub.hidden = shown >= DEFAULT_SHOW;
+          if (!pub.hidden) shown++;
+        }
       });
+
       yearGroups.forEach(group => {
-        const visible = [...group.querySelectorAll('.pub')].some(p => !p.hidden);
-        group.hidden = !visible;
+        group.hidden = [...group.querySelectorAll('.pub')].every(p => p.hidden);
       });
+
+      // Show the "Show all" button only in the default (unfiltered, unexpanded) state
+      const hiddenCount = [...pubs].filter(p => p.hidden && (activeYear === 'all' || p.dataset.year === activeYear)).length;
+      showAllBtn.hidden = isFiltered || showAll || hiddenCount === 0;
+      if (!showAllBtn.hidden) {
+        showAllBtn.textContent = `Show all ${pubs.length} publications`;
+      }
     }
+
+    showAllBtn.addEventListener('click', () => {
+      showAll = true;
+      applyFilters();
+    });
 
     filterBtns.forEach(btn => {
       btn.addEventListener('click', () => {
@@ -1611,22 +2268,67 @@
     });
     searchInput.addEventListener('input', applyFilters);
 
-    // ── BibTeX copy ─────────────────────────────────────────────
+    // Apply initial 10-publication limit on load
+    applyFilters();
+
+    // ── BibTeX modal ─────────────────────────────────────────────
+    const bibModal    = document.getElementById('bibtex-modal');
+    const bibContent  = document.getElementById('bib-modal-content');
+    const bibCopyBtn  = document.getElementById('bib-modal-copy');
+    const bibDlBtn    = document.getElementById('bib-modal-download');
+    const bibClose    = bibModal.querySelector('.bib-modal-close');
+    const bibBackdrop = bibModal.querySelector('.bib-modal-backdrop');
+
+    const _copyIconHTML = `<svg viewBox="0 0 12 12" width="11" height="11" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="1"/><path d="M1 8V1h7" stroke-linecap="round" stroke-linejoin="round"/></svg> Copy`;
+
+    function openBibModal(text) {
+      bibContent.textContent = text;
+      bibCopyBtn.innerHTML = _copyIconHTML;
+      bibCopyBtn.classList.remove('copied');
+      bibModal.hidden = false;
+      document.body.style.overflow = 'hidden';
+      bibClose.focus();
+    }
+    function closeBibModal() {
+      bibModal.hidden = true;
+      document.body.style.overflow = '';
+    }
+
+    bibClose.addEventListener('click', closeBibModal);
+    bibBackdrop.addEventListener('click', closeBibModal);
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && !bibModal.hidden) closeBibModal();
+    });
+
+    bibCopyBtn.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(bibContent.textContent);
+        bibCopyBtn.innerHTML = '✓ Copied';
+        bibCopyBtn.classList.add('copied');
+        setTimeout(() => {
+          bibCopyBtn.innerHTML = _copyIconHTML;
+          bibCopyBtn.classList.remove('copied');
+        }, 2000);
+      } catch {}
+    });
+
+    bibDlBtn.addEventListener('click', () => {
+      const text = bibContent.textContent;
+      const keyMatch = text.match(/@\w+\{([^,]+),/);
+      const filename = keyMatch ? `${keyMatch[1].trim()}.bib` : 'citation.bib';
+      const blob = new Blob([text], { type: 'text/plain' });
+      const url  = URL.createObjectURL(blob);
+      const a    = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      a.click();
+      URL.revokeObjectURL(url);
+    });
+
     document.querySelectorAll('.pub-copy-btn').forEach(btn => {
-      btn.addEventListener('click', async () => {
+      btn.addEventListener('click', () => {
         const pre = btn.closest('.pub').querySelector('.pub-bibtex');
-        if (!pre) return;
-        try {
-          await navigator.clipboard.writeText(pre.textContent.trim());
-          btn.classList.add('copied');
-          btn.textContent = '✓ Copied';
-          setTimeout(() => {
-            btn.classList.remove('copied');
-            btn.innerHTML = `<svg viewBox="0 0 12 12" aria-hidden="true" style="width:10px;height:10px;fill:none;stroke:currentColor;stroke-width:1.8;flex-shrink:0;vertical-align:middle"><rect x="4" y="4" width="7" height="7" rx="1"/><path d="M1 8V1h7" stroke-linecap="round" stroke-linejoin="round"/></svg> BibTeX`;
-          }, 2000);
-        } catch {
-          // Clipboard access denied — silent fail
-        }
+        if (pre) openBibModal(pre.textContent.trim());
       });
     });
 

@@ -61,25 +61,28 @@ MARKER_END = "<!-- PUBLICATIONS_END -->"
 
 # Venue shorthands: lowercase substrings → badge label
 VENUE_MAP: list[tuple[str, str]] = [
-    (
-        "transactions of the association for computational linguistics",
-        "TACL",
-    ),
-    (
-        "annual meeting of the association for computational linguistics",
-        "ACL",
-    ),
+    # Journals
+    ("transactions of the association for computational linguistics", "TACL"),
+    ("northern european journal of language technology", "NEJLT"),
+    # Major *ACL conferences
+    ("annual meeting of the association for computational linguistics", "ACL"),
     ("empirical methods in natural language processing", "EMNLP"),
     ("north american chapter", "NAACL"),
     ("european chapter", "EACL"),
-    (
-        "international conference on computational linguistics",
-        "COLING",
-    ),
+    ("international conference on computational linguistics", "COLING"),
     ("language resources and evaluation", "LREC"),
     ("traitement automatique des langues naturelles", "TALN"),
     ("findings of the association", "Findings"),
+    # Other conferences
+    ("neural information processing systems", "NeurIPS"),
+    ("european conference on artificial intelligence", "ECAI"),
+    ("conference on machine translation", "WMT"),
+    # Workshops (specific before generic)
     ("challenges in the management of large corpora", "CMLC"),
+    ("natural language processing for digital humanities", "NLP4DH"),
+    ("multilingual representation learning", "MRL"),
+    ("technologies for machine translation of low-resource", "LoResMT"),
+    ("table representation learning", "TRL"),
     ("clef", "CLEF"),
     ("text encoding initiative", "TEI"),
     ("workshop", "Workshop"),
@@ -127,28 +130,23 @@ def format_authors(raw: str) -> str:
     return ", ".join(highlight_author(a) for a in parse_authors(raw))
 
 
-def infer_venue_badge(entry: dict) -> str:
-    """Derive a short venue label from the entry."""
+def get_venue_display(entry: dict) -> tuple[str, str]:
+    """Return (venue_text, venue_css_class) for display below the authors."""
     etype = entry.get("ENTRYTYPE", "")
+
     if etype == "phdthesis":
-        return "Thesis"
+        school = " ".join(entry.get("school", "").split())
+        text = f"PhD Thesis · {school}" if school else "PhD Thesis"
+        return text, "pub-venue pub-venue--thesis"
+
     if etype == "misc" and not entry.get("booktitle"):
-        return "Preprint"
+        return "Preprint", "pub-venue pub-venue--preprint"
 
-    source = (
-        entry.get("booktitle", "") + " " + entry.get("journal", "")
-    ).lower()
-
-    for substring, label in VENUE_MAP:
-        if substring in source:
-            if label == "CMLC":
-                m = re.search(r"cmlc[- ]?(\d+)", source)
-                if m:
-                    label = f"CMLC-{m.group(1)}"
-            return label
-
-    raw = entry.get("booktitle") or entry.get("journal") or "Publication"
-    return " ".join(w.capitalize() for w in raw.split()[:3])
+    raw = entry.get("booktitle") or entry.get("journal") or ""
+    # Normalize whitespace and strip BibTeX brace groups
+    raw = " ".join(raw.split())
+    raw = re.sub(r"\{([^}]*)\}", r"\1", raw).strip()
+    return raw or "Publication", "pub-venue"
 
 
 def build_links(entry: dict) -> list[tuple[str, str]]:
@@ -234,15 +232,7 @@ def render_pub(entry: dict) -> str:
     title = re.sub(r"\{([^}]*)\}", r"\1", title)
 
     authors = format_authors(entry.get("author", ""))
-    badge = infer_venue_badge(entry)
-
-    badge_cls = "pub-badge"
-    if entry.get("badge_class"):
-        badge_cls += f" {entry['badge_class'].strip()}"
-    elif entry.get("ENTRYTYPE") == "phdthesis":
-        badge_cls += " badge-thesis"
-    elif entry.get("ENTRYTYPE") == "misc" and not entry.get("booktitle"):
-        badge_cls += " badge-preprint"
+    venue_text, venue_cls = get_venue_display(entry)
 
     links = build_links(entry)
 
@@ -283,11 +273,9 @@ def render_pub(entry: dict) -> str:
     return textwrap.dedent(
         f"""\
           <article class="pub fade-in" data-year="{html.escape(year)}">
-            <div class="pub-header">
-              <span class="{badge_cls}">{html.escape(badge)}</span>
-              <h3 class="pub-title">{title_html}</h3>
-            </div>
+            <h3 class="pub-title">{title_html}</h3>
             <p class="pub-authors">{authors}</p>
+            <p class="{venue_cls}">{html.escape(venue_text)}</p>
             <div class="pub-footer">
               <div class="pub-links">{link_tags}
               </div>{copy_btn}
