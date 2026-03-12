@@ -1,0 +1,1648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Pedro Ortiz Suarez — Senior Research Scientist at Common Crawl Foundation. Research in large corpora, language modeling, and NLP for under-resourced languages.">
+  <meta name="author" content="Pedro Ortiz Suarez">
+  <meta property="og:title" content="Pedro Ortiz Suarez">
+  <meta property="og:description" content="Senior Research Scientist at Common Crawl Foundation. Working on large corpora, language modeling, and NLP for under-resourced languages.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://portizs.eu">
+  <title>Pedro Ortiz Suarez</title>
+
+  <!-- Fonts: Inter (display & body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Academicons for academic profile icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.4/css/academicons.min.css">
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%235aaeff'/><text y='.9em' font-size='72' x='14' fill='%230b1220' font-family='Georgia,serif' font-weight='600'>P</text></svg>">
+
+  <style>
+    /* ============================================================
+       DESIGN TOKENS — steel / metallic dark blue palette
+       ============================================================ */
+    :root {
+      --bg:          #060b15;
+      --bg-2:        #0a1422;
+      --bg-3:        #0e1e30;
+      --border:      #1a2b45;
+      --border-2:    #243d60;
+      --text:        #c8ddf5;
+      --text-2:      #8aa0bf;
+      --text-3:      #4a6080;
+      --accent:      #5aaeff;
+      --accent-2:    #82c6ff;
+      --accent-bg:   #071830;
+      --gold:        #d4a832;
+      --white:       #eaf2ff;
+
+      --font-sans:   'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+
+      --radius:      8px;
+      --max-w:       1100px;
+      --nav-h:       60px;
+    }
+
+    /* ============================================================
+       RESET & BASE
+       ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+      font-size: 1rem;
+      line-height: 1.65;
+      min-height: 100vh;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; }
+    img { display: block; max-width: 100%; }
+
+    :focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+      border-radius: 3px;
+    }
+
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: 1rem;
+      background: var(--accent);
+      color: var(--bg);
+      font-weight: 600;
+      font-size: 0.875rem;
+      padding: 0.5rem 1rem;
+      border-radius: 0 0 var(--radius) var(--radius);
+      text-decoration: none;
+      z-index: 1000;
+      transition: top 0.2s;
+    }
+    .skip-link:focus { top: 0; }
+
+    /* ============================================================
+       NAVIGATION
+       ============================================================ */
+    nav.site-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--nav-h);
+      background: rgba(6, 11, 21, 0.9);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-brand {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--white);
+      text-decoration: none;
+      letter-spacing: -0.01em;
+    }
+    .nav-brand span { color: var(--accent); }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.825rem;
+      color: var(--text-2);
+      text-decoration: none;
+      letter-spacing: 0.03em;
+      transition: color 0.18s;
+    }
+    .nav-links a:hover { color: var(--white); }
+
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.5rem;
+      color: var(--text-2);
+    }
+    .nav-toggle:hover { color: var(--white); }
+
+    /* ============================================================
+       LAYOUT
+       ============================================================ */
+    main {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    section {
+      padding: 5rem 0 4.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    section:last-of-type { border-bottom: none; }
+
+    .eyebrow {
+      display: block;
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.65rem;
+    }
+
+    h2 {
+      font-size: clamp(1.5rem, 4vw, 2rem);
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: 2.25rem;
+    }
+
+    /* ============================================================
+       ABOUT / HERO
+       ============================================================ */
+    #about {
+      padding-top: 4.5rem;
+      display: grid;
+      grid-template-columns: 176px 1fr;
+      gap: 2.75rem;
+      align-items: start;
+      border-bottom: none; /* no divider directly under the bio */
+    }
+
+    /* Left column: avatar + icon grid */
+    .avatar-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.1rem;
+    }
+
+    .avatar,
+    .avatar-fallback {
+      width: 128px;
+      height: 128px;
+      border-radius: 50%;
+      border: 2px solid var(--border-2);
+    }
+    .avatar { object-fit: cover; }
+    .avatar-fallback {
+      background: var(--bg-3);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-sans);
+      font-size: 2.2rem;
+      font-weight: 600;
+      color: var(--text-2);
+    }
+
+    /* Icon grid below avatar */
+    .avatar-icons {
+      display: grid;
+      grid-template-columns: repeat(4, 36px);
+      gap: 0.45rem;
+    }
+
+    .icon-btn {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border-2);
+      border-radius: 50%;
+      color: var(--text-2);
+      text-decoration: none;
+      transition: color 0.18s, border-color 0.18s, background 0.18s;
+      flex-shrink: 0;
+    }
+    .icon-btn:hover {
+      color: var(--white);
+      border-color: var(--accent);
+      background: var(--accent-bg);
+    }
+    .icon-btn svg {
+      width: 15px;
+      height: 15px;
+      fill: currentColor;
+      flex-shrink: 0;
+    }
+    /* Academicons font-icon sizing */
+    .icon-btn .ai {
+      font-size: 1.05rem;
+      line-height: 1;
+    }
+
+    /* Right column: bio content */
+    .hero-name {
+      font-size: clamp(1.8rem, 5vw, 2.5rem);
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.3rem;
+    }
+
+    .hero-role {
+      font-size: 0.975rem;
+      color: var(--accent-2);
+      font-weight: 400;
+      margin-bottom: 0.2rem;
+    }
+
+    .hero-org {
+      font-size: 0.875rem;
+      color: var(--text-2);
+      margin-bottom: 1.5rem;
+    }
+
+    .bio {
+      font-size: 0.925rem;
+      color: var(--text);
+      line-height: 1.8;
+    }
+
+    /* ============================================================
+       RESEARCH & EDUCATION
+       ============================================================ */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    .two-col > div {
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.75rem 2rem;
+    }
+
+    .subsection-title {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-3);
+      margin-bottom: 1rem;
+    }
+
+    /* Interest tags */
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      list-style: none;
+    }
+    .tag {
+      font-size: 0.775rem;
+      color: var(--accent-2);
+      background: var(--accent-bg);
+      border: 1px solid rgba(90,174,255,0.18);
+      padding: 0.28rem 0.75rem;
+      border-radius: 100px;
+    }
+
+    /* Education list */
+    .edu-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;
+    }
+
+    .edu-item {
+      display: flex;
+      align-items: center;   /* vertically center the dot with the full item */
+      gap: 0.85rem;
+    }
+
+    .edu-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+      opacity: 0.55;
+      flex-shrink: 0;
+    }
+
+    .edu-degree {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--text);
+      line-height: 1.35;
+    }
+    .edu-meta {
+      font-size: 0.775rem;
+      color: var(--text-2);
+      margin-top: 0.1rem;
+    }
+
+    /* ============================================================
+       PUBLICATIONS
+       ============================================================ */
+    .pub-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.75rem 1rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .pub-search {
+      flex: 1;
+      min-width: 200px;
+      max-width: 300px;
+      background: var(--bg-2);
+      border: 1px solid var(--border-2);
+      border-radius: var(--radius);
+      color: var(--text);
+      font-family: var(--font-sans);
+      font-size: 0.825rem;
+      padding: 0.45rem 0.85rem;
+      transition: border-color 0.18s;
+    }
+    .pub-search::placeholder { color: var(--text-3); }
+    .pub-search:focus { outline: none; border-color: var(--accent); }
+
+    .pub-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+    .filter-btn {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      color: var(--text-2);
+      background: none;
+      border: 1px solid var(--border-2);
+      padding: 0.28rem 0.72rem;
+      border-radius: 100px;
+      cursor: pointer;
+      transition: color 0.18s, border-color 0.18s, background 0.18s;
+    }
+    .filter-btn:hover,
+    .filter-btn[aria-pressed="true"] {
+      color: var(--white);
+      border-color: var(--accent);
+      background: var(--accent-bg);
+    }
+
+    .pub-year-group { margin-bottom: 2.75rem; }
+    .pub-year-heading {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-3);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .pub-year-heading::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .pub-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    /* Publication card */
+    .pub {
+      position: relative;
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.2rem 1.4rem;
+      transition: border-color 0.2s, transform 0.2s;
+      overflow: hidden;
+    }
+    .pub::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 3px;
+      background: var(--accent);
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .pub:hover { border-color: var(--border-2); transform: translateX(3px); }
+    .pub:hover::before { opacity: 1; }
+
+    .pub-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.7rem;
+      margin-bottom: 0.45rem;
+    }
+
+    .pub-badge {
+      flex-shrink: 0;
+      margin-top: 0.18rem;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--accent-2);
+      background: var(--accent-bg);
+      border: 1px solid rgba(90,174,255,0.2);
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+    .pub-badge.badge-thesis {
+      color: var(--gold);
+      background: rgba(212,168,50,0.08);
+      border-color: rgba(212,168,50,0.2);
+    }
+    .pub-badge.badge-preprint {
+      color: var(--text-2);
+      background: rgba(138,160,191,0.08);
+      border-color: rgba(138,160,191,0.2);
+    }
+
+    .pub-title {
+      font-size: 0.925rem;
+      font-weight: 500;
+      color: var(--white);
+      line-height: 1.4;
+    }
+    .pub-title a { text-decoration: none; transition: color 0.18s; }
+    .pub-title a:hover { color: var(--accent-2); }
+
+    .pub-authors {
+      font-size: 0.8rem;
+      color: var(--text-2);
+      line-height: 1.55;
+      margin-bottom: 0.8rem;
+    }
+    .pub-authors .me {
+      color: var(--gold);
+      font-weight: 500;
+    }
+
+    .pub-footer {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    .pub-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .pub-link {
+      font-size: 0.69rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--text-2);
+      text-decoration: none;
+      padding: 0.2rem 0.55rem;
+      border: 1px solid var(--border-2);
+      border-radius: 4px;
+      transition: color 0.15s, border-color 0.15s, background 0.15s;
+    }
+    .pub-link:hover {
+      color: var(--white);
+      border-color: var(--accent);
+      background: var(--accent-bg);
+    }
+
+    /* BibTeX copy button — styled like pub-link but it's a <button> */
+    .pub-copy-btn {
+      font-size: 0.69rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--text-3);
+      background: none;
+      border: 1px solid var(--border);
+      padding: 0.2rem 0.55rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: inherit;
+      transition: color 0.15s, border-color 0.15s, background 0.15s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .pub-copy-btn:hover {
+      color: var(--text-2);
+      border-color: var(--border-2);
+    }
+    .pub-copy-btn.copied {
+      color: var(--accent-2);
+      border-color: var(--accent);
+      background: var(--accent-bg);
+    }
+    .pub-copy-btn svg {
+      width: 10px;
+      height: 10px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.8;
+      flex-shrink: 0;
+    }
+
+    /* Hidden BibTeX data */
+    .pub-bibtex { display: none; }
+
+    /* ============================================================
+       BLOG SECTION
+       ============================================================ */
+    .blog-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .blog-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.5rem;
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.2rem 1.4rem;
+      text-decoration: none;
+      color: inherit;
+      transition: border-color 0.2s, transform 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .blog-card::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 3px;
+      background: var(--accent);
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .blog-card:hover {
+      border-color: var(--border-2);
+      transform: translateX(3px);
+    }
+    .blog-card:hover::before { opacity: 1; }
+
+    .blog-date {
+      font-size: 0.75rem;
+      color: var(--text-3);
+      white-space: nowrap;
+      padding-top: 0.22rem;
+      flex-shrink: 0;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .blog-card-body { flex: 1; }
+
+    .blog-card h3 {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--white);
+      margin-bottom: 0.25rem;
+      transition: color 0.18s;
+    }
+    .blog-card:hover h3 { color: var(--accent-2); }
+
+    .blog-card p {
+      font-size: 0.825rem;
+      color: var(--text-2);
+      line-height: 1.55;
+    }
+
+    .blog-tag {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: var(--accent-bg);
+      border: 1px solid rgba(90,174,255,0.18);
+      padding: 0.15rem 0.5rem;
+      border-radius: 100px;
+      display: inline-block;
+      margin-bottom: 0.5rem;
+    }
+
+    /* ============================================================
+       SCROLL-IN ANIMATION
+       ============================================================ */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 0.48s ease, transform 0.48s ease;
+    }
+    .fade-in.visible { opacity: 1; transform: none; }
+    .pub-list .pub:nth-child(2) { transition-delay: 0.05s; }
+    .pub-list .pub:nth-child(3) { transition-delay: 0.10s; }
+    .pub-list .pub:nth-child(4) { transition-delay: 0.14s; }
+    .pub-list .pub:nth-child(5) { transition-delay: 0.18s; }
+
+    /* ============================================================
+       FOOTER
+       ============================================================ */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 1.5rem;
+      max-width: var(--max-w);
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+    .footer-copy {
+      font-size: 0.75rem;
+      color: var(--text-3);
+    }
+    .footer-license {
+      font-size: 0.75rem;
+      color: var(--text-3);
+      text-decoration: none;
+      transition: color 0.18s;
+    }
+    .footer-license:hover { color: var(--accent-2); }
+    .footer-links {
+      display: flex;
+      gap: 1.25rem;
+    }
+    .footer-links a {
+      font-size: 0.75rem;
+      color: var(--text-3);
+      text-decoration: none;
+      transition: color 0.18s;
+    }
+    .footer-links a:hover { color: var(--accent-2); }
+
+    /* ============================================================
+       MOBILE
+       ============================================================ */
+    @media (max-width: 640px) {
+      #about {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .avatar-col {
+        flex-direction: row;
+        align-items: flex-end;
+        gap: 1.25rem;
+      }
+
+      .avatar-icons {
+        grid-template-columns: repeat(7, 34px);
+      }
+
+      .two-col {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+
+      .nav-links {
+        display: none;
+        position: fixed;
+        inset: var(--nav-h) 0 0 0;
+        background: var(--bg);
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding-top: 4rem;
+        gap: 2.25rem;
+        z-index: 99;
+        border-top: 1px solid var(--border);
+      }
+      .nav-links.open { display: flex; }
+      .nav-links a { font-size: 1.1rem; }
+      .nav-toggle { display: flex; }
+
+      .blog-card {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+    }
+
+    /* ============================================================
+       PRINT
+       ============================================================ */
+    @media print {
+      nav, footer, .pub-toolbar, .pub-copy-btn { display: none; }
+      body { background: white; color: black; font-size: 11pt; }
+      .pub { border: 1px solid #ccc; page-break-inside: avoid; }
+    }
+  </style>
+</head>
+
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <!-- ============================================================
+       NAVIGATION
+       ============================================================ -->
+  <nav class="site-nav" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="#" class="nav-brand">Pedro <span>Ortiz Suarez</span></a>
+      <ul class="nav-links" id="nav-links" role="list">
+        <li><a href="#about">About</a></li>
+        <li><a href="#research">Research</a></li>
+        <li><a href="#publications">Publications</a></li>
+        <li><a href="#blog">Blog</a></li>
+      </ul>
+      <button class="nav-toggle" id="nav-toggle" aria-controls="nav-links" aria-expanded="false" aria-label="Toggle navigation">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
+          <rect x="2" y="5"    width="18" height="1.8" rx="1" fill="currentColor"/>
+          <rect x="2" y="10.1" width="18" height="1.8" rx="1" fill="currentColor"/>
+          <rect x="2" y="15.2" width="18" height="1.8" rx="1" fill="currentColor"/>
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ============================================================
+       MAIN
+       ============================================================ -->
+  <main id="main">
+
+    <!-- ── ABOUT ───────────────────────────────────────────────── -->
+    <section id="about" aria-labelledby="about-heading">
+
+      <!-- Left: avatar + social icons -->
+      <div class="avatar-col">
+        <div style="position:relative">
+          <img
+            src="assets/avatar.jpg"
+            alt="Pedro Ortiz Suarez"
+            class="avatar"
+            width="128" height="128"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+          >
+          <div class="avatar-fallback" aria-hidden="true">PO</div>
+        </div>
+
+        <!-- Social/academic icon grid -->
+        <nav class="avatar-icons" aria-label="Social and professional profiles">
+          <a href="https://github.com/pjox" class="icon-btn" target="_blank" rel="noopener" aria-label="GitHub">
+            <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+          </a>
+          <a href="https://gitlab.com/pjox" class="icon-btn" target="_blank" rel="noopener" aria-label="GitLab">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22.65 14.39L12 22.13 1.35 14.39a.84.84 0 01-.3-.94l1.22-3.78 2.44-7.51A.42.42 0 014.82 2a.43.43 0 01.58 0 .42.42 0 01.11.18l2.44 7.49h8.1l2.44-7.51A.42.42 0 0118.6 2a.43.43 0 01.58 0 .42.42 0 01.11.18l2.44 7.51L23 13.45a.84.84 0 01-.35.94z"/></svg>
+          </a>
+          <a href="https://mastodon.social/@pjox" class="icon-btn" target="_blank" rel="noopener" aria-label="Mastodon" rel="me">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.268 5.313c-.35-2.578-2.617-4.61-5.304-5.004C17.51.242 15.792 0 11.813 0h-.03c-3.98 0-4.835.242-5.288.309C3.882.692 1.496 2.518.917 5.127.64 6.412.61 7.837.661 9.143c.074 1.874.088 3.745.26 5.611.118 1.24.325 2.47.62 3.68.55 2.237 2.777 4.098 4.96 4.857 2.336.792 4.849.923 7.256.38.265-.061.527-.132.786-.213.585-.184 1.27-.39 1.774-.753a.057.057 0 00.023-.043v-1.809a.052.052 0 00-.066-.051c-1.517.363-3.072.546-4.632.546-2.73 0-3.463-1.284-3.674-1.818a5.593 5.593 0 01-.319-1.433.053.053 0 01.066-.054c1.517.363 3.072.546 4.632.546.376 0 .75 0 1.125-.01 1.57-.044 3.224-.124 4.768-.422.038-.008.077-.015.11-.024 2.435-.464 4.753-1.92 4.989-5.604.008-.145.03-1.52.03-1.67.002-.512.167-3.63-.024-5.545zm-3.748 9.195h-2.561V8.29c0-1.309-.55-1.976-1.67-1.976-1.23 0-1.846.79-1.846 2.35v3.403h-2.546V8.663c0-1.56-.617-2.35-1.848-2.35-1.112 0-1.668.668-1.67 1.977v6.218H5.011V8.105c0-1.31.337-2.35 1.011-3.12.696-.77 1.608-1.164 2.74-1.164 1.311 0 2.302.5 2.962 1.498l.638 1.06.638-1.06c.66-.999 1.65-1.498 2.96-1.498 1.13 0 2.043.395 2.74 1.164.675.77 1.012 1.81 1.012 3.12z"/></svg>
+          </a>
+          <a href="https://twitter.com/pjox13" class="icon-btn" target="_blank" rel="noopener" aria-label="Twitter / X">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+          <a href="https://www.linkedin.com/in/pjox/" class="icon-btn" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          </a>
+          <a href="https://scholar.google.fr/citations?user=5sNdyvkAAAAJ&hl=en" class="icon-btn" target="_blank" rel="noopener" aria-label="Google Scholar">
+            <i class="ai ai-google-scholar" aria-hidden="true"></i>
+          </a>
+          <a href="https://orcid.org/0000-0003-0343-8852" class="icon-btn" target="_blank" rel="noopener" aria-label="ORCID">
+            <i class="ai ai-orcid" aria-hidden="true"></i>
+          </a>
+          <a href="https://arxiv.org/a/ortizsuarez_p_1.html" class="icon-btn" target="_blank" rel="noopener" aria-label="arXiv">
+            <i class="ai ai-arxiv" aria-hidden="true"></i>
+          </a>
+          <a href="https://www.researchgate.net/profile/Pedro_Ortiz_Suarez" class="icon-btn" target="_blank" rel="noopener" aria-label="ResearchGate">
+            <i class="ai ai-researchgate" aria-hidden="true"></i>
+          </a>
+          <a href="https://bsky.app/profile/pjox.bsky.social" class="icon-btn" target="_blank" rel="noopener" aria-label="Bluesky">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 10.8c-1.087-2.114-4.046-6.053-6.798-7.995C2.566.944 1.561 1.266.902 1.565.139 1.908 0 3.08 0 3.768c0 .69.378 5.65.624 6.479.815 2.736 3.713 3.66 6.383 3.364.136-.02.275-.039.415-.056-.138.022-.276.04-.415.056-3.912.58-7.387 2.005-2.83 7.078 5.013 5.19 6.87-1.113 7.823-4.308.953 3.195 2.05 9.271 7.733 4.308 4.267-4.308 1.172-6.498-2.74-7.078a8.741 8.741 0 01-.415-.056c.14.017.279.036.415.056 2.67.297 5.568-.628 6.383-3.364.246-.828.624-5.79.624-6.478 0-.69-.139-1.861-.902-2.204-.659-.299-1.664-.62-4.3 1.24C16.046 4.748 13.087 8.687 12 10.8z"/></svg>
+          </a>
+          <a href="https://dblp.uni-trier.de/pid/254/0860.html" class="icon-btn" target="_blank" rel="noopener" aria-label="DBLP">
+            <i class="ai ai-dblp" aria-hidden="true"></i>
+          </a>
+          <a href="https://cv.hal.science/pedro-ortiz-suarez" class="icon-btn" target="_blank" rel="noopener" aria-label="HAL">
+            <i class="ai ai-hal" aria-hidden="true"></i>
+          </a>
+          <a href="assets/PedroJOrtiz.asc" class="icon-btn" download aria-label="Download PGP public key">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+          </a>
+          <a href="assets/cv.pdf" class="icon-btn" target="_blank" rel="noopener" aria-label="Curriculum Vitae (PDF)">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+          </a>
+        </nav>
+      </div>
+
+      <!-- Right: bio text -->
+      <div>
+        <h1 class="hero-name" id="about-heading">Pedro Ortiz&nbsp;Suarez</h1>
+        <p class="hero-role">Senior Research Scientist</p>
+        <p class="hero-org">Common Crawl Foundation</p>
+        <p class="bio">
+          I work on large corpora for training language models, with a particular focus
+          on under-resourced and historical languages. My research spans corpus linguistics,
+          language modeling, named entity recognition, dependency parsing, and machine
+          translation.
+        </p>
+      </div>
+    </section>
+
+    <!-- ── RESEARCH ────────────────────────────────────────────── -->
+    <section id="research" aria-labelledby="research-heading">
+      <span class="eyebrow">Background</span>
+      <h2 id="research-heading">Research &amp; Education</h2>
+
+      <div class="two-col">
+        <div>
+          <p class="subsection-title">Research interests</p>
+          <ul class="tag-list" role="list">
+            <li class="tag">Language Modeling</li>
+            <li class="tag">Corpus Linguistics</li>
+            <li class="tag">Named Entity Recognition</li>
+            <li class="tag">Dependency Parsing</li>
+            <li class="tag">Machine Translation</li>
+            <li class="tag">Under-resourced Languages</li>
+            <li class="tag">Historical NLP</li>
+            <li class="tag">Document Structuration</li>
+          </ul>
+        </div>
+
+        <div>
+          <p class="subsection-title">Education</p>
+          <ul class="edu-list" role="list">
+            <li class="edu-item">
+              <div class="edu-dot"></div>
+              <div>
+                <div class="edu-degree">PhD in Computer Science</div>
+                <div class="edu-meta">Sorbonne Université · 2022</div>
+              </div>
+            </li>
+            <li class="edu-item">
+              <div class="edu-dot"></div>
+              <div>
+                <div class="edu-degree">BASc MIASHS</div>
+                <div class="edu-meta">Université Paris 8 · 2018</div>
+              </div>
+            </li>
+            <li class="edu-item">
+              <div class="edu-dot"></div>
+              <div>
+                <div class="edu-degree">MSc in Mathematics</div>
+                <div class="edu-meta">Aix-Marseille Université · 2017</div>
+              </div>
+            </li>
+            <li class="edu-item">
+              <div class="edu-dot"></div>
+              <div>
+                <div class="edu-degree">BSc in Mathematics</div>
+                <div class="edu-meta">Universidad Nacional de Colombia · 2016</div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── PUBLICATIONS ───────────────────────────────────────── -->
+    <section id="publications" aria-labelledby="publications-heading">
+      <span class="eyebrow">Work</span>
+      <h2 id="publications-heading">Publications</h2>
+
+      <div class="pub-toolbar">
+        <input
+          type="search"
+          id="pub-search"
+          class="pub-search"
+          placeholder="Search by title, author, venue…"
+          aria-label="Search publications"
+          autocomplete="off"
+          spellcheck="false"
+        >
+        <div class="pub-filters" role="group" aria-label="Filter by year">
+          <button class="filter-btn" aria-pressed="true"  data-year="all">All</button>
+          <button class="filter-btn" aria-pressed="false" data-year="2022">2022</button>
+          <button class="filter-btn" aria-pressed="false" data-year="2021">2021</button>
+          <button class="filter-btn" aria-pressed="false" data-year="2020">2020</button>
+          <button class="filter-btn" aria-pressed="false" data-year="2019">2019</button>
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════════════════
+           PUBLICATIONS_START — auto-generated by scripts/bib_to_html.py
+           Do not edit manually between these markers.
+           ═══════════════════════════════════════════════════════ -->
+
+      <div class="pub-year-group" data-year="2022">
+        <div class="pub-year-heading" aria-label="Publications from 2022">2022</div>
+        <div class="pub-list">
+
+          <article class="pub fade-in" data-year="2022">
+            <div class="pub-header">
+              <span class="pub-badge">COLING</span>
+              <h3 class="pub-title">
+                <a href="https://aclanthology.org/2022.coling-1.365" target="_blank" rel="noopener">
+                  A Data-driven Approach to Named Entity Recognition for Early Modern French
+                </a>
+              </h3>
+            </div>
+            <p class="pub-authors">Simon Gabay, <span class="me">Pedro Ortiz Suarez</span></p>
+            <div class="pub-footer">
+              <div class="pub-links">
+                <a href="https://aclanthology.org/2022.coling-1.365.pdf" class="pub-link" target="_blank" rel="noopener">PDF</a>
+                <a href="https://aclanthology.org/2022.coling-1.365" class="pub-link" target="_blank" rel="noopener">ACL</a>
+              </div>
+              <button class="pub-copy-btn" type="button" aria-label="Copy BibTeX citation">
+                <svg viewBox="0 0 12 12" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="1"/><path d="M1 8V1h7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                BibTeX
+              </button>
+            </div>
+            <pre class="pub-bibtex">@inproceedings{gabay-ortiz2022ner,
+  author    = {Gabay, Simon and Ortiz Suarez, Pedro},
+  title     = {A Data-driven Approach to Named Entity Recognition for Early Modern French},
+  booktitle = {Proceedings of the 29th International Conference on Computational Linguistics (COLING 2022)},
+  year      = {2022},
+  url       = {https://aclanthology.org/2022.coling-1.365},
+}</pre>
+          </article>
+
+          <article class="pub fade-in" data-year="2022">
+            <div class="pub-header">
+              <span class="pub-badge badge-thesis">Thesis</span>
+              <h3 class="pub-title">
+                <a href="https://theses.fr/2022SORUS179" target="_blank" rel="noopener">
+                  A Data-driven Approach to Natural Language Processing for Contemporary and Historical French
+                </a>
+              </h3>
+            </div>
+            <p class="pub-authors"><span class="me">Pedro Ortiz Suarez</span></p>
+            <div class="pub-footer">
+              <div class="pub-links">
+                <a href="https://theses.fr/2022SORUS179" class="pub-link" target="_blank" rel="noopener">Theses.fr</a>
+                <a href="https://tel.archives-ouvertes.fr/tel-03793964" class="pub-link" target="_blank" rel="noopener">HAL</a>
+              </div>
+              <button class="pub-copy-btn" type="button" aria-label="Copy BibTeX citation">
+                <svg viewBox="0 0 12 12" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="1"/><path d="M1 8V1h7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                BibTeX
+              </button>
+            </div>
+            <pre class="pub-bibtex">@phdthesis{ortizsuarez2022thesis,
+  author = {Ortiz Suarez, Pedro},
+  title  = {A Data-driven Approach to Natural Language Processing for Contemporary and Historical French},
+  school = {Sorbonne Université},
+  year   = {2022},
+  url    = {https://theses.fr/2022SORUS179},
+}</pre>
+          </article>
+
+          <article class="pub fade-in" data-year="2022">
+            <div class="pub-header">
+              <span class="pub-badge">TALN</span>
+              <h3 class="pub-title">
+                <a href="https://aclanthology.org/2022.jeptalnrecital-taln.34" target="_blank" rel="noopener">
+                  Le projet FREEM: ressources, outils et enjeux pour l'étude du français d'Ancien Régime
+                </a>
+              </h3>
+            </div>
+            <p class="pub-authors">Simon Gabay, <span class="me">Pedro Ortiz Suarez</span>, Rachel Bawden, Alexandre Bartz, Philippe Gambette, Benoît Sagot</p>
+            <div class="pub-footer">
+              <div class="pub-links">
+                <a href="https://aclanthology.org/2022.jeptalnrecital-taln.34.pdf" class="pub-link" target="_blank" rel="noopener">PDF</a>
+                <a href="https://aclanthology.org/2022.jeptalnrecital-taln.34" class="pub-link" target="_blank" rel="noopener">ACL</a>
+              </div>
+              <button class="pub-copy-btn" type="button" aria-label="Copy BibTeX citation">
+                <svg viewBox="0 0 12 12" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="1"/><path d="M1 8V1h7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                BibTeX
+              </button>
+            </div>
+            <pre class="pub-bibtex">@inproceedings{gabay-etal-2022-freem,
+  author    = {Gabay, Simon and Ortiz Suarez, Pedro and Bawden, Rachel and Bartz, Alexandre and Gambette, Philippe and Sagot, Benoît},
+  title     = {Le projet {FREEM}: ressources, outils et enjeux pour l'étude du français d'Ancien Régime},
+  booktitle = {Actes de la 29e Conférence sur le Traitement Automatique des Langues Naturelles (TALN 2022)},
+  year      = {2022},
+  url       = {https://aclanthology.org/2022.jeptalnrecital-taln.34},
+}</pre>
+          </article>
+
+          <article class="pub fade-in" data-year="2022">
+            <div class="pub-header">
+              <span class="pub-badge">LREC</span>
+              <h3 class="pub-title">
+                <a href="https://aclanthology.org/2022.lrec-1.463" target="_blank" rel="noopener">
+                  Towards a Cleaner Document-Oriented Multilingual Crawled Corpus
+                </a>
+              </h3>
+            </div>
+            <p class="pub-authors">Julien Abadji, <span class="me">Pedro Ortiz Suarez</span>, Laurent Romary, Benoît Sagot</p>
+            <div class="pub-footer">
+              <div class="pub-links">
+                <a href="https://aclanthology.org/2022.lrec-1.463.pdf" class="pub-link" target="_blank" rel="noopener">PDF</a>
+                <a href="https://aclanthology.org/2022.lrec-1.463" class="pub-link" target="_blank" rel="noopener">ACL</a>
+                <a href="https://arxiv.org/abs/2201.06642" class="pub-link" target="_blank" rel="noopener">arXiv</a>
+              </div>
+              <button class="pub-copy-btn" type="button" aria-label="Copy BibTeX citation">
+                <svg viewBox="0 0 12 12" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="1"/><path d="M1 8V1h7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                BibTeX
+              </button>
+            </div>
+            <pre class="pub-bibtex">@inproceedings{abadji-etal-2022-cleaner,
+  author    = {Abadji, Julien and Ortiz Suarez, Pedro and Romary, Laurent and Sagot, Benoît},
+  title     = {Towards a Cleaner Document-Oriented Multilingual Crawled Corpus},
+  booktitle = {Proceedings of the 13th Language Resources and Evaluation Conference (LREC 2022)},
+  year      = {2022},
+  url       = {https://aclanthology.org/2022.lrec-1.463},
+  eprint    = {2201.06642},
+}</pre>
+          </article>
+
+          <article class="pub fade-in" data-year="2022">
+            <div class="pub-header">
+              <span class="pub-badge">LREC</span>
+              <h3 class="pub-title">
+                <a href="https://aclanthology.org/2022.lrec-1.168" target="_blank" rel="noopener">
+                  From FreEM to D'AlemBERT: a Large Corpus and a Language Model for Early Modern French
+                </a>
+              </h3>
+            </div>
+            <p class="pub-authors">Simon Gabay, <span class="me">Pedro Ortiz Suarez</span>, Alexandre Bartz, Alix Chagué, Rachel Bawden, Philippe Gambette, Benoît Sagot</p>
+            <div class="pub-footer">
+              <div class="pub-links">
+                <a href="https://aclanthology.org/2022.lrec-1.168.pdf" class="pub-link" target="_blank" rel="noopener">PDF</a>
+                <a href="https://aclanthology.org/2022.lrec-1.168" class="pub-link" target="_blank" rel="noopener">ACL</a>
+                <a href="https://arxiv.org/abs/2202.09452" class="pub-link" target="_blank" rel="noopener">arXiv</a>
+              </div>
+              <button class="pub-copy-btn" type="button" aria-label="Copy BibTeX citation">
+                <svg viewBox="0 0 12 12" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="1"/><path d="M1 8V1h7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                BibTeX
+              </button>
+            </div>
+            <pre class="pub-bibtex">@inproceedings{gabay-etal-2022-dalembert,
+  author    = {Gabay, Simon and Ortiz Suarez, Pedro and Bartz, Alexandre and Chagué, Alix and Bawden, Rachel and Gambette, Philippe and Sagot, Benoît},
+  title     = {From {FreEM} to {D'AlemBERT}: a Large Corpus and a Language Model for Early Modern French},
+  booktitle = {Proceedings of the 13th Language Resources and Evaluation Conference (LREC 2022)},
+  year      = {2022},
+  url       = {https://aclanthology.org/2022.lrec-1.168},
+  eprint    = {2202.09452},
+}</pre>
+          </article>
+
+          <article class="pub fade-in" data-year="2022">
+            <div class="pub-header">
+              <span class="pub-badge">LREC</span>
+              <!-- BERTrade: exact ACL Anthology ID needs verification — link removed to avoid wrong paper -->
+              <h3 class="pub-title">
+                BERTrade: Using Contextual Embeddings to Parse Old French
+              </h3>
+            </div>
+            <p class="pub-authors">Loïc Grobol, Mathilde Regnault, <span class="me">Pedro Ortiz Suarez</span>, Benoît Sagot, Laurent Romary, Benoît Crabbé</p>
+            <div class="pub-footer">
+              <div class="pub-links">
+                <!-- Add the correct ACL Anthology URL once verified -->
+              </div>
+              <button class="pub-copy-btn" type="button" aria-label="Copy BibTeX citation">
+                <svg viewBox="0 0 12 12" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="1"/><path d="M1 8V1h7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                BibTeX
+              </button>
+            </div>
+            <pre class="pub-bibtex">@inproceedings{grobol-etal-2022-bertrade,
+  author    = {Grobol, Loïc and Regnault, Mathilde and Ortiz Suarez, Pedro and Sagot, Benoît and Romary, Laurent and Crabbé, Benoît},
+  title     = {{BERTrade}: Using Contextual Embeddings to Parse Old French},
+  booktitle = {Proceedings of the 13th Language Resources and Evaluation Conference (LREC 2022)},
+  year      = {2022},
+}</pre>
+          </article>
+
+          <article class="pub fade-in" data-year="2022">
+            <div class="pub-header">
+              <span class="pub-badge">TACL</span>
+              <h3 class="pub-title">
+                <a href="https://doi.org/10.1162/tacl_a_00447" target="_blank" rel="noopener">
+                  Quality at a Glance: An Audit of Web-Crawled Multilingual Datasets
+                </a>
+              </h3>
+            </div>
+            <p class="pub-authors">Julia Kreutzer, Isaac Caswell, Lisa Wang, …, <span class="me">Pedro Ortiz Suarez</span>, et al.</p>
+            <div class="pub-footer">
+              <div class="pub-links">
+                <a href="https://arxiv.org/abs/2103.12028" class="pub-link" target="_blank" rel="noopener">arXiv</a>
+                <a href="https://doi.org/10.1162/tacl_a_00447" class="pub-link" target="_blank" rel="noopener">DOI</a>
+              </div>
+              <button class="pub-copy-btn" type="button" aria-label="Copy BibTeX citation">
+                <svg viewBox="0 0 12 12" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="1"/><path d="M1 8V1h7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                BibTeX
+              </button>
+            </div>
+            <pre class="pub-bibtex">@article{kreutzer-etal-2022-quality,
+  author  = {Kreutzer, Julia and Caswell, Isaac and Wang, Lisa and {et al.}},
+  title   = {Quality at a Glance: An Audit of Web-Crawled Multilingual Datasets},
+  journal = {Transactions of the Association for Computational Linguistics},
+  year    = {2022},
+  doi     = {10.1162/tacl_a_00447},
+  eprint  = {2103.12028},
+}</pre>
+          </article>
+
+          <article class="pub fade-in" data-year="2022">
+            <div class="pub-header">
+              <span class="pub-badge badge-preprint">Preprint</span>
+              <h3 class="pub-title">
+                <a href="https://arxiv.org/abs/2110.07492" target="_blank" rel="noopener">
+                  Documenting Geographically and Contextually Diverse Data Sources: The BigScience Catalogue of Language Data and Resources
+                </a>
+              </h3>
+            </div>
+            <p class="pub-authors">Angelina McMillan-Major, Zaid Alyafeai, Stella Biderman, …, <span class="me">Pedro Ortiz Suarez</span>, et al.</p>
+            <div class="pub-footer">
+              <div class="pub-links">
+                <a href="https://arxiv.org/abs/2110.07492" class="pub-link" target="_blank" rel="noopener">arXiv</a>
+              </div>
+              <button class="pub-copy-btn" type="button" aria-label="Copy BibTeX citation">
+                <svg viewBox="0 0 12 12" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="1"/><path d="M1 8V1h7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                BibTeX
+              </button>
+            </div>
+            <pre class="pub-bibtex">@misc{mcmillanmajor-etal-2022-bigscience,
+  author = {McMillan-Major, Angelina and Alyafeai, Zaid and Biderman, Stella and {et al.}},
+  title  = {Documenting Geographically and Contextually Diverse Data Sources: The {BigScience} Catalogue of Language Data and Resources},
+  year   = {2022},
+  eprint = {2110.07492},
+}</pre>
+          </article>
+
+        </div>
+      </div><!-- /2022 -->
+
+      <div class="pub-year-group" data-year="2021">
+        <div class="pub-year-heading" aria-label="Publications from 2021">2021</div>
+        <div class="pub-list">
+
+          <article class="pub fade-in" data-year="2021">
+            <div class="pub-header">
+              <span class="pub-badge">CMLC-9</span>
+              <h3 class="pub-title">
+                <a href="https://arxiv.org/abs/2107.07253" target="_blank" rel="noopener">
+                  Ungoliant: An Optimized Pipeline for the Generation of a Very Large-Scale Multilingual Web Corpus
+                </a>
+              </h3>
+            </div>
+            <p class="pub-authors">Julien Abadji, <span class="me">Pedro Ortiz Suarez</span>, Laurent Romary, Benoît Sagot</p>
+            <div class="pub-footer">
+              <div class="pub-links">
+                <a href="https://arxiv.org/abs/2107.07253" class="pub-link" target="_blank" rel="noopener">arXiv</a>
+                <a href="https://github.com/oscar-project/ungoliant" class="pub-link" target="_blank" rel="noopener">Code</a>
+              </div>
+              <button class="pub-copy-btn" type="button" aria-label="Copy BibTeX citation">
+                <svg viewBox="0 0 12 12" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="1"/><path d="M1 8V1h7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                BibTeX
+              </button>
+            </div>
+            <pre class="pub-bibtex">@inproceedings{abadji-etal-2021-ungoliant,
+  author    = {Abadji, Julien and Ortiz Suarez, Pedro and Romary, Laurent and Sagot, Benoît},
+  title     = {Ungoliant: An Optimized Pipeline for the Generation of a Very Large-Scale Multilingual Web Corpus},
+  booktitle = {Proceedings of the Workshop on Challenges in the Management of Large Corpora (CMLC-9)},
+  year      = {2021},
+  eprint    = {2107.07253},
+}</pre>
+          </article>
+
+        </div>
+      </div><!-- /2021 -->
+
+      <div class="pub-year-group" data-year="2020">
+        <div class="pub-year-heading" aria-label="Publications from 2020">2020</div>
+        <div class="pub-list">
+
+          <article class="pub fade-in" data-year="2020">
+            <div class="pub-header">
+              <span class="pub-badge">ACL</span>
+              <h3 class="pub-title">
+                <a href="https://aclanthology.org/2020.acl-main.645" target="_blank" rel="noopener">
+                  CamemBERT: a Tasty French Language Model
+                </a>
+              </h3>
+            </div>
+            <p class="pub-authors">Louis Martin, Benjamin Muller, <span class="me">Pedro Ortiz Suarez</span>, Yoann Dupont, Laurent Romary, Éric de la Clergerie, Djamé Seddah, Benoît Sagot</p>
+            <div class="pub-footer">
+              <div class="pub-links">
+                <a href="https://aclanthology.org/2020.acl-main.645.pdf" class="pub-link" target="_blank" rel="noopener">PDF</a>
+                <a href="https://aclanthology.org/2020.acl-main.645" class="pub-link" target="_blank" rel="noopener">ACL</a>
+                <a href="https://arxiv.org/abs/1911.03894" class="pub-link" target="_blank" rel="noopener">arXiv</a>
+                <a href="https://doi.org/10.18653/v1/2020.acl-main.645" class="pub-link" target="_blank" rel="noopener">DOI</a>
+                <a href="https://camembert-model.fr" class="pub-link" target="_blank" rel="noopener">Project</a>
+              </div>
+              <button class="pub-copy-btn" type="button" aria-label="Copy BibTeX citation">
+                <svg viewBox="0 0 12 12" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="1"/><path d="M1 8V1h7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                BibTeX
+              </button>
+            </div>
+            <pre class="pub-bibtex">@inproceedings{martin-etal-2020-camembert,
+  author    = {Martin, Louis and Muller, Benjamin and Ortiz Suarez, Pedro and Dupont, Yoann and Romary, Laurent and de la Clergerie, Éric and Seddah, Djamé and Sagot, Benoît},
+  title     = {{CamemBERT}: a Tasty French Language Model},
+  booktitle = {Proceedings of the 58th Annual Meeting of the Association for Computational Linguistics (ACL 2020)},
+  year      = {2020},
+  doi       = {10.18653/v1/2020.acl-main.645},
+  eprint    = {1911.03894},
+}</pre>
+          </article>
+
+          <article class="pub fade-in" data-year="2020">
+            <div class="pub-header">
+              <span class="pub-badge">ACL</span>
+              <h3 class="pub-title">
+                <a href="https://aclanthology.org/2020.acl-main.156" target="_blank" rel="noopener">
+                  A Monolingual Approach to Contextualized Word Embeddings for Mid-Resource Languages
+                </a>
+              </h3>
+            </div>
+            <p class="pub-authors"><span class="me">Pedro Ortiz Suarez</span>, Laurent Romary, Benoît Sagot</p>
+            <div class="pub-footer">
+              <div class="pub-links">
+                <a href="https://aclanthology.org/2020.acl-main.156.pdf" class="pub-link" target="_blank" rel="noopener">PDF</a>
+                <a href="https://aclanthology.org/2020.acl-main.156" class="pub-link" target="_blank" rel="noopener">ACL</a>
+                <a href="https://doi.org/10.18653/v1/2020.acl-main.156" class="pub-link" target="_blank" rel="noopener">DOI</a>
+                <a href="https://oscar-corpus.com" class="pub-link" target="_blank" rel="noopener">OSCAR</a>
+              </div>
+              <button class="pub-copy-btn" type="button" aria-label="Copy BibTeX citation">
+                <svg viewBox="0 0 12 12" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="1"/><path d="M1 8V1h7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                BibTeX
+              </button>
+            </div>
+            <pre class="pub-bibtex">@inproceedings{ortizsuarez-etal-2020-monolingual,
+  author    = {Ortiz Suarez, Pedro and Romary, Laurent and Sagot, Benoît},
+  title     = {A Monolingual Approach to Contextualized Word Embeddings for Mid-Resource Languages},
+  booktitle = {Proceedings of the 58th Annual Meeting of the Association for Computational Linguistics (ACL 2020)},
+  year      = {2020},
+  doi       = {10.18653/v1/2020.acl-main.156},
+}</pre>
+          </article>
+
+          <article class="pub fade-in" data-year="2020">
+            <div class="pub-header">
+              <span class="pub-badge">ACL</span>
+              <h3 class="pub-title">
+                <a href="https://aclanthology.org/2020.acl-main.678" target="_blank" rel="noopener">
+                  Building a User-Generated Content North-African Arabizi Treebank: Tackling Hell
+                </a>
+              </h3>
+            </div>
+            <p class="pub-authors">Djamé Seddah, Farah Essaidi, Amal Fethi, Matthieu Futeral, Benjamin Muller, <span class="me">Pedro Ortiz Suarez</span>, Benoît Sagot, Abhishek Srivastava</p>
+            <div class="pub-footer">
+              <div class="pub-links">
+                <a href="https://aclanthology.org/2020.acl-main.678.pdf" class="pub-link" target="_blank" rel="noopener">PDF</a>
+                <a href="https://aclanthology.org/2020.acl-main.678" class="pub-link" target="_blank" rel="noopener">ACL</a>
+                <a href="https://doi.org/10.18653/v1/2020.acl-main.678" class="pub-link" target="_blank" rel="noopener">DOI</a>
+              </div>
+              <button class="pub-copy-btn" type="button" aria-label="Copy BibTeX citation">
+                <svg viewBox="0 0 12 12" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="1"/><path d="M1 8V1h7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                BibTeX
+              </button>
+            </div>
+            <pre class="pub-bibtex">@inproceedings{seddah-etal-2020-arabizi,
+  author    = {Seddah, Djamé and Essaidi, Farah and Fethi, Amal and Futeral, Matthieu and Muller, Benjamin and Ortiz Suarez, Pedro and Sagot, Benoît and Srivastava, Abhishek},
+  title     = {Building a User-Generated Content North-African Arabizi Treebank: Tackling Hell},
+  booktitle = {Proceedings of the 58th Annual Meeting of the Association for Computational Linguistics (ACL 2020)},
+  year      = {2020},
+  doi       = {10.18653/v1/2020.acl-main.678},
+}</pre>
+          </article>
+
+          <article class="pub fade-in" data-year="2020">
+            <div class="pub-header">
+              <span class="pub-badge">LREC</span>
+              <h3 class="pub-title">
+                <a href="https://aclanthology.org/2020.lrec-1.246" target="_blank" rel="noopener">
+                  Establishing a New State-of-the-Art for French Named Entity Recognition
+                </a>
+              </h3>
+            </div>
+            <p class="pub-authors"><span class="me">Pedro Ortiz Suarez</span>, Yoann Dupont, Benjamin Muller, Laurent Romary, Benoît Sagot</p>
+            <div class="pub-footer">
+              <div class="pub-links">
+                <a href="https://aclanthology.org/2020.lrec-1.246.pdf" class="pub-link" target="_blank" rel="noopener">PDF</a>
+                <a href="https://aclanthology.org/2020.lrec-1.246" class="pub-link" target="_blank" rel="noopener">ACL</a>
+              </div>
+              <button class="pub-copy-btn" type="button" aria-label="Copy BibTeX citation">
+                <svg viewBox="0 0 12 12" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="1"/><path d="M1 8V1h7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                BibTeX
+              </button>
+            </div>
+            <pre class="pub-bibtex">@inproceedings{ortizsuarez-etal-2020-ner,
+  author    = {Ortiz Suarez, Pedro and Dupont, Yoann and Muller, Benjamin and Romary, Laurent and Sagot, Benoît},
+  title     = {Establishing a New State-of-the-Art for French Named Entity Recognition},
+  booktitle = {Proceedings of the 12th Language Resources and Evaluation Conference (LREC 2020)},
+  year      = {2020},
+  url       = {https://aclanthology.org/2020.lrec-1.246},
+}</pre>
+          </article>
+
+          <article class="pub fade-in" data-year="2020">
+            <div class="pub-header">
+              <span class="pub-badge">CLEF</span>
+              <h3 class="pub-title">
+                <a href="https://ceur-ws.org/Vol-2696/paper_214.pdf" target="_blank" rel="noopener">
+                  SinNer@CLEF-HIPE2020: Sinful Adaptation of SotA models for Named Entity Recognition in Historical French and German Newspapers
+                </a>
+              </h3>
+            </div>
+            <p class="pub-authors"><span class="me">Pedro Ortiz Suarez</span>, Yoann Dupont, Gaël Lejeune, Tian Tian</p>
+            <div class="pub-footer">
+              <div class="pub-links">
+                <a href="https://ceur-ws.org/Vol-2696/paper_214.pdf" class="pub-link" target="_blank" rel="noopener">PDF</a>
+                <a href="https://ceur-ws.org/Vol-2696/" class="pub-link" target="_blank" rel="noopener">CEUR</a>
+              </div>
+              <button class="pub-copy-btn" type="button" aria-label="Copy BibTeX citation">
+                <svg viewBox="0 0 12 12" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="1"/><path d="M1 8V1h7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                BibTeX
+              </button>
+            </div>
+            <pre class="pub-bibtex">@inproceedings{ortizsuarez-etal-2020-sinner,
+  author    = {Ortiz Suarez, Pedro and Dupont, Yoann and Lejeune, Gaël and Tian, Tian},
+  title     = {{SinNer@CLEF-HIPE2020}: Sinful Adaptation of {SotA} models for Named Entity Recognition in Historical French and German Newspapers},
+  booktitle = {Proceedings of the CLEF 2020 Working Notes (CLEF-HIPE-2020)},
+  year      = {2020},
+}</pre>
+          </article>
+
+          <article class="pub fade-in" data-year="2020">
+            <div class="pub-header">
+              <span class="pub-badge">TALN</span>
+              <h3 class="pub-title">
+                <a href="https://aclanthology.org/2020.jeptalnrecital-taln.19" target="_blank" rel="noopener">
+                  Les modèles de langue contextuels Camembert pour le Français: impact de la taille et de l'hétérogénéité des données d'entrainement
+                </a>
+              </h3>
+            </div>
+            <p class="pub-authors">Louis Martin, Benjamin Muller, <span class="me">Pedro Ortiz Suarez</span>, Yoann Dupont, Laurent Romary, Éric de la Clergerie, Benoît Sagot, Djamé Seddah</p>
+            <div class="pub-footer">
+              <div class="pub-links">
+                <a href="https://aclanthology.org/2020.jeptalnrecital-taln.19.pdf" class="pub-link" target="_blank" rel="noopener">PDF</a>
+                <a href="https://aclanthology.org/2020.jeptalnrecital-taln.19" class="pub-link" target="_blank" rel="noopener">ACL</a>
+              </div>
+              <button class="pub-copy-btn" type="button" aria-label="Copy BibTeX citation">
+                <svg viewBox="0 0 12 12" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="1"/><path d="M1 8V1h7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                BibTeX
+              </button>
+            </div>
+            <pre class="pub-bibtex">@inproceedings{martin-etal-2020-camembert-taln,
+  author    = {Martin, Louis and Muller, Benjamin and Ortiz Suarez, Pedro and Dupont, Yoann and Romary, Laurent and de la Clergerie, Éric and Sagot, Benoît and Seddah, Djamé},
+  title     = {Les modèles de langue contextuels {Camembert} pour le Français},
+  booktitle = {Actes de la 27e Conférence sur le Traitement Automatique des Langues Naturelles (TALN 2020)},
+  year      = {2020},
+}</pre>
+          </article>
+
+          <article class="pub fade-in" data-year="2020">
+            <div class="pub-header">
+              <span class="pub-badge">CMLC-8</span>
+              <h3 class="pub-title">
+                <a href="https://aclanthology.org/2020.cmlc-1.3" target="_blank" rel="noopener">
+                  French Contextualized Word-Embeddings with a sip of CaBeRnet: a New French Balanced Reference Corpus
+                </a>
+              </h3>
+            </div>
+            <p class="pub-authors">Murielle Popa-Fabre, <span class="me">Pedro Ortiz Suarez</span>, Benoît Sagot, Éric de la Clergerie</p>
+            <div class="pub-footer">
+              <div class="pub-links">
+                <a href="https://aclanthology.org/2020.cmlc-1.3.pdf" class="pub-link" target="_blank" rel="noopener">PDF</a>
+                <a href="https://aclanthology.org/2020.cmlc-1.3" class="pub-link" target="_blank" rel="noopener">ACL</a>
+              </div>
+              <button class="pub-copy-btn" type="button" aria-label="Copy BibTeX citation">
+                <svg viewBox="0 0 12 12" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="1"/><path d="M1 8V1h7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                BibTeX
+              </button>
+            </div>
+            <pre class="pub-bibtex">@inproceedings{popafarbe-etal-2020-cabernet,
+  author    = {Popa-Fabre, Murielle and Ortiz Suarez, Pedro and Sagot, Benoît and de la Clergerie, Éric},
+  title     = {French Contextualized Word-Embeddings with a sip of {CaBeRnet}: a New French Balanced Reference Corpus},
+  booktitle = {Proceedings of the 8th Workshop on Challenges in the Management of Large Corpora (CMLC-8)},
+  year      = {2020},
+  url       = {https://aclanthology.org/2020.cmlc-1.3},
+}</pre>
+          </article>
+
+        </div>
+      </div><!-- /2020 -->
+
+      <div class="pub-year-group" data-year="2019">
+        <div class="pub-year-heading" aria-label="Publications from 2019">2019</div>
+        <div class="pub-list">
+
+          <article class="pub fade-in" data-year="2019">
+            <div class="pub-header">
+              <span class="pub-badge">CMLC-7</span>
+              <h3 class="pub-title">
+                <a href="https://ids-pub.bsz-bw.de/frontdoor/index/index/docId/9021" target="_blank" rel="noopener">
+                  Asynchronous Pipeline for Processing Huge Corpora on Medium to Low Resource Infrastructures
+                </a>
+              </h3>
+            </div>
+            <p class="pub-authors"><span class="me">Pedro Ortiz Suarez</span>, Benoît Sagot, Laurent Romary</p>
+            <div class="pub-footer">
+              <div class="pub-links">
+                <a href="https://ids-pub.bsz-bw.de/frontdoor/deliver/index/docId/9021/file/Suarez_Asynchronous_Pipeline_2019.pdf" class="pub-link" target="_blank" rel="noopener">PDF</a>
+                <a href="https://oscar-corpus.com" class="pub-link" target="_blank" rel="noopener">OSCAR</a>
+                <a href="https://github.com/pjox/goclassy" class="pub-link" target="_blank" rel="noopener">Code</a>
+              </div>
+              <button class="pub-copy-btn" type="button" aria-label="Copy BibTeX citation">
+                <svg viewBox="0 0 12 12" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="1"/><path d="M1 8V1h7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                BibTeX
+              </button>
+            </div>
+            <pre class="pub-bibtex">@inproceedings{ortizsuarez-etal-2019-asynchronous,
+  author    = {Ortiz Suarez, Pedro and Sagot, Benoît and Romary, Laurent},
+  title     = {Asynchronous Pipeline for Processing Huge Corpora on Medium to Low Resource Infrastructures},
+  booktitle = {Proceedings of the 7th Workshop on Challenges in the Management of Large Corpora (CMLC-7)},
+  year      = {2019},
+  url       = {https://ids-pub.bsz-bw.de/frontdoor/index/index/docId/9021},
+}</pre>
+          </article>
+
+          <article class="pub fade-in" data-year="2019">
+            <div class="pub-header">
+              <span class="pub-badge">TEI</span>
+              <h3 class="pub-title">
+                How OCR Performance can Impact on the Automatic Extraction of Dictionary Content Structures
+              </h3>
+            </div>
+            <p class="pub-authors">Mohamed Khemakhem, Ioana Galleron, Geoffrey Williams, Laurent Romary, <span class="me">Pedro Ortiz Suarez</span></p>
+            <div class="pub-footer">
+              <div class="pub-links">
+                <a href="https://halshs.archives-ouvertes.fr/halshs-02272410" class="pub-link" target="_blank" rel="noopener">HAL</a>
+              </div>
+              <button class="pub-copy-btn" type="button" aria-label="Copy BibTeX citation">
+                <svg viewBox="0 0 12 12" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="1"/><path d="M1 8V1h7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                BibTeX
+              </button>
+            </div>
+            <pre class="pub-bibtex">@inproceedings{khemakhem-etal-2019-ocr,
+  author    = {Khemakhem, Mohamed and Galleron, Ioana and Williams, Geoffrey and Romary, Laurent and Ortiz Suarez, Pedro},
+  title     = {How {OCR} Performance can Impact on the Automatic Extraction of Dictionary Content Structures},
+  booktitle = {Proceedings of the Text Encoding Initiative Conference (TEI 2019)},
+  year      = {2019},
+  url       = {https://halshs.archives-ouvertes.fr/halshs-02272410},
+}</pre>
+          </article>
+
+        </div>
+      </div><!-- /2019 -->
+
+      <!-- ═══════════════════════════════════════════════════════
+           PUBLICATIONS_END
+           ═══════════════════════════════════════════════════════ -->
+
+    </section>
+
+    <!-- ── BLOG ────────────────────────────────────────────────── -->
+    <section id="blog" aria-labelledby="blog-heading">
+      <span class="eyebrow">Writing</span>
+      <h2 id="blog-heading">Blog</h2>
+
+      <div class="blog-list">
+
+        <a href="blog/hello-world.html" class="blog-card fade-in">
+          <time class="blog-date" datetime="2026-03-11">Mar 11, 2026</time>
+          <div class="blog-card-body">
+            <span class="blog-tag">Site</span>
+            <h3>Hello, World — New Website</h3>
+            <p>A fresh start: the new site is live, built as a lean static page with no framework and no build step.</p>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+  <footer>
+    <p class="footer-copy">&copy; <span id="year"></span> Pedro Ortiz Suarez</p>
+    <a href="https://creativecommons.org/licenses/by/4.0/" class="footer-license" target="_blank" rel="noopener license">
+      CC BY 4.0
+    </a>
+    <nav class="footer-links" aria-label="Footer links">
+      <a href="https://github.com/pjox/pjox-website" target="_blank" rel="noopener">Source</a>
+      <a href="#about">Top ↑</a>
+    </nav>
+  </footer>
+
+  <!-- ============================================================
+       INLINE JAVASCRIPT
+       ============================================================ -->
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // ── Mobile navigation ──────────────────────────────────────
+    const toggle   = document.getElementById('nav-toggle');
+    const navLinks = document.getElementById('nav-links');
+
+    toggle.addEventListener('click', () => {
+      const open = navLinks.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', open);
+    });
+    navLinks.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    // ── Publication filter & search ────────────────────────────
+    const searchInput = document.getElementById('pub-search');
+    const filterBtns  = document.querySelectorAll('.filter-btn');
+    const pubs        = document.querySelectorAll('.pub');
+    const yearGroups  = document.querySelectorAll('.pub-year-group');
+    let activeYear    = 'all';
+
+    function applyFilters() {
+      const query = searchInput.value.trim().toLowerCase();
+      pubs.forEach(pub => {
+        const yearOk   = activeYear === 'all' || pub.dataset.year === activeYear;
+        const searchOk = !query || pub.textContent.toLowerCase().includes(query);
+        pub.hidden = !(yearOk && searchOk);
+      });
+      yearGroups.forEach(group => {
+        const visible = [...group.querySelectorAll('.pub')].some(p => !p.hidden);
+        group.hidden = !visible;
+      });
+    }
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.setAttribute('aria-pressed', 'false'));
+        btn.setAttribute('aria-pressed', 'true');
+        activeYear = btn.dataset.year;
+        applyFilters();
+      });
+    });
+    searchInput.addEventListener('input', applyFilters);
+
+    // ── BibTeX copy ─────────────────────────────────────────────
+    document.querySelectorAll('.pub-copy-btn').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const pre = btn.closest('.pub').querySelector('.pub-bibtex');
+        if (!pre) return;
+        try {
+          await navigator.clipboard.writeText(pre.textContent.trim());
+          btn.classList.add('copied');
+          btn.textContent = '✓ Copied';
+          setTimeout(() => {
+            btn.classList.remove('copied');
+            btn.innerHTML = `<svg viewBox="0 0 12 12" aria-hidden="true" style="width:10px;height:10px;fill:none;stroke:currentColor;stroke-width:1.8;flex-shrink:0;vertical-align:middle"><rect x="4" y="4" width="7" height="7" rx="1"/><path d="M1 8V1h7" stroke-linecap="round" stroke-linejoin="round"/></svg> BibTeX`;
+          }, 2000);
+        } catch {
+          // Clipboard access denied — silent fail
+        }
+      });
+    });
+
+    // ── Scroll-in fade animation ───────────────────────────────
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.07 });
+      document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    } else {
+      document.querySelectorAll('.fade-in').forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>
