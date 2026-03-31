@@ -59,35 +59,6 @@ HIGHLIGHT_DISPLAY = "Pedro Ortiz Suarez"
 MARKER_START = "<!-- PUBLICATIONS_START"
 MARKER_END = "<!-- PUBLICATIONS_END -->"
 
-# Venue shorthands: lowercase substrings → badge label
-VENUE_MAP: list[tuple[str, str]] = [
-    # Journals
-    ("transactions of the association for computational linguistics", "TACL"),
-    ("northern european journal of language technology", "NEJLT"),
-    # Major *ACL conferences
-    ("annual meeting of the association for computational linguistics", "ACL"),
-    ("empirical methods in natural language processing", "EMNLP"),
-    ("north american chapter", "NAACL"),
-    ("european chapter", "EACL"),
-    ("international conference on computational linguistics", "COLING"),
-    ("language resources and evaluation", "LREC"),
-    ("traitement automatique des langues naturelles", "TALN"),
-    ("findings of the association", "Findings"),
-    # Other conferences
-    ("neural information processing systems", "NeurIPS"),
-    ("european conference on artificial intelligence", "ECAI"),
-    ("conference on machine translation", "WMT"),
-    # Workshops (specific before generic)
-    ("challenges in the management of large corpora", "CMLC"),
-    ("natural language processing for digital humanities", "NLP4DH"),
-    ("multilingual representation learning", "MRL"),
-    ("technologies for machine translation of low-resource", "LoResMT"),
-    ("table representation learning", "TRL"),
-    ("clef", "CLEF"),
-    ("text encoding initiative", "TEI"),
-    ("workshop", "Workshop"),
-]
-
 # Clipboard icon SVG used in the BibTeX copy button
 _COPY_ICON = (
     '<svg viewBox="0 0 12 12" aria-hidden="true" '

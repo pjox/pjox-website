@@ -11,26 +11,26 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%235aaeff'/><text y='.9em' font-size='72' x='14' fill='%230b1220' font-family='Georgia,serif' font-weight='600'>P</text></svg>">
 
   <style>
     :root {
-      --bg:         #0b1220;
-      --bg-2:       #0f1a2c;
-      --bg-3:       #162438;
-      --border:     #1e3050;
-      --border-2:   #263d64;
-      --text:       #c8ddf5;
-      --text-2:     #8aa0bf;
-      --text-3:     #4a6080;
-      --accent:     #5aaeff;
-      --accent-2:   #82c6ff;
-      --accent-bg:  #091e3c;
-      --white:      #eaf2ff;
+      --bg:         #f5f7fb;
+      --bg-2:       #ffffff;
+      --bg-3:       #eaeef6;
+      --border:     #dce3ef;
+      --border-2:   #c0cedf;
+      --text:       #334e6b;
+      --text-2:     #5a7a99;
+      --text-3:     #96afc8;
+      --accent:     #2563eb;
+      --accent-2:   #1d4ed8;
+      --accent-bg:  #eff6ff;
+      --gold:       #b45309;
+      --white:      #0f2340;
 
       --font-sans:  'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-      --font-serif: 'DM Serif Display', 'New York', Georgia, serif;
 
       --max-w:      680px;
       --nav-h:      60px;
@@ -49,13 +49,15 @@
       -webkit-font-smoothing: antialiased;
     }
 
+    a { color: var(--accent); }
+    a:hover { color: var(--accent-2); }
     :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
 
     /* ── NAV ──────────────────────────────────────────────────── */
     nav {
       position: sticky; top: 0; z-index: 100;
       height: var(--nav-h);
-      background: rgba(11, 18, 32, 0.9);
+      background: rgba(245, 247, 251, 0.92);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border);
@@ -66,7 +68,11 @@
       height: 100%;
       display: flex; align-items: center; justify-content: space-between;
     }
-    .nav-brand { font-size: 0.9rem; font-weight: 500; color: var(--white); text-decoration: none; }
+    .nav-brand {
+      font-size: 1.05rem; font-weight: 700;
+      color: var(--white); text-decoration: none;
+      letter-spacing: -0.02em;
+    }
     .nav-brand span { color: var(--accent); }
     .nav-back {
       font-size: 0.8rem; color: var(--text-2);
@@ -89,15 +95,14 @@
       font-size: 0.65rem; font-weight: 600;
       letter-spacing: 0.1em; text-transform: uppercase;
       color: var(--accent); background: var(--accent-bg);
-      border: 1px solid rgba(90,174,255,0.18);
+      border: 1px solid rgba(37,99,235,0.18);
       padding: 0.22rem 0.6rem; border-radius: 100px;
     }
 
     .post-title {
-      font-family: var(--font-serif);
-      font-size: clamp(1.8rem, 5vw, 2.5rem);
-      font-weight: 400; color: var(--white);
-      line-height: 1.15; letter-spacing: -0.015em;
+      font-size: clamp(1.7rem, 5vw, 2.4rem);
+      font-weight: 700; color: var(--white);
+      line-height: 1.15; letter-spacing: -0.03em;
       margin-bottom: 1rem;
     }
 
@@ -114,25 +119,24 @@
     .prose p { margin-bottom: 1.5rem; }
 
     .prose h2 {
-      font-family: var(--font-serif);
-      font-size: 1.5rem; font-weight: 400;
-      color: var(--white); letter-spacing: -0.01em;
+      font-size: 1.4rem; font-weight: 700;
+      color: var(--white); letter-spacing: -0.025em;
       margin: 2.5rem 0 1rem;
     }
     .prose h3 {
-      font-size: 1rem; font-weight: 600;
+      font-size: 1.05rem; font-weight: 600;
       color: var(--white);
       margin: 2rem 0 0.75rem;
     }
 
     .prose a {
-      color: var(--accent-2);
+      color: var(--accent);
       text-decoration: underline;
       text-underline-offset: 3px;
-      text-decoration-color: rgba(130,198,255,0.4);
+      text-decoration-color: rgba(37,99,235,0.35);
       transition: color 0.18s, text-decoration-color 0.18s;
     }
-    .prose a:hover { color: var(--white); text-decoration-color: var(--white); }
+    .prose a:hover { color: var(--accent-2); text-decoration-color: var(--accent-2); }
 
     .prose strong { color: var(--white); font-weight: 600; }
     .prose em { font-style: italic; }
@@ -155,7 +159,7 @@
       border: 1px solid var(--border-2);
       padding: 0.15em 0.4em;
       border-radius: 4px;
-      color: var(--accent-2);
+      color: var(--accent);
     }
 
     .prose pre {
@@ -180,7 +184,7 @@
       max-width: calc(var(--max-w) + 3rem);
       margin: 0 auto;
       display: flex; justify-content: space-between;
-      flex-wrap: wrap; gap: 0.75rem;
+      align-items: center; flex-wrap: wrap; gap: 0.75rem;
     }
     .footer-copy { font-size: 0.75rem; color: var(--text-3); }
     .footer-license {
@@ -240,9 +244,8 @@
       <p>
         Fonts are loaded from Google Fonts as a progressive enhancement — the page renders
         instantly with system fonts, then switches to
-        <a href="https://fonts.google.com/specimen/DM+Serif+Display" target="_blank" rel="noopener">DM Serif Display</a>
-        and <a href="https://fonts.google.com/specimen/Inter" target="_blank" rel="noopener">Inter</a>
-        once they arrive.
+        <a href="https://fonts.google.com/specimen/Inter" target="_blank" rel="noopener">Inter</a>
+        once it arrives.
       </p>
 
       <h2>Adding new content</h2>
