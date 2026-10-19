@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<!--
+  Source for assets/og-image.png (1200×630 social preview card).
+  Render it with headless Chrome from the repo root, e.g.:
+    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new \
+      --hide-scrollbars --window-size=1200,630 --virtual-time-budget=5000 \
+      --screenshot=assets/og-image.png scripts/og-card.html
+-->
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&family=Hanken+Grotesk:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F7F7FB;
+    --ink: #141C4A;
+    --muted: #5A6080;
+    --rule: #E0E1EC;
+    --accent: #9C5800;
+    --accent-fill: #EDAA3C;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    width: 1200px;
+    height: 630px;
+    overflow: hidden;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Hanken Grotesk', -apple-system, 'Segoe UI', sans-serif;
+    display: flex;
+    align-items: stretch;
+  }
+
+  .left {
+    flex: 1;
+    padding: 72px 0 64px 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .eyebrow {
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 28px;
+  }
+
+  h1 {
+    font-family: 'Newsreader', Georgia, serif;
+    font-weight: 400;
+    font-size: 104px;
+    line-height: 0.96;
+    letter-spacing: -0.025em;
+  }
+
+  h1 em { font-style: italic; }
+
+  .role {
+    margin-top: 32px;
+    font-family: 'Newsreader', Georgia, serif;
+    font-size: 30px;
+    line-height: 1.3;
+    max-width: 640px;
+    text-wrap: balance;
+    color: var(--muted);
+  }
+
+  .foot {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--ink);
+  }
+
+  .foot img { width: 40px; height: 40px; }
+
+  .foot span {
+    text-decoration: underline;
+    text-decoration-color: var(--accent-fill);
+    text-decoration-thickness: 3px;
+    text-underline-offset: 6px;
+  }
+
+  .right {
+    width: 400px;
+    padding: 64px 80px 64px 0;
+    display: flex;
+    align-items: center;
+  }
+
+  .right img {
+    width: 320px;
+    height: 400px;
+    object-fit: cover;
+    object-position: 50% 30%;
+    border-radius: 6px;
+  }
+</style>
+</head>
+<body>
+  <div class="left">
+    <div>
+      <p class="eyebrow">Principal Research Scientist · Common Crawl Foundation</p>
+      <h1>Pedro<br><em>Ortiz Suarez</em></h1>
+      <p class="role">Large corpora, language modeling &amp; under-resourced languages</p>
+    </div>
+    <p class="foot"><img src="../assets/favicon.svg" alt=""><span>pjox.co</span></p>
+  </div>
+  <div class="right">
+    <img src="../assets/Pedro.webp" alt="Pedro Ortiz Suarez">
+  </div>
+</body>
+</html>

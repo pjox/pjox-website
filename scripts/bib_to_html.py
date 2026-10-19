@@ -59,24 +59,17 @@ HIGHLIGHT_DISPLAY = "Pedro Ortiz Suarez"
 MARKER_START = "<!-- PUBLICATIONS_START"
 MARKER_END = "<!-- PUBLICATIONS_END -->"
 
-# Clipboard icon SVG used in the BibTeX copy button
-_COPY_ICON = (
-    '<svg viewBox="0 0 12 12" aria-hidden="true" '
-    'style="width:10px;height:10px;fill:none;stroke:currentColor;'
-    'stroke-width:1.8;flex-shrink:0;vertical-align:middle">'
-    '<rect x="4" y="4" width="7" height="7" rx="1"/>'
-    '<path d="M1 8V1h7" stroke-linecap="round" stroke-linejoin="round"/>'
-    "</svg>"
-)
-
 # ─── Helpers ──────────────────────────────────────────────────────────────────
 
 
 def parse_authors(raw: str) -> list[str]:
     """Parse a BibTeX author string into display-order name strings."""
+    # Collapse newlines/indentation first: an "and" at a line break must
+    # still split, otherwise neighbouring names get glued together.
+    raw = " ".join(raw.split())
     authors = []
-    for part in raw.split(" and "):
-        part = part.strip()
+    for part in re.split(r"\s+and\s+", raw):
+        part = re.sub(r"[{}]", "", part).strip()
         if not part:
             continue
         if "," in part:
@@ -101,6 +94,11 @@ def format_authors(raw: str) -> str:
     return ", ".join(highlight_author(a) for a in parse_authors(raw))
 
 
+def tex_dashes(text: str) -> str:
+    """Turn TeX dash ligatures (--- and --) into real dashes."""
+    return text.replace("---", "—").replace("--", "–")
+
+
 def get_venue_display(entry: dict) -> tuple[str, str]:
     """Return (venue_text, venue_css_class) for display below the authors."""
     etype = entry.get("ENTRYTYPE", "")
@@ -117,7 +115,7 @@ def get_venue_display(entry: dict) -> tuple[str, str]:
     # Normalize whitespace and strip BibTeX brace groups
     raw = " ".join(raw.split())
     raw = re.sub(r"\{([^}]*)\}", r"\1", raw).strip()
-    return raw or "Publication", "pub-venue"
+    return tex_dashes(raw) or "Publication", "pub-venue"
 
 
 def build_links(entry: dict) -> list[tuple[str, str]]:
@@ -200,7 +198,7 @@ def render_pub(entry: dict) -> str:
     year = entry.get("year", "").strip()
     title = entry.get("title", "Untitled").strip()
     title = re.sub(r"^\{(.*)\}$", r"\1", title)
-    title = re.sub(r"\{([^}]*)\}", r"\1", title)
+    title = tex_dashes(re.sub(r"\{([^}]*)\}", r"\1", title))
 
     authors = format_authors(entry.get("author", ""))
     venue_text, venue_cls = get_venue_display(entry)
@@ -234,9 +232,9 @@ def render_pub(entry: dict) -> str:
         for label, url in links
     )
 
-    copy_btn = (
-        '\n              <button class="pub-copy-btn" type="button" '
-        f'aria-label="Copy BibTeX citation">{_COPY_ICON} BibTeX</button>'
+    cite_btn = (
+        '\n              <button class="pub-cite" type="button">'
+        "Cite (BibTeX)</button>"
     )
 
     bibtex_raw = html.escape(format_bibtex(entry))
@@ -244,14 +242,12 @@ def render_pub(entry: dict) -> str:
     return textwrap.dedent(
         f"""\
           <article class="pub fade-in" data-year="{html.escape(year)}">
-            <h3 class="pub-title">{title_html}</h3>
+            <h4 class="pub-title">{title_html}</h4>
             <p class="pub-authors">{authors}</p>
             <p class="{venue_cls}">{html.escape(venue_text)}</p>
-            <div class="pub-footer">
-              <div class="pub-links">{link_tags}
-              </div>{copy_btn}
+            <div class="pub-links">{link_tags}{cite_btn}
             </div>
-            <pre class="pub-bibtex">{bibtex_raw}</pre>
+            <pre class="pub-bibtex" hidden>{bibtex_raw}</pre>
           </article>"""
     )
 
@@ -303,9 +299,7 @@ def main() -> None:
             f'      <div class="pub-year-group" data-year="{html.escape(year)}">'
         )
         lines.append(
-            f'        <div class="pub-year-heading" '
-            f'aria-label="Publications from {html.escape(year)}">'
-            f"{html.escape(year)}</div>"
+            f'        <h3 class="pub-year">{html.escape(year)}</h3>'
         )
         lines.append('        <div class="pub-list">')
         lines.append("")

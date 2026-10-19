@@ -1,12 +1,12 @@
 # pjox-website memory
 
 ## Project overview
-Static personal academic website for Pedro Ortiz Suarez (portizs.eu).
+Static personal academic website for Pedro Ortiz Suarez (pjox.co, moved from portizs.eu in Oct 2026).
 Built from scratch to replace the old Hugo/HugoBlox site.
 
 ## Tech stack
 - Pure HTML/CSS/JS — no build step, no framework
-- Google Fonts: Inter (400,500,600) + Playfair Display (400,600)
+- Google Fonts: Newsreader (display serif) + Hanken Grotesk (text); Academicons from cdnjs
 - No external JS libraries
 - Deployable to GitHub Pages directly from repo root
 
@@ -19,12 +19,16 @@ scripts/bib_to_html.py — updates publications section from .bib
 assets/avatar.jpg     — profile photo (user must add this)
 ```
 
-## Design system
-- Dark navy theme: --bg #080e1c, --bg-2 #0d1528, --bg-3 #132040
-- Accent blue: --accent #4a9eff, --accent-2 #6fb5ff
-- Author name highlight: --gold #d4a832 (amber — colorblind-safe, no red/green)
-- Text: --text #d4e4f8 (near-white), --text-2 #8ba0c0 (secondary)
-- Fonts: Playfair Display for headings, Inter for body
+## Design system ("Folio", Indigo & Amber — chosen Oct 2026)
+- Light editorial theme: --bg #F7F7FB, --paper #FFFFFF, --ink #141C4A (indigo)
+- Text: --text #2E3456, --muted #5A6080, --faint #7F84A3 (large text only)
+- Links: --link #3B4CC0; amber: --accent #9C5800 (text), --accent-fill #EDAA3C (underlines)
+- Author name highlight: ink + bold + amber underline (never color alone)
+- Colorblind-safe: only blue/indigo vs amber; all text >= 4.5:1
+- Fonts: Newsreader for headings/hero/titles, Hanken Grotesk for body
+- Favicon: white Hanken Grotesk "P" on indigo rounded square
+  (assets/favicon.svg, favicon-32.png, apple-touch-icon.png)
+- Social card: scripts/og-card.html -> assets/og-image.png (render with headless Chrome)
 
 ## Publication system
 Publications are between markers in index.html:
@@ -32,8 +36,10 @@ Publications are between markers in index.html:
   <!-- PUBLICATIONS_END -->
 
 To update from .bib:
-  pip install bibtexparser
+  pip install "bibtexparser<2"   (script uses the v1 API)
   python scripts/bib_to_html.py
+
+Year filter buttons are built by JS from the generated year groups.
 
 Custom .bib fields: url_pdf, url_acl, url_arxiv, url_doi, url_code, url_project, url_hal, url_ceur, badge_class
 
